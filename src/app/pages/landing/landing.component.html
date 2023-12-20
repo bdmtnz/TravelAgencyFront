@@ -1,23 +1,21 @@
 <div class="container">
     <div class="nav">
         <mat-toolbar class="container_nav" color="primary">
-                <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-                    <mat-icon>menu</mat-icon>
-                </button> -->
-                <span id="title">Travel Agency</span>
+            <span id="title">Travel Agency</span>
 
             <div class="container_btn">
-                <button mat-raised-button>
+                <button (click)="openDialogRegistrar()" mat-raised-button>
                     <span>Registrar</span>
                 </button>
-                <button (click)="openDialog()" mat-raised-button>
+                <button (click)="openDialogLogin()" mat-raised-button>
                     <span>Iniciar sesión</span>
                 </button>
             </div>
         </mat-toolbar>
     </div>
     <div class="img">
-        <img src="https://viajes.nationalgeographic.com.es/medio/2022/03/24/bahia-gardner-islas-galapagos-ecuador_659478c0_1200x844.jpg" alt="">
+        <img src="https://viajes.nationalgeographic.com.es/medio/2022/03/24/bahia-gardner-islas-galapagos-ecuador_659478c0_1200x844.jpg"
+            alt="">
         <div class="text">
             <p>
                 EXPLORA EL EDÉN

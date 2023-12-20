@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
+import { SignupModalComponent } from './components/signup-modal/signup-modal.component';
 
 @Component({
   selector: 'app-landing',
@@ -16,8 +17,18 @@ export class LandingComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog(): void {
+  openDialogLogin(): void {
     const dialogRef = this.dialog.open(LoginModalComponent, {
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      
+    });
+  }
+
+  openDialogRegistrar(): void {
+    const dialogRef = this.dialog.open(SignupModalComponent, {
 
     });
     dialogRef.afterClosed().subscribe(result => {
