@@ -9,6 +9,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
+
 @Component({
   selector: 'app-signup-modal',
   standalone: true,
@@ -21,7 +22,10 @@ import {MatStepperModule} from '@angular/material/stepper';
     ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule, 
-    MatStepperModule],
+    MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule],
   templateUrl: './signup-modal.component.html',
   styleUrl: './signup-modal.component.scss'
 })
