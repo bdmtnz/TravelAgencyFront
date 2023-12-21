@@ -18,14 +18,14 @@
     align-items: center;
 
     .card-container {
-        width: 600px;
-        height: 600px;
+        width: 400px;
+        height: 400px;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         gap: 170px;
-        background-color: #3f51b5;
+        background-color: #ffffff;
     
         .input {
             width: 90%;
@@ -44,21 +44,19 @@
                 height: 15%;
                 display: flex;
                 justify-content: center;
-                align-items: center;
+                align-items: start;
                 #title{
-
                     font-size: 50px;
-                    color: white;
+                    color: rgb(0, 0, 0);
                     font-weight: 400;
                 }
             }
           
             .btn-ingresar {
-                width: 250px;
-                height: 60px;
-                color: white;
+                width: 200px;
+                height: 50px;
                 font-size: 25px;
-                background-color: rgb(10, 161, 10);
+                // background-color: rgb(10, 161, 10);
             }
 
 
