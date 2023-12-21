@@ -1,70 +1,59 @@
-.body-register {
-    width: 100%;
-    height: 90%;
+.container {
+    width: 800px;
+    height: 400px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    align-items: end;
 
-    .card-container {
-        width: 900px;
-        height: 600px;
+    .title {
+        width: 100%;
+        height: 15%;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #3f51b5;
 
-        .container-form {
-            width: 98%;
-            height: 90%;
-            display: flex;
-            flex-direction: column;
-
-            .container-title {
-                width: 100%;
-                height: 10%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                #title {
-                    font-size: 40px;
-                    color: white;
-                    font-weight: 400;
-                }
-            }
-
-            .container-btn {
-                display: flex;
-                margin-left: 73%;
-                .btn-register {
-                    width: 200px;
-                    height: 50px;
-                    color: white;
-                    font-size: 25px;
-                    background-color: rgb(10, 161, 10);
-                }
-
-            }
-
-            .form {
-                width: 100%;
-                height: 80%;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                justify-content: center;
-                align-items: center;
-                padding-top: 20px;
-
-                .input {
-                    width: 30%;
-                    height: 70px;
-                }
-            }
-
-
+        h3 {
+            font-size: 30px;
+            font-weight: 600;
+            color: rgb(0, 0, 0);
         }
     }
 
+    .form {
+        width: 100%;
+        height: 80%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+        gap: 20px;
 
+
+
+    }
+
+    .container-btn {
+        display: flex;
+        justify-content: end;
+        gap: 10px;
+    }
+}
+
+.mat-stepper-vertical,
+.mat-stepper-horizontal {
+    display: flex;
+    height: 100%;
+}
+
+.mat-stepper-horizontal-line {
+    margin-left: 50px !important;
+    border-top-width: 1px;
+    border-top-style: solid;
+    flex: none !important;
+    height: 0;
+    margin: 0 -16px;
+    min-width: 32px !important;
+    border-top-color: var(--mat-stepper-line-color);
 }
