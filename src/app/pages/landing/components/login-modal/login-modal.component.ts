@@ -6,6 +6,7 @@ import {MatInputModule} from '@angular/material/input';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { LangService } from '../../../../shared/services/lang.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -16,4 +17,13 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 })
 export class LoginModalComponent {
 
+  /**
+   *
+   */
+  constructor(private readonly lang: LangService) {
+
+    
+  }
+
+  get TEXT(){ return this.lang.current}
 }
