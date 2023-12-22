@@ -1,1 +1,27 @@
-<p>layout works!</p>
+<div class="nav">
+    <mat-toolbar class="container_nav" color="primary">
+            <button (click)="drawer.toggle()" mat-icon-button aria-label="Example icon-button with menu icon">
+                <mat-icon>menu</mat-icon>
+              </button>
+        <span id="title">Travel Agency</span>
+    </mat-toolbar>
+</div>
+<div class="container">
+    <div class="container-sidenav">
+        <mat-drawer-container class="example-container" autosize>
+            <mat-drawer #drawer class="sidenav" mode="side">
+                <p>Auto-resizing sidenav</p>
+                <!-- @if (showFiller) {
+            <p>Lorem, ipsum dolor sit amet consectetur.</p>
+          } -->
+                <!-- <button (click)="showFiller = !showFiller" mat-raised-button>
+            Toggle extra text
+          </button> -->
+            </mat-drawer>
+
+
+
+        </mat-drawer-container>
+    </div>
+</div>
+<!-- <router-outlet></router-outlet> -->
