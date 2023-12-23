@@ -3,12 +3,19 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @Component({
   selector: 'app-hotel',
   standalone: true,
-  imports: [MatTableModule,MatPaginatorModule,MatIconModule,MatSlideToggleModule],
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatButtonModule
+  ],
   templateUrl: './hotel.component.html',
   styleUrl: './hotel.component.scss'
 })
