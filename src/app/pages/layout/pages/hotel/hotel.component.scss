@@ -3,6 +3,15 @@
     height: 80%;
     table {
         width: 100%;
+        
+        #action-edit {
+            color: rgb(26, 75, 198);
+
+            &:hover{
+                color: red;
+                cursor: pointer;
+            }
+        }
     }
 }
 
