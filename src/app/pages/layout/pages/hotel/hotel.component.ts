@@ -6,7 +6,7 @@ import { CommonModule, NgFor } from '@angular/common';
 @Component({
   selector: 'app-hotel',
   standalone: true,
-  imports: [CardHotelComponent, NgFor,CommonModule ],
+  imports: [CardHotelComponent, ],
   templateUrl: './hotel.component.html',
   styleUrl: './hotel.component.scss'
 })

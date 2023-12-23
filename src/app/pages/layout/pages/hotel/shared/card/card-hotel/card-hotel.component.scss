@@ -8,6 +8,10 @@
     gap: 25px;
     box-shadow: 0px 0px 57px -35px rgba(0,0,0,0.55);
     border: 1px solid rgb(237, 237, 237);
+    margin-bottom: 30px;
+    &:hover{
+        background-color: #006ae42c;
+    }
 
     .img-hotel {
         width: 30%;
@@ -15,6 +19,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        &:hover{
+            cursor: pointer;
+        }
 
         img {
             width: 260px;
