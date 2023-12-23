@@ -1,0 +1,111 @@
+.container {
+    width: 850px;
+    height: 200px;
+    background-color: rgb(255, 255, 255);
+    padding: 16px;
+    border-radius: 9px;
+    display: flex;
+    gap: 25px;
+    box-shadow: 0px 0px 57px -35px rgba(0,0,0,0.55);
+    border: 1px solid rgb(237, 237, 237);
+
+    .img-hotel {
+        width: 30%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 260px;
+            height: 100%;
+            border-radius: 9px;
+        }
+    }
+
+    .container-description {
+        width: 70%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .grid-descripcion {
+            width: 60%;
+            height: 80%;
+            margin-right: 20px;
+
+            .title {
+                width: 100%;
+                height: 50px;
+                cursor: pointer;
+
+                h4 {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: rgb(33, 33, 222);
+                }
+                &:hover {
+                    h4 {
+                        color: rgb(255, 200, 0);
+                    }
+                }
+
+            }
+            a {
+                color: #006ce4;
+            }
+
+        }
+
+        .grid-information {
+            width: 36%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .quality {
+                width: 100%;
+                height: 60px;
+            }
+
+            .price {
+                width: 100%;
+                height: 70px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: end;
+
+                * {
+                    margin: 0;
+                }
+
+                .night-price {
+                    font-size: 22px;
+                    font-weight: 600;
+                    color: green;
+                }
+            }
+        }
+
+        .container-btn {
+            width: 100%;
+            height: 20%;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            padding-right: 2px;
+
+            button {
+                background-color: #006ce4;
+                color: white;
+            }
+
+        }
+    }
+}
