@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
+import { CardHotelComponent } from './shared/card/card-hotel/card-hotel.component';
+import { CommonModule, NgFor } from '@angular/common';
+
 
 @Component({
   selector: 'app-hotel',
   standalone: true,
-  imports: [],
+  imports: [CardHotelComponent, NgFor,CommonModule ],
   templateUrl: './hotel.component.html',
   styleUrl: './hotel.component.scss'
 })
