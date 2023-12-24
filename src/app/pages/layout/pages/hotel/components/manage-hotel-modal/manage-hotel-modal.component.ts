@@ -4,6 +4,7 @@ import { LangService } from '../../../../../../shared/services/lang.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
       MatFormFieldModule,
       MatButtonModule,
       MatInputModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      NgIf
     ],
   templateUrl: './manage-hotel-modal.component.html',
   styleUrl: './manage-hotel-modal.component.scss'
@@ -28,9 +30,9 @@ export class ManageHotelModalComponent implements OnInit {
     private formBuilder: FormBuilder) {
 
       this.formRegister = this.formBuilder.group({
-        name: ['', Validators.required],
-        descripcion: ['', [Validators.required]],
-        imageUrl: ['', Validators.required],
+        name: [''],
+        descripcion: [''],
+        imageUrl: ['', ],
       });
 
 
@@ -45,5 +47,10 @@ export class ManageHotelModalComponent implements OnInit {
     this.formRegister.get('imageUrl')?.valueChanges.subscribe((value)=>{
       this.preview = value
     })
+  }
+
+  registerHotel(data: FormGroup){
+
+    console.log(data)
   }
 }
