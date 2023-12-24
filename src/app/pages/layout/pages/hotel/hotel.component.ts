@@ -49,15 +49,23 @@ export class HotelComponent implements AfterViewInit, OnInit {
      this.service.getHotel().subscribe(data =>{
       this.dataSource = new MatTableDataSource<PeriodicElement>(data);
     })
-    // this.data = 
   }
 
-  editHotel(data:any){
-    this.data = data;
-    console.log(this.data)
+  editHotel(id:string){
+      console.log(this.service.getHotelById(id))
+      this.openDialogEditHotel()
   }
 
   openDialogRegisterHotel(): void {
+    const dialogRef = this.dialog.open(ManageHotelModalComponent, {
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
+  }
+
+  openDialogEditHotel(): void {
     const dialogRef = this.dialog.open(ManageHotelModalComponent, {
       data: this.data
     });
