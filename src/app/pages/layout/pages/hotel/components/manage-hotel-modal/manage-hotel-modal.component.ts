@@ -1,28 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LangService } from '../../../../../../shared/services/lang.service';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-manage-hotel-modal',
   standalone: true,
-  imports: 
-  [
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule
-  ],
+  imports:
+    [
+      MatFormFieldModule,
+      MatButtonModule,
+      MatInputModule,
+      ReactiveFormsModule
+    ],
   templateUrl: './manage-hotel-modal.component.html',
   styleUrl: './manage-hotel-modal.component.scss'
 })
-export class ManageHotelModalComponent {
+export class ManageHotelModalComponent implements OnInit {
 
-  constructor(private readonly lang: LangService) {
+  formRegister: FormGroup
+  preview = 'https://img.freepik.com/foto-gratis/fondo_53876-32170.jpg?size=626&ext=jpg';
+  constructor(
+    private readonly lang: LangService,
+    private formBuilder: FormBuilder) {
 
-    
+      this.formRegister = this.formBuilder.group({
+        name: ['', Validators.required],
+        descripcion: ['', [Validators.required]],
+        imageUrl: ['', Validators.required],
+      });
+
+
+  }
+  ngOnInit(): void {
+    this.previewImg()
   }
 
-  get TEXT(){ return this.lang.current}
+  get TEXT() { return this.lang.current }
+
+  previewImg(){
+    this.formRegister.get('imageUrl')?.valueChanges.subscribe((value)=>{
+      this.preview = value
+    })
+  }
 }

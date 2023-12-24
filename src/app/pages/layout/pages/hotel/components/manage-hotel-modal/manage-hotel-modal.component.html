@@ -1,6 +1,6 @@
 <div class="body-login">
     <div class="card-container">
-        <form class="container-form">
+        <form class="container-form" [formGroup]="formRegister">
             <div class="container-title">
                 <span id="title">Registrar hotel</span>
             </div>
@@ -14,15 +14,15 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="input">
                 <mat-label>URL imagen</mat-label>
-                <input type="text"  matInput>
+                <input type="text"  matInput formControlName="imageUrl">
             </mat-form-field>
             <button class="btn-ingresar" color="primary" mat-raised-button>Registrar</button>
         </form>
     </div>
     <div class="container-preview">
-        <div class="img-preview">
-            <img src="" alt="">
-        </div>
+
+            <img src="{{preview}}" alt="">
+
 
     </div>
 

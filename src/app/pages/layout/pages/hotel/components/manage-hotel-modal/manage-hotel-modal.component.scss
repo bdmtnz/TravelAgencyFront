@@ -6,20 +6,25 @@
     align-items: center;
 
     .container-preview {
-        width: 35%;
-        height: 60%;
+        width: 270px;
+        height: 240px;
         padding: 10px;
-        .img-preview {
-
-            width: 100%;
-            height: 100%;
-            background-color: red;
-
+        // background-color: red;
+        img{
+             width: 100%;
+             height: 100%;
+             border-radius: 5px;
         }
+        // .img-preview {
+        //     width: 100%;
+        //     height: 100%;
+        //     background-color: red;
+
+        // }
     }
 
     .card-container {
-        width: 60%;
+        width: 50%;
         height: 100%;
         display: flex;
         justify-content: start;
