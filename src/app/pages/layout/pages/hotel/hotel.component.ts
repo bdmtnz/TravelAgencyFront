@@ -52,7 +52,8 @@ export class HotelComponent implements AfterViewInit, OnInit {
   }
 
   editHotel(id:string){
-      console.log(this.service.getHotelById(id))
+      this.data = this.service.getHotelById(id)
+      console.log(this.data)
       this.openDialogEditHotel()
   }
 
@@ -69,6 +70,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(ManageHotelModalComponent, {
       data: this.data
     });
+    // console.log(this.data)
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
 
@@ -79,8 +81,8 @@ export class HotelComponent implements AfterViewInit, OnInit {
 export interface PeriodicElement {
   id:string;
   name: string;
-  position: number;
-  room: string;
+  descripcion: string;
+  imageUrl: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [

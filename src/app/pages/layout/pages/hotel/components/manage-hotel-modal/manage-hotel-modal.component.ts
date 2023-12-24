@@ -32,7 +32,7 @@ export class ManageHotelModalComponent implements OnInit {
     private formBuilder: FormBuilder
 
     ) {
-      console.log(data)
+
       this.formRegister = this.formBuilder.group({
         name: [''],
         descripcion: [''],
@@ -43,6 +43,7 @@ export class ManageHotelModalComponent implements OnInit {
   }
   ngOnInit(): void {
     this.previewImg()
+    this.editHotel()
   }
 
   get TEXT() { return this.lang.current }
@@ -54,7 +55,12 @@ export class ManageHotelModalComponent implements OnInit {
   }
 
   registerHotel(data: FormGroup){
-
-    console.log(data)
+  }
+  editHotel(){
+    this.formRegister.controls['name'].setValue(this.data.name)
+    this.formRegister.controls['descripcion'].setValue(this.data.descripcion)
+    this.formRegister.controls['imageUrl'].setValue(this.data.imageUrl)
+    // console.log(this.data)
+    console.log(this.formRegister.value)
   }
 }

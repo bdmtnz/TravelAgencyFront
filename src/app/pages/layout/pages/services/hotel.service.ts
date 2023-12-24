@@ -17,24 +17,25 @@ export class HotelService {
 
     setTimeout(() => {
       Observable.next([
-        { position: 1, id: '1', name: 'Hydrogen valledupar cesar ', room: "Piso 5 # 204" },
-        { position: 1, id: '2', name: 'Hydrogen', room: "1.0079" },
-        { position: 1, id: '3', name: 'Hydrogen', room: "1.0079" },
-        { position: 1, id: '4', name: 'Hydrogen', room: "1.0079" },
-        { position: 1, id: '5', name: 'Hydrogen', room: "1.0079" },
-      ])
-    }, 2000)
+        { id: '1', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 5 # 204vddddddddddddddadsadadsvvvvvvvvvvvvvvvvvvvvvvvvv", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+        { id: '2', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 5 # 204", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+        { id: '3', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 5 # 204", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+        { id: '4', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 5 # 204", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+        { id: '5', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 5 # 204", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+        ])
+    }, 1000)
     return Observable.asObservable()
   }
 
   getHotelById(id: string) {
 
     let list = [
-      { position: 1, id: '1', name: 'Hydrogen valledupar cesar ', room: "Piso 5 # 204" },
-      { position: 1, id: '2', name: 'Hydrogen', room: "1.0079" },
-      { position: 1, id: '3', name: 'Hydrogen', room: "1.0079" },
-      { position: 1, id: '4', name: 'Hydrogen', room: "1.0079" },
-      { position: 1, id: '5', name: 'Hydrogen', room: "1.0079" },
+      { id: '1', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 1# 204vddddddddddddddadsadadsvvvvvvvvvvvvvvvvvvvvvvvvv", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+      { id: '2', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 2#Pisoasdasd", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+      { id: '3', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 3# 204", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+      { id: '4', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 4# Pisoasdasdadsa 5 # 204", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+      { id: '5', name: 'Hydrogen valledupar cesar ', descripcion: "Piso 5# Piso asdasdasdasdadadasdas5 # 204", imageUrl:'https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/04/13/16498369774107.jpg' },
+
     ]
 
       return list.find((item)=> item.id == id)
