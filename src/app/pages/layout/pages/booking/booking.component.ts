@@ -34,6 +34,7 @@ export class BookingComponent {
     // 'valueRoom',
     'valueReservation',
     'enable',
+    'action'
 
   ];
   dataSource = new MatTableDataSource<PeriodicElement>();
@@ -49,11 +50,20 @@ export class BookingComponent {
   }
   ngOnInit(): void {
     // this.getHotel()
+    this.getReservation()
   }
 
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  getReservation(){
+    this.service.getReservation().subscribe( data =>{
+      this.dataSource = new MatTableDataSource<any>(data);
+      console.log(this.dataSource.data)
+    })
+    
   }
 
 
