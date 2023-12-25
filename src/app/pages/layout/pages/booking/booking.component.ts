@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ManageRoomModalComponent } from './components/manage-room-modal/manage-room-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
@@ -44,7 +45,8 @@ export class BookingComponent {
 
   constructor(
     public dialog: MatDialog,
-    private readonly service: HotelService
+    private readonly service: HotelService,
+    private readonly router: Router
   ) {
 
   }
@@ -65,8 +67,9 @@ export class BookingComponent {
     }) 
   }
   getReservationById(id:string){
-    let value=this.service.getReservationById(id)
-    console.log(value)
+    this.router.navigateByUrl(`/layout/booking/${id}`)
+    // let value=this.service.getReservationById(id)
+    // console.log(value)
   }
 
 

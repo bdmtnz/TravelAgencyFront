@@ -5,43 +5,41 @@
         <div class="row">
             <div class="column">
                 <label for="">Nombres</label>
-                <p>Carlos duvan</p>
+                <p>{{list.client.name}}</p>
             </div>
             <div class="column">
                 <label for="">Apellidos</label>
-                <p>Correa Perez</p>
+                <p>{{list.client.lastName}}</p>
             </div>
         </div>
         <div class="row">
             <div class="column">
                 <label for="">Tipo de documento</label>
-                <p>Documento</p>
+                <p>{{list.client.documentType}}</p>
             </div>
             <div class="column">
-                <label for="">Cedula de Ciudadania</label>
-                <p>107685473</p>
+                <label for="">Documento</label>
+                <p>{{list.client.document}}</p>
             </div>
         </div>
         <div class="row">
             <div class="column">
                 <label for="">Email</label>
-                <p>carloscorrea_gmail.com</p>
+                <p>{{list.client.email}}</p>
             </div>
             <div class="column">
                 <label for="">Telefono</label>
-                <p>310768573</p>
+                <p>{{list.client.phone}}</p>
             </div>
         </div>
     </div>
     <!-- Hotel -->
-    <div class="title">Hotel Agua Luna</div>
+    <div class="title">Hotel {{list.hotel.name}}</div>
     <div class="card">
         <div class="row">
             <div class="column">
                 <label for="">Descripcion</label>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae, facilis voluptatum
-                    temporibus quia, earum repudiandae accusamus consectetur, porro quam ad quaerat. Quo quam ex eveniet
-                    voluptate ipsam error exercitationem nemo.</p>
+                <p>{{list.hotel.descripcion}}</p>
             </div>
         </div>
     </div>
@@ -51,23 +49,34 @@
         <div class="row">
             <div class="column">
                 <label for="">Ciudad</label>
-                <p>Valledupar</p>
+                <p>{{list.room.city}}</p>
             </div>
             <div class="column">
                 <label for="">Ubicacion</label>
-                <p>Piso 20 #308</p>
+                <p>{{list.room.location}}</p>
             </div>
         </div>
         <div class="row">
             <div class="column">
                 <label for="">Capacidad</label>
-                <p>4</p>
+                <p>{{list.room.capacity}}</p>
             </div>
             <div class="column">
                 <label for="">valor</label>
-                <p>$100.000</p>
+                <p>{{list.room.price}}</p>
             </div>
         </div>
+        <div class="row">
+            <div class="column">
+                <label for="">Costo base</label>
+                <p>{{list.room.cost}}</p>
+            </div>
+            <div class="column">
+                <label for="">Tipo</label>
+                <p>{{list.room.type}}</p>
+            </div>
+        </div>
+        
     </div>
     <!-- Booking -->
     <div class="title">Reservacion</div>
@@ -75,28 +84,28 @@
         <div class="row">
             <div class="column">
                 <label for="">Fecha Ingreso</label>
-                <p>12/04/2023</p>
+                <p>{{list.start}}</p>
             </div>
             <div class="column">
                 <label for="">Fecha salida</label>
-                <p>14/04/2023</p>
+                <p>{{list.end}}</p>
             </div>
         </div>
         <div class="row">
             <div class="column">
                 <label for="">Ocupantes</label>
-                <p>4</p>
+                <p>{{list.quantityPeople}}</p>
             </div>
 
             <div class="column">
                 <label for="">Valor</label>
-                <p>$400.000</p>
+                <p>{{list.price}}</p>
             </div>
         </div>
         <div class="row">
             <div class="column">
                 <label for="">Activo</label>
-                <p>Si</p>
+                <p>{{list.enabled}}</p>
             </div>
             <div class="column"></div>
         </div>
