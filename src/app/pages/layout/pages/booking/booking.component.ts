@@ -26,8 +26,8 @@ export class BookingComponent {
     'position',
     'nameHotel',
     'nameClient',
-    // 'ubication',
-    'typeRoom',
+    'ubication',
+    // 'typeRoom',
     'dateInit',
     'dateEnd',
     'city',
@@ -58,7 +58,7 @@ export class BookingComponent {
 
 
 
-  openDialogRegisterRoom(): void {
+  DetailReservation(): void {
     const dialogRef = this.dialog.open(ManageRoomModalComponent, {
       // data: this.data
     });
