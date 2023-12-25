@@ -6,8 +6,8 @@ import { HotelService } from '../services/hotel.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ManageRoomModalComponent } from './components/manage-room-modal/manage-room-modal.component';
 import { Router } from '@angular/router';
+import { ManageReservationModalComponent } from './components/manage-reservation-modal/manage-reservation-modal.component';
 
 @Component({
   selector: 'app-booking',
@@ -28,11 +28,11 @@ export class BookingComponent {
     'nameHotel',
     'nameClient',
     'ubication',
-    // 'typeRoom',
+    // 'typeReservation',
     'dateInit',
     'dateEnd',
     'city',
-    // 'valueRoom',
+    // 'valueReservation',
     'valueReservation',
     'enable',
     'action'
@@ -75,7 +75,7 @@ export class BookingComponent {
 
 
   DetailReservation(): void {
-    const dialogRef = this.dialog.open(ManageRoomModalComponent, {
+    const dialogRef = this.dialog.open(ManageReservationModalComponent, {
       // data: this.data
     });
     // console.log(this.data)
@@ -91,7 +91,7 @@ export interface PeriodicElement {
   nameClient: string,
   city: string,
   ubication: string,
-  typeRoom: string,
+  typeReservation: string,
   dateInit: Date,
   dateEnd: Date,
   valueRoom: number,

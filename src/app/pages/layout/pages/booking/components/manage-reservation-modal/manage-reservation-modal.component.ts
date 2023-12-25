@@ -4,18 +4,18 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HotelService } from '../../../services/hotel.service';
 
 @Component({
-  selector: 'app-manage-room-modal',
+  selector: 'app-manage-reservation-modal',
   standalone: true,
   imports: [
     MatButtonModule,
     RouterModule
   ],
-  templateUrl: './manage-room-modal.component.html',
-  styleUrl: './manage-room-modal.component.scss'
+  templateUrl: './manage-reservation-modal.component.html',
+  styleUrl: './manage-reservation-modal.component.scss'
 })
 
 
-export class ManageRoomModalComponent implements OnInit {
+export class ManageReservationModalComponent implements OnInit {
 
   id = "";
   list : any;
