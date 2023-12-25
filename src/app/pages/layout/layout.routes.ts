@@ -3,7 +3,7 @@ import { LayoutComponent } from './layout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HotelComponent } from './pages/hotel/hotel.component';
 import { SearchHotelComponent } from './pages/search-hotel/search-hotel.component';
-import { ManageHotelModalComponent } from './pages/hotel/components/manage-hotel-modal/manage-hotel-modal.component';
+import { BookingComponent } from './pages/booking/booking.component';
 
 export const layoutRoute: Route = {
     path: 'layout',
@@ -20,6 +20,10 @@ export const layoutRoute: Route = {
         {
             path: 'hoteles',
             component: HotelComponent
+        },
+        {
+            path: 'booking',
+            component: BookingComponent
         }
     ] 
 };

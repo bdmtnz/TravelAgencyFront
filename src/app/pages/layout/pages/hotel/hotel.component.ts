@@ -85,7 +85,7 @@ export interface PeriodicElement {
   imageUrl: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+// const ELEMENT_DATA: PeriodicElement[] = [
   
-];
+// ];
 

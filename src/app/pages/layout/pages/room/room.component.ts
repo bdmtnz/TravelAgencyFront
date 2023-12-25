@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-room',
@@ -8,5 +9,4 @@ import { Component } from '@angular/core';
   styleUrl: './room.component.scss'
 })
 export class RoomComponent {
-
 }
