@@ -6,6 +6,7 @@ import { HotelService } from '../services/hotel.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ManageRoomModalComponent } from './components/manage-room-modal/manage-room-modal.component';
 
 @Component({
   selector: 'app-booking',
@@ -33,7 +34,6 @@ export class BookingComponent {
     // 'valueRoom',
     'valueReservation',
     'enable',
-    'action',
 
   ];
   dataSource = new MatTableDataSource<PeriodicElement>();
@@ -55,27 +55,19 @@ export class BookingComponent {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  // getHotel() {
-  //   this.service.getHotel().subscribe(data => {
-  //     this.dataSource = new MatTableDataSource<PeriodicElement>(data);
-  //   })
-  // }
 
-  editHotel(id: string) {
-    this.data = this.service.getHotelById(id)
-    console.log(this.data)
+
+
+  openDialogRegisterRoom(): void {
+    const dialogRef = this.dialog.open(ManageRoomModalComponent, {
+      // data: this.data
+    });
+    // console.log(this.data)
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
   }
-
-  // openDialogEditHotel(): void {
-  //   const dialogRef = this.dialog.open(ManageHotelModalComponent, {
-  //     data: this.data
-  //   });
-  //   // console.log(this.data)
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-
-  //   });
-  // }
 }
 
 export interface PeriodicElement {
