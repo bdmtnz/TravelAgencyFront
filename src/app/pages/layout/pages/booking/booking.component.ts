@@ -62,8 +62,11 @@ export class BookingComponent {
     this.service.getReservation().subscribe( data =>{
       this.dataSource = new MatTableDataSource<any>(data);
       console.log(this.dataSource.data)
-    })
-    
+    }) 
+  }
+  getReservationById(id:string){
+    let value=this.service.getReservationById(id)
+    console.log(value)
   }
 
 
