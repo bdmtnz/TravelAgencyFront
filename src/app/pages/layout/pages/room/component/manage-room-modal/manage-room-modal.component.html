@@ -1,0 +1,126 @@
+<div class="root">
+    <div class="title">
+        <h3>Registrar Habitacion</h3>
+    </div>
+    <mat-stepper headerPosition="top">
+        <mat-step>
+            <form class="form">
+                <ng-template matStepLabel>Datos Basicos</ng-template>
+                <div class="container-grid">
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Hotel</mat-label>
+                            <mat-select>
+                                <mat-option value="option1">agua clara</mat-option>
+                                <mat-option value="option3">luna blanca</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Ubicacion</mat-label>
+                            <input type="text" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Ciudad</mat-label>
+                            <input type="text" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="container-grid">
+
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Capacidad</mat-label>
+                            <input type="text" matInput placeholder="">
+                        </mat-form-field>
+                    </div>
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Tipo</mat-label>
+                            <input type="text" matInput placeholder="">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="grid">
+                        <!-- <mat-form-field appearance="outline">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field> -->
+                    </div>
+                </div>
+
+
+
+            </form>
+            <div class="container-btn">
+                <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <form class="form">
+                <ng-template matStepLabel>Datos Contables</ng-template>
+                <div class="container-grid">
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Costo base</mat-label>
+                            <input type="number" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Impuesto</mat-label>
+                            <input type="number" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Ganancia</mat-label>
+                            <input type="number" matInput placeholder="0-100">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="container-grid">
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <!-- <mat-label>Valor</mat-label> -->
+                            <input type="number" matInput readonly="true">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </form>
+            <div class="container-btn">
+                <div class="container-btn">
+                    <button mat-button matStepperPrevious>Anterior</button>
+                    <button mat-button matStepperNext>Siguiente</button>
+                </div>
+            </div>
+        </mat-step>
+        <mat-step>
+            <form class="form">
+                <ng-template matStepLabel>Imagen</ng-template>
+                <div class="container-grid">
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Imagen URL</mat-label>
+                            <input type="text" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="container-preview">
+                        <img src="{{preview1}}" alt="">
+                    </div>
+                </div>
+            </form>
+            <div class="container-btn">
+                <button mat-button matStepperPrevious>Anterior</button>
+                <button mat-button matStepperNext color="primary">Guardar</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</div>
