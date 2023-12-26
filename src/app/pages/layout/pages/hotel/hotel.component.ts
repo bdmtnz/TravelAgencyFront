@@ -53,7 +53,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
 
   editHotel(id:string){
       this.data = this.service.getHotelById(id)
-      console.log(this.data)
+      // console.log(this.data)
       this.openDialogEditHotel()
   }
 
@@ -61,7 +61,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(ManageHotelModalComponent, {
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('closed', result);
 
     });
   }
@@ -72,7 +72,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
     });
     // console.log(this.data)
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('closed');
 
     });
   }

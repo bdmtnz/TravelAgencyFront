@@ -14,8 +14,8 @@ export class LoginService {
   constructor(private readonly http: HttpClient) { }
 
   authentication(request: ILoginRequest): Observable<IApiResponse<ILoginResponse>>{
-    console.log(request)
-     return this.http.post<IApiResponse<ILoginResponse>>(`${environment.apiUrl}`, request)
+    console.log("REQUEST",request)
+     return this.http.post<IApiResponse<ILoginResponse>>(`${environment.apiUrl}security/authentication`, request)
   }
 
 
