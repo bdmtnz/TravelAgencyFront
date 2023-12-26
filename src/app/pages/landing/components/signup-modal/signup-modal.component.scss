@@ -54,8 +54,58 @@
                 }
             }
         }
-    }
+        .container-grid-contac{
+            width: 90%;
+            display: flex;
+            gap: 15px;
+            margin-left: 10px;
 
+            .grid{
+                width: 35%;
+                height: 100%;
+                display: flex;
+                gap: 10px;
+                .indicative{
+                    width: 70px;
+                    height: auto;
+                }
+                .input-phone{
+                    width: 160px;
+                    height: auto;
+                }
+                
+                
+            }
+            .grid-email{
+                width: 63%;
+                height: 100%;
+                display: flex;
+                gap: 10px;
+                .input-email{
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            
+        }
+    }
+    .container-grid-password{
+        width: 90%;
+        display: flex;
+        gap: 15px;
+        margin-left: 10px;
+
+        .grid{
+            width: 50%;
+            height: 100%;
+            display: flex;
+            gap: 10px;
+            .input{
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
     .container-btn {
         display: flex;
         justify-content: end;

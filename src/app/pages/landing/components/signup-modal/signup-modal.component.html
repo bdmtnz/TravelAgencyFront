@@ -65,28 +65,7 @@
         <mat-step>
             <form class="form" [formGroup]="contacData">
                 <ng-template matStepLabel>Datos de Contacto</ng-template>
-                <div class="container-grid">
-                    <div class="grid">
-                        <mat-form-field appearance="outline" class="input">
-                            <mat-label>Correo Electronico</mat-label>
-                            <input type="email" formControlName="email" matInput placeholder="pat@example.com">
-                        </mat-form-field>
-                    </div>
-                    <div class="grid">
-                        <mat-form-field appearance="outline" class="input">
-                            <mat-label>Contraseña</mat-label>
-                            <input type="password" formControlName="password" matInput placeholder="Password">
-                        </mat-form-field>
-                    </div>
-                    <div class="grid">
-                        <mat-form-field appearance="outline" class="input">
-                            <mat-label>Contraseña</mat-label>
-                            <input type="password" formControlName="password" matInput placeholder="Password">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="container-grid">
-
+                <div class="container-grid-contac">
                     <div class="grid">
                         <mat-form-field appearance="outline" class="indicative">
                             <mat-label>Ind</mat-label>
@@ -97,6 +76,27 @@
                             <input type="tel" formControlName="phone" matInput placeholder="">
                         </mat-form-field>
                     </div>
+                    <div class="grid-email" >
+                        <mat-form-field appearance="outline" class="input-email">
+                            <mat-label>Correo Electronico</mat-label>
+                            <input type="email" formControlName="email" matInput placeholder="pat@example.com">
+                        </mat-form-field>
+                    </div>
+                    </div>
+                    <div class="container-grid-password">
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Contraseña</mat-label>
+                            <input type="password" formControlName="password" matInput placeholder="Password">
+                        </mat-form-field>
+                    </div>
+                    <div class="grid">
+                        <mat-form-field appearance="outline" class="input">
+                            <mat-label>Contraseña</mat-label>
+                            <input type="password" formControlName="password" matInput placeholder="Password">
+                        </mat-form-field>
+                    </div>  
+
                 </div>
 
             </form>
