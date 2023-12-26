@@ -15,6 +15,12 @@ steps:
     versionSpec: '20.x'
   displayName: 'Install Node.js'
 
+- script: |
+    npm install -g @angular/cli
+    npm install
+    ng build
+  displayName: 'Integration Angular App'
+
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
@@ -22,3 +28,5 @@ steps:
     appType: 'webApp'
     WebAppName: 'ultra-group-hotel-test-front'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+  displayName: 'Deploy on App Service'
+
