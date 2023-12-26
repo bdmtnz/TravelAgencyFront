@@ -21,12 +21,20 @@ steps:
     ng build
   displayName: 'Integration Angular App'
 
-- task: AzureRmWebAppDeployment@4
+# - task: AzureRmWebAppDeployment@4
+#   inputs:
+#     ConnectionType: 'AzureRM'
+#     azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
+#     appType: 'webApp'
+#     WebAppName: 'ultra-group-hotel-test-front'
+#     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+#   displayName: 'Deploy on App Service'
+
+- task: AzureWebApp@1
   inputs:
-    ConnectionType: 'AzureRM'
     azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
     appType: 'webApp'
-    WebAppName: 'ultra-group-hotel-test-front'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-  displayName: 'Deploy on App Service'
-
+    appName: 'ultra-group-hotel-test-front'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
+  displayName: 'Deploy Web App'
