@@ -30,82 +30,92 @@
         margin-top: 30px;
         gap: 20px;
 
-        .container-grid{
+        .container-grid {
             width: 90%;
             display: flex;
-            justify-content:start;
+            justify-content: start;
             align-items: flex-start;
             // background-color: aqua;
             gap: 15px;
             margin-left: 10px;
 
-            .grid{
+            .grid {
                 width: 30%;
                 height: 100%;
                 display: flex;
                 gap: 10px;
-                .indicative{
+
+                .indicative {
                     width: 70px;
                     height: auto;
                 }
-                .input-phone{
+
+                .input-phone {
                     width: 160px;
                     height: auto;
                 }
             }
         }
-        .container-grid-contac{
+
+        .container-grid-contac {
             width: 90%;
             display: flex;
             gap: 15px;
             margin-left: 10px;
 
-            .grid{
+            .grid {
                 width: 35%;
                 height: 100%;
                 display: flex;
                 gap: 10px;
-                .indicative{
+
+                .indicative {
                     width: 70px;
                     height: auto;
                 }
-                .input-phone{
+
+                .input-phone {
                     width: 160px;
                     height: auto;
                 }
-                
-                
+
+
             }
-            .grid-email{
+
+            .grid-email {
                 width: 63%;
                 height: 100%;
                 display: flex;
                 gap: 10px;
-                .input-email{
+
+                .input-email {
                     width: 100%;
                     height: auto;
                 }
             }
-            
+
         }
     }
-    .container-grid-password{
+
+    .container-grid-password {
         width: 90%;
         display: flex;
         gap: 15px;
         margin-left: 10px;
 
-        .grid{
+        .grid {
             width: 50%;
             height: 100%;
             display: flex;
             gap: 10px;
-            .input{
+
+            .input {
                 width: 100%;
                 height: 100%;
             }
         }
     }
+
     .container-btn {
         display: flex;
         justify-content: end;

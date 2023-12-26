@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import { SignupService } from './service/signup.service';
@@ -26,7 +26,12 @@ import { ISignup } from './signup-modal';
     MatFormFieldModule, 
     MatStepperModule,
     MatDatepickerModule,
-    MatNativeDateModule],
+    MatNativeDateModule
+  ],
+  providers: [
+    {provide: DateAdapter, useClass: NativeDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS},
+  ],
   templateUrl: './signup-modal.component.html',
   styleUrl: './signup-modal.component.scss'
 })
@@ -46,7 +51,7 @@ export class SignupModalComponent {
       documentType: [0],
       document: [''],
       gender: [''],
-      birth: ['']
+      birth: [Date]
     })
     this.contacData = this.formBuilder.group({
         phone: [''],
