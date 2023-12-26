@@ -5,25 +5,47 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
 import { SignupModalComponent } from './components/signup-modal/signup-modal.component';
+import { LoginService } from './services/login.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatDialogModule],
+  imports: [
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+  ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
 })
 export class LandingComponent {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private readonly service: LoginService,
+    private router: Router,
+    private _snackBar: MatSnackBar
+    ) { }
 
   openDialogLogin(): void {
     const dialogRef = this.dialog.open(LoginModalComponent, {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      
+      this.service.authentication(result).subscribe(data => {
+        if(data.status!=200){
+          this._snackBar.open(data.message,'cerrar',{
+            duration: 3000
+          })
+          return
+        }
+        
+        this.router.navigateByUrl(`/layout`)
+    })
     });
   }
 
@@ -36,5 +58,6 @@ export class LandingComponent {
       
     });
   }
+
 
 }

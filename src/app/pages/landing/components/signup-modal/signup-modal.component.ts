@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +12,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { SignupService } from './service/signup.service';
 import { ISelectOption, ISignup } from './signup-modal';
 import { NgFor } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup-modal',
@@ -45,7 +46,10 @@ export class SignupModalComponent implements OnInit {
   listDocumentType: ISelectOption[] = []
   listGendersType: ISelectOption[] = []
 
-  constructor(private formBuilder: FormBuilder, private readonly service: SignupService) {
+  constructor(private formBuilder: FormBuilder,
+     private readonly service: SignupService,
+     private _snackBar: MatSnackBar,
+     ) {
     this.builder()
   }
   ngOnInit(): void {
@@ -54,18 +58,18 @@ export class SignupModalComponent implements OnInit {
 
   builder(){
     this.basicData = this.formBuilder.group({
-      name: [''],
-      lastName: [''],
-      documentType: [0],
-      document: [''],
-      gender: [''],
-      birth: [Date]
+      name: ['',[Validators.required]],
+      lastName: ['',[Validators.required]],
+      documentType: [0,[Validators.required]],
+      document: ['',[Validators.required]],
+      gender: ['',[Validators.required]],
+      birth: [Date,[Validators.required]]
     })
     this.contacData = this.formBuilder.group({
-        phone: [''],
-        indicative: [0],
-        email: [''],
-        password: ['']
+        phone: ['',[Validators.required]],
+        indicative: [0,[Validators.required]],
+        email: ['',[Validators.required, Validators.email]],
+        password: ['',[Validators.minLength(8)]]
     })
   }
   getSelectOpcion(){
@@ -85,5 +89,6 @@ export class SignupModalComponent implements OnInit {
 
     })
   }
+  
 
 }
