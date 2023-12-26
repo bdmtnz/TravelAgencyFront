@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,7 +10,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateMo
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import { SignupService } from './service/signup.service';
-import { ISignup } from './signup-modal';
+import { ISelectOption, ISignup } from './signup-modal';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-signup-modal',
@@ -26,7 +27,8 @@ import { ISignup } from './signup-modal';
     MatFormFieldModule, 
     MatStepperModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgFor
   ],
   providers: [
     {provide: DateAdapter, useClass: NativeDateAdapter},
@@ -35,13 +37,19 @@ import { ISignup } from './signup-modal';
   templateUrl: './signup-modal.component.html',
   styleUrl: './signup-modal.component.scss'
 })
-export class SignupModalComponent {
+export class SignupModalComponent implements OnInit {
 
   basicData!: FormGroup;
   contacData!: FormGroup;
   objetUserRegister!: ISignup;
+  listDocumentType: ISelectOption[] = []
+  listGendersType: ISelectOption[] = []
+
   constructor(private formBuilder: FormBuilder, private readonly service: SignupService) {
     this.builder()
+  }
+  ngOnInit(): void {
+    this.getSelectOpcion()
   }
 
   builder(){
@@ -58,6 +66,12 @@ export class SignupModalComponent {
         indicative: [0],
         email: [''],
         password: ['']
+    })
+  }
+  getSelectOpcion(){
+    this.service.getDocumentType().subscribe(opntion => {
+      this.listDocumentType = opntion.data.documentTypes
+      this.listGendersType = opntion.data.genders
     })
   }
 

@@ -10,3 +10,8 @@ export interface ISignup {
     email: string,
     password: string
 }
+
+export interface ISelectOption {
+    id: number,
+    name: string
+}

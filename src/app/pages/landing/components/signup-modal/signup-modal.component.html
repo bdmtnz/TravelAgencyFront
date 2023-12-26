@@ -22,9 +22,9 @@
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Tipo de identificacion</mat-label>
-                            <mat-select formControlName="documentType">
-                                <mat-option value="option1">Cedula ciudadania</mat-option>
-                                <mat-option value="option3">Pasaporte</mat-option>
+                            <mat-select  formControlName="documentType">
+                                <mat-option value="0">Seleccione</mat-option>
+                                <mat-option *ngFor="let documentType of listDocumentType;"  [value]="documentType.id">{{documentType.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -42,8 +42,8 @@
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Genero</mat-label>
                             <mat-select formControlName="gender">
-                                <mat-option value="option1">Masculino</mat-option>
-                                <mat-option value="option3">Femenino</mat-option>
+                                <mat-option value="0">Seleccione</mat-option>
+                                <mat-option *ngFor="let genders of listGendersType;"  [value]="genders.id">{{genders.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

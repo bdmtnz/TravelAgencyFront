@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl : ""
+    apiUrl : "https://ultra-group-hotel-test-back.azurewebsites.net/"
 
 };

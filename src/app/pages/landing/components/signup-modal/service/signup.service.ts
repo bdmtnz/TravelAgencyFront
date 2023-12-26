@@ -14,6 +14,10 @@ export class SignupService {
 
   postSaveUser(request: ISignup): Observable<IApiResponse<any>>{
     console.log(request)
-     return this.http.post<IApiResponse<any>>(`${environment.apiUrl}`, request)
+     return this.http.post<IApiResponse<any>>(`${environment.apiUrl}security/signup`, request)
+  }
+  getDocumentType(): Observable<IApiResponse<any>>{
+    return this.http.get<IApiResponse<any>>(`${environment.apiUrl}Type/signup`)
+
   }
 }
