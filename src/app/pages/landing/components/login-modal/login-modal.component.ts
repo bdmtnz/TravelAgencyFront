@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LangService } from '../../../../shared/services/lang.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -19,6 +20,7 @@ export class LoginModalComponent {
   authentication: FormGroup
   constructor(
     private readonly lang: LangService,
+    private readonly services: LoginService,
     private formBuilder: FormBuilder
   ) {
     this.authentication = this.formBuilder.group({
@@ -30,6 +32,9 @@ export class LoginModalComponent {
   get TEXT() { return this.lang.current }
 
   login(){
-    console.log(this.authentication.value)
+    this.services.authentication(this.authentication.value).subscribe(data => {
+      // console.log(data)
+    })
+
   }
 }
