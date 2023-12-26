@@ -4,7 +4,7 @@
     </div>
     <mat-stepper headerPosition="top">
         <mat-step>
-            <form class="form">
+            <form class="form" [formGroup]="basicData">
                 <ng-template matStepLabel>Datos Basicos</ng-template>
                 <div class="container-grid">
                     <div class="grid">
@@ -19,13 +19,13 @@
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Ubicacion</mat-label>
-                            <input type="text" matInput>
+                            <input type="text" matInput formControlName="location">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Ciudad</mat-label>
-                            <input type="text" matInput>
+                            <input type="text" matInput formControlName="city">
                         </mat-form-field>
                     </div>
                 </div>
@@ -34,25 +34,16 @@
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Capacidad</mat-label>
-                            <input type="text" matInput placeholder="">
+                            <input type="text" matInput placeholder="" formControlName="capacity">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Tipo</mat-label>
-                            <input type="text" matInput placeholder="">
+                            <input type="text" matInput placeholder="" formControlName="type">
                         </mat-form-field>
                     </div>
-
-                    <div class="grid">
-                        <!-- <mat-form-field appearance="outline">
-                            <mat-label>Choose a date</mat-label>
-                            <input matInput [matDatepicker]="picker">
-                            <mat-hint>MM/DD/YYYY</mat-hint>
-                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field> -->
-                    </div>
+                    <div class="grid"> </div>
                 </div>
 
 
@@ -63,33 +54,33 @@
             </div>
         </mat-step>
         <mat-step>
-            <form class="form">
+            <form class="form" [formGroup]="accountingData">
                 <ng-template matStepLabel>Datos Contables</ng-template>
                 <div class="container-grid">
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Costo base</mat-label>
-                            <input type="number" matInput>
+                            <input type="number" matInput formControlName="cost">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Impuesto</mat-label>
-                            <input type="number" matInput>
+                            <input type="number" matInput formControlName="tax">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Ganancia</mat-label>
-                            <input type="number" matInput placeholder="0-100">
+                            <input type="number" matInput placeholder="0-100" formControlName="profit">
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="container-grid">
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
-                            <!-- <mat-label>Valor</mat-label> -->
-                            <input type="number" matInput readonly="true">
+                            <mat-label>Valor</mat-label>
+                            <input type="number" matInput readonly="true" formControlName="price">
                         </mat-form-field>
                     </div>
                 </div>
@@ -103,17 +94,17 @@
             </div>
         </mat-step>
         <mat-step>
-            <form class="form">
+            <form class="form" [formGroup]="image">
                 <ng-template matStepLabel>Imagen</ng-template>
                 <div class="container-grid">
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Imagen URL</mat-label>
-                            <input type="text" matInput>
+                            <input type="text" matInput formControlName="imageUrl">
                         </mat-form-field>
                     </div>
                     <div class="container-preview">
-                        <img src="{{preview1}}" alt="">
+                        <img src="{{preview}}" alt="">
                     </div>
                 </div>
             </form>

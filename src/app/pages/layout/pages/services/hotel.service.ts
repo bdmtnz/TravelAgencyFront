@@ -45,7 +45,7 @@ export class HotelService {
         {id: '1',
         start: '12/20/23',
         end: '14/20/23',
-        enabled: true,
+        enabled: false,
         quantityPeople: 5,
         price: 500000,
         client: {

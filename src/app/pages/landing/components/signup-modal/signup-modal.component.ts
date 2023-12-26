@@ -24,8 +24,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatFormFieldModule, 
     MatStepperModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule],
+    MatNativeDateModule],
   templateUrl: './signup-modal.component.html',
   styleUrl: './signup-modal.component.scss'
 })

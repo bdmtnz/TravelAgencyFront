@@ -31,28 +31,49 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class ManageRoomModalComponent implements OnInit {
 
-  formRegister: FormGroup
+  basicData!: FormGroup
+  accountingData!: FormGroup
+  image!: FormGroup
   preview = 'https://img.freepik.com/foto-gratis/fondo_53876-32170.jpg?size=626&ext=jpg';
-  preview1 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqQ17-npO9WvbzQ8wHfwqm4SnRewjaDp2j7NRohTJ3fA&s';
-
 
   /**
    *
    */
   constructor(private formBuilder: FormBuilder) {
-    this.formRegister = this.formBuilder.group({
-      name: [''],
-      descripcion: [''],
-      imageUrl: ['',],
-    });
+    this.builder()
   }
 
   ngOnInit(): void {
-    this.previewImg()  }
+    this.previewImg()
+  }
+
+  builder() {
+    this.basicData = this.formBuilder.group({
+      hotel: [''],
+      location: [''],
+      city: [''],
+      capacity: [''],
+      type: [''],
+    });
+
+    this.accountingData = this.formBuilder.group({
+      cost: [0],
+      tax: [0],
+      profit: [0],
+      price: [0],
+    });
+    this.image = this.formBuilder.group({
+      imageUrl: [''],
+    });
+  }
+
+  saveRoom(){
+    
+  }
 
 
-  previewImg(){
-    this.formRegister.get('imageUrl')?.valueChanges.subscribe((value)=>{
+  previewImg() {
+    this.image.get('imageUrl')?.valueChanges.subscribe((value) => {
       this.preview = value
     })
   }
