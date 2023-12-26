@@ -44,6 +44,6 @@ steps:
     appType: 'webApp'
     appName: 'ultra-group-hotel-test-front'
     #package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    package: $(Pipeline.Workspace)/angular-web-app
+    package: $(Pipeline.Workspace)/a/angular-web-app
     deploymentMethod: 'auto'
   displayName: 'Deploy Web App'
