@@ -2,22 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IApiResponse } from '../../../shared/components/models/response';
-import { ILoginRequest, ILoginResponse } from '../models/login.model';
 import { environment } from '../../../../environments/environment';
+import { ISignup } from '../models/signup-modal';
+
+
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class SignupService {
 
   constructor(private readonly http: HttpClient) { }
 
-  authentication(request: ILoginRequest): Observable<IApiResponse<ILoginResponse>>{
-    console.log("REQUEST",request)
-     return this.http.post<IApiResponse<ILoginResponse>>(`${environment.apiUrl}security/authentication`, request)
+  postSaveUser(request: ISignup): Observable<IApiResponse<any>>{
+    console.log(request)
+     return this.http.post<IApiResponse<any>>(`${environment.apiUrl}security/signup`, request)
   }
-
-
-
 }

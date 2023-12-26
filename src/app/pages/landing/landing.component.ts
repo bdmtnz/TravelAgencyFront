@@ -8,6 +8,7 @@ import { SignupModalComponent } from './components/signup-modal/signup-modal.com
 import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SignupService } from './services/signup.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class LandingComponent {
 
   constructor(
     public dialog: MatDialog,
-    private readonly service: LoginService,
+    private readonly loginService: LoginService,
+    private readonly signupService: SignupService,
     private router: Router,
     private _snackBar: MatSnackBar
     ) { }
@@ -36,14 +38,13 @@ export class LandingComponent {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.service.authentication(result).subscribe(data => {
+      this.loginService.authentication(result).subscribe(data => {
         if(data.status!=200){
           this._snackBar.open(data.message,'cerrar',{
             duration: 3000
           })
           return
         }
-        
         this.router.navigateByUrl(`/layout`)
     })
     });
@@ -54,7 +55,9 @@ export class LandingComponent {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.signupService.postSaveUser(result).subscribe(data => {
+        console.log(result)
+      })
       
     });
   }

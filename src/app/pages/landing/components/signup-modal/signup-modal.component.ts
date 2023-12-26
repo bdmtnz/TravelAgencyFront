@@ -4,15 +4,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatSelectModule} from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 import { SignupService } from './service/signup.service';
-import { ISelectOption, ISignup } from './signup-modal';
 import { NgFor } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ISelectOption } from '../../../../shared/components/models/response';
+import { ISignup } from '../../models/signup-modal';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-signup-modal',
@@ -25,15 +27,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatFormFieldModule, 
+    MatFormFieldModule,
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
     NgFor
   ],
   providers: [
-    {provide: DateAdapter, useClass: NativeDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS},
+    { provide: DateAdapter, useClass: NativeDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
   ],
   templateUrl: './signup-modal.component.html',
   styleUrl: './signup-modal.component.scss'
@@ -47,48 +49,50 @@ export class SignupModalComponent implements OnInit {
   listGendersType: ISelectOption[] = []
 
   constructor(private formBuilder: FormBuilder,
-     private readonly service: SignupService,
-     private _snackBar: MatSnackBar,
-     ) {
+    private readonly service: SignupService,
+    public dialogRef: MatDialogRef<SignupModalComponent>,
+
+  ) {
     this.builder()
   }
   ngOnInit(): void {
     this.getSelectOpcion()
   }
 
-  builder(){
+  builder() {
     this.basicData = this.formBuilder.group({
-      name: ['',[Validators.required]],
-      lastName: ['',[Validators.required]],
-      documentType: [0,[Validators.required]],
-      document: ['',[Validators.required]],
-      gender: ['',[Validators.required]],
-      birth: [Date,[Validators.required]]
+      name: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      documentType: [, [Validators.required, Validators.minLength(1)]],
+      document: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      birth: [Date, [Validators.required]]
     })
     this.contacData = this.formBuilder.group({
-        phone: ['',[Validators.required]],
-        indicative: [0,[Validators.required]],
-        email: ['',[Validators.required, Validators.email]],
-        password: ['',[Validators.minLength(8)]]
+      phone: ['', [Validators.required]],
+      indicative: [, [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     })
   }
-  getSelectOpcion(){
-    this.service.getDocumentType().subscribe(opntion => {
-      this.listDocumentType = opntion.data.documentTypes
-      this.listGendersType = opntion.data.genders
+  getSelectOpcion() {
+    this.service.getDocumentType().subscribe(option => {
+      this.listDocumentType = option.data.documentTypes
+      this.listGendersType = option.data.genders
     })
   }
 
-
-  saveUser(){
+  close() {
+    this.basicData.markAllAsTouched()
+    this.contacData.markAllAsTouched()
+    if (this.basicData.invalid && this.contacData.invalid) return
     this.objetUserRegister = {
       ...this.basicData.value,
       ...this.contacData.value
     }
-    this.service.postSaveUser(this.objetUserRegister).subscribe(data => {
+    this.dialogRef.close(this.objetUserRegister)
 
-    })
   }
-  
+
 
 }
