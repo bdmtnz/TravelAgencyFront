@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+- prod
 
 pool:
   vmImage: ubuntu-latest
@@ -12,11 +12,13 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '20.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install -g @angular/cli
-    npm install
-    ng build
-  displayName: 'npm install and build'
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
+    appType: 'webApp'
+    WebAppName: 'ultra-group-hotel-test-front'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
