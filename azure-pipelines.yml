@@ -35,6 +35,6 @@ steps:
     azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
     appType: 'webApp'
     appName: 'ultra-group-hotel-test-front'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    #package: '$(System.DefaultWorkingDirectory)/**/*.zip'
     deploymentMethod: 'auto'
   displayName: 'Deploy Web App'
