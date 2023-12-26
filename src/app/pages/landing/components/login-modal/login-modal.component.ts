@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LangService } from '../../../../shared/services/lang.service';
-import { LoginService } from '../../services/login.service';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-login-modal',

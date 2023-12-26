@@ -4,44 +4,44 @@
     </div>
     <mat-stepper headerPosition="top">
         <mat-step>
-            <form class="form">
+            <form class="form" [formGroup]="basicData">
                 <ng-template matStepLabel>Datos Basicos</ng-template>
                 <div class="container-grid">
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Nombres</mat-label>
-                            <input type="text" matInput placeholder="Juan jose">
+                            <input type="text" formControlName="name" matInput placeholder="Juan jose">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Apellidos</mat-label>
-                            <input type="text" matInput placeholder="lopez">
+                            <input type="text" formControlName="lastName" matInput placeholder="lopez">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Tipo de identificacion</mat-label>
-                            <mat-select>
+                            <mat-select formControlName="documentType">
                                 <mat-option value="option1">Cedula ciudadania</mat-option>
                                 <mat-option value="option3">Pasaporte</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
 
-                    </div>
-                    <div class="container-grid">
+                </div>
+                <div class="container-grid">
 
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Identificacion</mat-label>
-                            <input type="text" matInput placeholder="">
+                            <input type="text" formControlName="document" matInput placeholder="">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Genero</mat-label>
-                            <mat-select>
+                            <mat-select formControlName="gender">
                                 <mat-option value="option1">Masculino</mat-option>
                                 <mat-option value="option3">Femenino</mat-option>
                             </mat-select>
@@ -63,43 +63,38 @@
             </div>
         </mat-step>
         <mat-step>
-            <form class="form">
+            <form class="form" [formGroup]="contacData">
                 <ng-template matStepLabel>Datos de Contacto</ng-template>
                 <div class="container-grid">
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
-                            <mat-label>Usuario</mat-label>
-                            <input type="text" matInput placeholder="">
+                            <mat-label>Correo Electronico</mat-label>
+                            <input type="email" formControlName="email" matInput placeholder="pat@example.com">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Contraseña</mat-label>
-                            <input type="password" matInput placeholder="Password">
+                            <input type="password" formControlName="password" matInput placeholder="Password">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Contraseña</mat-label>
-                            <input type="password" matInput placeholder="Password">
+                            <input type="password" formControlName="password" matInput placeholder="Password">
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="container-grid">
-                    <div class="grid">
-                        <mat-form-field appearance="outline" class="input">
-                            <mat-label>Correo Electronico</mat-label>
-                            <input type="email" matInput placeholder="pat@example.com">
-                        </mat-form-field>
-                    </div>
+
                     <div class="grid">
                         <mat-form-field appearance="outline" class="indicative">
                             <mat-label>Ind</mat-label>
-                            <input type="text" matInput placeholder="">
+                            <input type="text" formControlName="indicative" matInput placeholder="+58">
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="input-phone">
                             <mat-label>Telefono</mat-label>
-                            <input type="tel" matInput placeholder="">
+                            <input type="tel" formControlName="phone" matInput placeholder="">
                         </mat-form-field>
                     </div>
                 </div>
@@ -107,7 +102,7 @@
             </form>
             <div class="container-btn">
                 <button mat-button matStepperPrevious>Anterior</button>
-                <button mat-button matStepperNext color="primary">Guardar</button>
+                <button mat-button matStepperNext color="primary" (click)="saveUser()">Guardar</button>
             </div>
         </mat-step>
     </mat-stepper>
