@@ -70,6 +70,6 @@ steps:
   inputs:
     azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
     appType: 'webApp'
-    appName: 'ultra-group-hotel-test-front'
+    appName: 'ultra-group-hotel-test-front-node'
     package: '$(System.DefaultWorkingDirectory)/dist/*'
     deploymentMethod: 'auto'
