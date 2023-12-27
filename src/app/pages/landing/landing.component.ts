@@ -11,6 +11,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SignupService } from './services/signup.service';
 import { InfoModalComponent } from '../../shared/components/info-modal/info-modal.component';
 import { INIT_SIGNUP, ISignup } from './models/signup-modal';
+import { ROL_REDIRECT } from '../../app.routes.permission';
+import { LocalDbPersist } from '../../shared/services/db.service';
+import { ILoginResponse } from './models/login.model';
+import { DB_FLAGS } from '../../shared/models/db.model';
 
 
 @Component({
@@ -35,12 +39,15 @@ export class LandingComponent {
     private readonly signupService: SignupService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) { }
+  ) {
+    var credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL)
+    if(credential) {
+      this.router.navigateByUrl(ROL_REDIRECT[credential.rol.id])
+    }
+  }
 
   openDialogLogin(): void {
-    const dialogRef = this.dialog.open(LoginModalComponent, {
-
-    });
+    const dialogRef = this.dialog.open(LoginModalComponent, {});
     dialogRef.afterClosed().subscribe(result => {
       this.loginService.authentication(result).subscribe(data => {
         if (data.status != 200) {
@@ -49,7 +56,7 @@ export class LandingComponent {
           })
           return
         }
-        this.router.navigateByUrl(`/layout`)
+        this.router.navigateByUrl(ROL_REDIRECT[data.data.rol.id])
       })
     });
   }
@@ -59,17 +66,11 @@ export class LandingComponent {
       data: this.dataClient
     });
     dialogRef.afterClosed().subscribe(result => {
-
       if (result) {
         this.openDialogConfirmation()
         this.dataClient = result
         return
       }
-
-      // this.signupService.postSaveUser(result).subscribe(data => {
-      //   console.log(result)
-      // })
-
     });
   }
 
@@ -78,7 +79,7 @@ export class LandingComponent {
       data: {
         title: "Atención",
         descripcion: "¿Esta seguro que desea guardar sus datos?",
-        btnTitle: "Si, registrar",
+        btnTitle: "Sí, continuar",
         icon: "info"
       }
     });
@@ -98,15 +99,8 @@ export class LandingComponent {
           }
         });
         this.dataClient = INIT_SIGNUP
-        dialogRef.afterClosed().subscribe(result => {
-
-        });
-        
+        dialogRef.afterClosed().subscribe(result => {});
       })
-
     });
   }
-
-
-
 }
