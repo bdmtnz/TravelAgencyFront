@@ -72,7 +72,6 @@ export class HotelComponent implements AfterViewInit, OnInit {
     });
     // console.log(this.data)
     dialogRef.afterClosed().subscribe(result => {
-      console.log('closed');
 
     });
   }

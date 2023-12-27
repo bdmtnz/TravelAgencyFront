@@ -56,7 +56,7 @@ export class LandingComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.signupService.postSaveUser(result).subscribe(data => {
-        console.log(result)
+  
       })
       
     });

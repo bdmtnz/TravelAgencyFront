@@ -60,7 +60,5 @@ export class ManageHotelModalComponent implements OnInit {
     this.formRegister.controls['name'].setValue(this.data.name)
     this.formRegister.controls['descripcion'].setValue(this.data.descripcion)
     this.formRegister.controls['imageUrl'].setValue(this.data.imageUrl)
-    // console.log(this.data)
-    console.log(this.formRegister.value)
   }
 }
