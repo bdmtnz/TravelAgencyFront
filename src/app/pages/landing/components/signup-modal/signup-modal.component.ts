@@ -111,5 +111,4 @@ export class SignupModalComponent implements OnInit {
     this.dialogRef.close(this.objetUserRegister)
   }
 
-
 }

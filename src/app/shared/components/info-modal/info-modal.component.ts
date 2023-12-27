@@ -29,7 +29,7 @@ export class InfoModalComponent {
   }
 
   close(){
-    this.dialogRef.close()
+    this.dialogRef.close(false)
   }
 
 }
