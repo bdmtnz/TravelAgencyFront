@@ -31,30 +31,30 @@ steps:
 #   displayName: 'Deploy on App Service'
 
 #Copy Files to: $(Build.ArtifactStagingDirectory)
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: 'dist/**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+# - task: CopyFiles@2
+#   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+#   inputs:
+#     SourceFolder: '$(System.DefaultWorkingDirectory)'
+#     Contents: 'dist/**'
+#     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 #Publish Artifact: Artifact Dashboard (build)
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: Artifact Dashboard (build)'
-  inputs:
-    #PathtoPublish: '$(Parameters.ArtifactStagingDirectory)'
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'Artifact Dashboard (build)'
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish Artifact: Artifact Dashboard (build)'
+#   inputs:
+#     #PathtoPublish: '$(Parameters.ArtifactStagingDirectory)'
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'Artifact Dashboard (build)'
 
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Deploy Web App'
-  inputs:
-    azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
-    WebAppName: 'webApp'
-    deployToSlotOrASE: true
-    ResourceGroupName: GroupName
-    SlotName: dev
-    package: '$(System.DefaultWorkingDirectory)/Artifact Dashboard (build staging)/Artifact Dashboard (build)/dist'
+# - task: AzureRmWebAppDeployment@4
+#   displayName: 'Deploy Web App'
+#   inputs:
+#     azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
+#     WebAppName: 'webApp'
+#     deployToSlotOrASE: true
+#     ResourceGroupName: GroupName
+#     SlotName: dev
+#     package: '$(System.DefaultWorkingDirectory)/Artifact Dashboard (build staging)/Artifact Dashboard (build)/dist'
 
 # - task: AzureWebApp@1
 #   inputs:
@@ -65,3 +65,11 @@ steps:
 #     package: $(Pipeline.Workspace)/a/angular-web-app
 #     deploymentMethod: 'auto'
 #   displayName: 'Deploy Web App'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
+    appType: 'webApp'
+    appName: 'ultra-group-hotel-test-front'
+    package: '$(System.DefaultWorkingDirectory)/dist/*'
+    deploymentMethod: 'auto'
