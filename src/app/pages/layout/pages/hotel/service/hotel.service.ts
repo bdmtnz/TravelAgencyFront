@@ -4,6 +4,7 @@ import { environment } from '../../../../../../environments/environment';
 import { IHotel } from '../hotel-modal';
 import { Observable } from 'rxjs';
 import { IApiResponse } from '../../../../../shared/components/models/response';
+import { IEnabledRequest } from '../../../../../shared/components/models/request';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class HotelService {
   }
   getHotelById(id: string): Observable<IApiResponse<IHotel[]>>{
     return this.http.get<IApiResponse<IHotel[]>>(`${environment.apiUrl}hotel/ById/${id}`)
+  }
+  putEnabled(request: IEnabledRequest): Observable<IApiResponse<IEnabledRequest>>{
+    return this.http.put<IApiResponse<IEnabledRequest>>(`${environment.apiUrl}hotel/`,request)
+
   }
 
 

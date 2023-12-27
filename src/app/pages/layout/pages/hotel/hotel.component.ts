@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,6 +9,7 @@ import { ManageHotelModalComponent } from './components/manage-hotel-modal/manag
 import { IHotel, INIT_HOTEL } from './hotel-modal';
 import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
 import { HotelService } from './service/hotel.service';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
@@ -20,26 +21,35 @@ import { HotelService } from './service/hotel.service';
     MatIconModule,
     MatSlideToggleModule,
     MatButtonModule,
-    
+    ReactiveFormsModule,
+    FormsModule
   ],
   templateUrl: './hotel.component.html',
   styleUrl: './hotel.component.scss',
 
 })
 export class HotelComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['position','name', 'room', 'enable', 'action'];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
+  displayedColumns: string[] = ['name', 'room', 'enabled', 'action'];
   dataSource = new MatTableDataSource<IHotel>();
+  dataSourcePrimitive: IHotel[] = []
   data: any ;
   dataManageHotel = INIT_HOTEL
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  formEnabled!: FormGroup
 
   
   constructor(
     public dialog: MatDialog,
-    private readonly service: HotelService
+    private readonly service: HotelService,
+    private formBuilder: FormBuilder
     ) {
+      this.formEnabled = this.formBuilder.group({
+        id:[''],
+        enabled:[false]
+      })
 
-  }
+      }
   ngOnInit(): void {
     this.getHotel()
   }
@@ -48,9 +58,15 @@ export class HotelComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+  
   getHotel(){
      this.service.getHotel({}).subscribe(resp =>{
-      this.dataSource = new MatTableDataSource<IHotel>(resp.data);
+      this.dataSource = new MatTableDataSource<IHotel>(resp.data)
+      this.dataSourcePrimitive = [...resp.data]
+      resp.data.find(item => {
+        this.formEnabled.controls['id'].setValue(item.id)
+        this.formEnabled.controls['enabled'].setValue(item.enabled)
+      })
     })
   }
 
@@ -60,9 +76,41 @@ export class HotelComponent implements AfterViewInit, OnInit {
       })
   }
 
-  openDialogRegisterHotel(): void {
+  enabled(element: IHotel){   
+    let enabled={
+      enable: "habilitar",
+      disable: "deshabilitar"
+    }
+    const dialogRef = this.dialog.open(InfoModalComponent, {
+      data: {
+        title: "Atencion",
+        description: `¿Estas seguro de que desea ${element.enabled ? enabled.disable : enabled.enable} este hotel?`,
+        btnTitle: "Sí, continuar"
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) {
+        this.dataSource.data = [];
+        this.dataSource.data = [...this.dataSourcePrimitive]
+        return
+      }
+      element.enabled = !element.enabled
+      let valor = {
+        id: element.id,
+        enabled: element.enabled
+      }
+      this.service.putEnabled(valor).subscribe(response => {
+      })
+    });
+  }
+
+  openDialogRegisterHotel(data: any): void {
     const dialogRef = this.dialog.open(ManageHotelModalComponent, {
-      data: this.dataManageHotel
+      data: {
+        data,
+        title: "Registrar hotel",
+        button: "Registrar"
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
@@ -83,7 +131,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {
-        this.openDialogRegisterHotel()
+        this.openDialogRegisterHotel(result)
         return
       }
       this.service.postHotel(this.dataManageHotel).subscribe(data => {
@@ -111,7 +159,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
         });
         this.dataManageHotel = INIT_HOTEL
         dialogRef.afterClosed().subscribe(result => {
-          this.getHotel()
+          
         });
         
       })
@@ -128,8 +176,9 @@ export class HotelComponent implements AfterViewInit, OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.service.postHotel(result).subscribe( data => { 
 
+      this.service.postHotel(result).subscribe( data => { 
+        this.getHotel()
       })
     });
   }
