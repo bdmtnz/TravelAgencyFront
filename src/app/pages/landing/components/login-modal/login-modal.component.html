@@ -1,7 +1,7 @@
 
 <div class="body-login">
   <div class="card-container">
-    <form class="container-form" [formGroup]="authentication">
+    <form class="container-form" [formGroup]="authForm">
       <div class="container-title">
         <span id="title">{{TEXT.landing.login.title}}</span>
       </div>
@@ -13,7 +13,12 @@
         <mat-label>Password</mat-label>
         <input type="password" matInput placeholder="Password" formControlName="password">
       </mat-form-field>
-      <button class="btn-ingresar" color="primary" mat-raised-button (click)="login()">Ingresar</button>
+      <button 
+        class="btn-ingresar" 
+        color="primary" 
+        mat-raised-buttons
+        (click)="close()"
+      >{{TEXT.landing.login.submitButton}}</button>
     </form>
   </div>
 

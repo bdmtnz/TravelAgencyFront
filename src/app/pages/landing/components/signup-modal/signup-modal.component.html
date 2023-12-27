@@ -86,14 +86,14 @@
                     <div class="container-grid-password">
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
-                            <mat-label>Contraseña</mat-label>
+                            <mat-label>Contraseña--</mat-label>
                             <input type="password" formControlName="password" matInput placeholder="Password">
                         </mat-form-field>
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Contraseña</mat-label>
-                            <input type="password" formControlName="password" matInput placeholder="Password">
+                            <input type="password" matInput placeholder="Password">
                         </mat-form-field>
                     </div>  
 
@@ -102,7 +102,7 @@
             </form>
             <div class="container-btn">
                 <button mat-button matStepperPrevious>Anterior</button>
-                <button mat-button matStepperNext color="primary" (click)="saveUser()">Guardar</button>
+                <button mat-button matStepperNext color="primary" (click)="close()">Guardar</button>
             </div>
         </mat-step>
     </mat-stepper>

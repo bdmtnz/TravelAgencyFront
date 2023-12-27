@@ -4,3 +4,7 @@ export interface IApiResponse<T> {
     data: T
 
 }
+export interface ISelectOption {
+    id: number,
+    name: string
+}

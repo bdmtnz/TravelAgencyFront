@@ -11,7 +11,3 @@ export interface ISignup {
     password: string
 }
 
-export interface ISelectOption {
-    id: number,
-    name: string
-}

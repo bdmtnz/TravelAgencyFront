@@ -3,14 +3,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LangService } from '../../../../shared/services/lang.service';
-import { LoginService } from './services/login.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Action } from 'rxjs/internal/scheduler/Action';
 
 @Component({
   selector: 'app-login-modal',
@@ -21,37 +17,24 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 })
 export class LoginModalComponent {
 
-  authentication: FormGroup
+  authForm: FormGroup
   constructor(
     private readonly lang: LangService,
-    private readonly services: LoginService,
     private formBuilder: FormBuilder,
-    private readonly router: Router,
     public dialogRef: MatDialogRef<LoginModalComponent>,
-    private _snackBar: MatSnackBar
   ) {
-    this.authentication = this.formBuilder.group({
-      user: [''],
-      password: ['']
+    this.authForm = this.formBuilder.group({
+      user: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.minLength(0)]],
     })
   }
 
   get TEXT() { return this.lang.current }
 
-  login(){
-    this.services.authentication(this.authentication.value).subscribe(data => {
-      
-        if(data.status==200){
-          this.router.navigateByUrl(`/layout`)
-          this.dialogRef.close();
-        }
-        else {
-            this._snackBar.open(data.message,'cerrar',{
-              duration: 3000
-            })
-        }
-      
-    })
+  close(){
+    this.authForm.markAllAsTouched()
+    if(this.authForm.invalid) return
 
+    this.dialogRef.close(this.authForm.value)
   }
 }
