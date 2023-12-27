@@ -23,7 +23,6 @@ import { PeriodicElement } from '../../../layout/pages/booking/booking.component
 })
 export class HomeComponent {
   displayedColumns: string[] = [
-    'position',
     'nameHotel',
     'nameClient',
     'ubication',
@@ -33,9 +32,7 @@ export class HomeComponent {
     'city',
     // 'valueReservation',
     'valueReservation',
-    'enable',
     'action'
-
   ];
   dataSource = new MatTableDataSource<PeriodicElement>();
   data: any;

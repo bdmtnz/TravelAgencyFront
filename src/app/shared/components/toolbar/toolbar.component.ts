@@ -27,6 +27,7 @@ import { NgIf } from '@angular/common';
 export class ToolbarComponent {
   @Output() toggleFn = new EventEmitter<void>()
   @Input() showMenu: boolean = true
+  @Input() showCredential: boolean = true
 
   constructor(private readonly router:Router) { }
 
