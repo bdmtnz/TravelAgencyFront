@@ -61,6 +61,7 @@ export class ManageHotelModalComponent implements OnInit {
     this.dialogRef.close(data)
   }
   editHotel(){
+    // console.log(this.data)
     this.formRegister.controls['name'].setValue(this.data.name)
     this.formRegister.controls['description'].setValue(this.data.description)
     this.formRegister.controls['imageUrl'].setValue(this.data.imageUrl)

@@ -54,11 +54,14 @@ export class HotelComponent implements AfterViewInit, OnInit {
     })
   }
 
-  // editHotel(id:string){
-  //     this.data = this.service.getHotelById(id)
-  //     // console.log(this.data)
-  //     this.openDialogEditHotel()
-  // }
+  editHotel(id:string){
+     this.service.getHotelById(id).subscribe( response => {
+      // this.data = response.data
+      //   console.log(response.data)
+      this.openDialogEditHotel(response.data)
+      })
+      
+  }
 
   openDialogRegisterHotel(): void {
     const dialogRef = this.dialog.open(ManageHotelModalComponent, {
@@ -119,11 +122,11 @@ export class HotelComponent implements AfterViewInit, OnInit {
     });
   }
 
-  openDialogEditHotel(): void {
+  openDialogEditHotel(data:IHotel[]): void {
     const dialogRef = this.dialog.open(ManageHotelModalComponent, {
-      data: this.data
+      data: data
     });
-    // console.log(this.data)
+    console.log(this.data)
     dialogRef.afterClosed().subscribe(result => {
 
     });
