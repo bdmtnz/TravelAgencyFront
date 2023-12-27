@@ -1,21 +1,10 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from './pages/layout/layout.component';
-import { HomeComponent } from './pages/layout/pages/home/home.component';
 import { layoutRoute } from './pages/layout/layout.routes';
 import { LandingComponent } from './pages/landing/landing.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { travelerRoute } from './pages/traveler/traveler.routes';
 
 export const routes: Routes = [
-    // {
-    //     path: 'layout',
-    //     component: LayoutComponent,
-    //     children: [
-    //         {
-    //             path: 'home',
-    //             component: HomeComponent
-    //         }
-    //     ] 
-    // }
     {
         path: '',
         component: LandingComponent
@@ -26,5 +15,8 @@ export const routes: Routes = [
     },
     {
         ...layoutRoute
+    },
+    {
+        ...travelerRoute
     }
 ];
