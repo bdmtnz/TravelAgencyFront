@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { IApiResponse } from '../../../shared/components/models/response';
 import { ILoginRequest, ILoginResponse } from '../models/login.model';
 import { environment } from '../../../../environments/environment';
+import { LocalDbPersist } from '../../../shared/services/db.service';
+import { DB_FLAGS } from '../../../shared/models/db.model';
 
 
 @Injectable({
@@ -14,8 +16,13 @@ export class LoginService {
   constructor(private readonly http: HttpClient) { }
 
   authentication(request: ILoginRequest): Observable<IApiResponse<ILoginResponse>>{
-    console.log("REQUEST",request)
-     return this.http.post<IApiResponse<ILoginResponse>>(`${environment.apiUrl}security/authentication`, request)
+    return this.http.post<IApiResponse<ILoginResponse>>(
+      `${environment.apiUrl}security/authentication`, request
+    ).pipe(
+      tap(resp => {
+        LocalDbPersist<ILoginResponse>().save(DB_FLAGS.CREDENTIAL, resp.data)
+      })
+    )
   }
 
 
