@@ -16,7 +16,11 @@ export class HotelService {
     return this.http.post<IApiResponse<IHotel>>(`${environment.apiUrl}hotel`, request)
   }
   getHotel(filter: any): Observable<IApiResponse<IHotel[]>>{
-
     return this.http.post<IApiResponse<IHotel[]>>(`${environment.apiUrl}hotel/filter`,filter)
   }
+  getHotelById(id: string): Observable<IApiResponse<IHotel[]>>{
+    return this.http.get<IApiResponse<IHotel[]>>(`${environment.apiUrl}hotel/ById/${id}`)
+  }
+
+
 }
