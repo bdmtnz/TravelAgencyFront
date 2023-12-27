@@ -26,4 +26,4 @@ steps:
     #PathtoPublish: '$(Build.ArtifactStagingDirectory)/dist'
     PathtoPublish: 'dist'
     ArtifactName: 'angular-app'
-    publishLocation: 'Container'
+    #publishLocation: 'Container'
