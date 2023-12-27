@@ -92,7 +92,12 @@ export class SignupModalComponent implements OnInit {
     //   ...this.contacData.value
     // }
     const dialogRef = this.dialog.open(InfoModalComponent,{
-
+       data:{
+              descripcion: "¿Está seguro de registrarse?",
+              btnTitle: "Registrar",
+              title: "Atención",
+              icon: "info"
+        }
     })
 
     dialogRef.afterClosed().subscribe( result => {

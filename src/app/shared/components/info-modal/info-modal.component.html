@@ -1,18 +1,18 @@
 <div class="container">
     <div class="title">
         <span class="material-symbols-outlined">
-            info
+            {{data.icon}}
             </span>
-        <h1 mat-dialog-title>Delete file</h1>
+        <h1 mat-dialog-title>{{data.title}}</h1>
     </div>
     <div mat-dialog-content class="descripcion">
-        Would you like to delete cat.jpeg?
+        {{data.descripcion}}
     </div>
     <div mat-dialog-actions class="container-btn">
         <!-- <button mat-button mat-dialog-close>Cancelar</button> -->
         <!-- <button mat-button mat-dialog-close cdkFocusInitial>Aceptar</button> -->
         <button mat-button matStepperPrevious>Cancelar</button>
-        <button mat-button matStepperNext color="primary">Guardar</button>
+        <button mat-button matStepperNext color="primary">{{data.btnTitle}}</button>
 
     </div>
 </div>
