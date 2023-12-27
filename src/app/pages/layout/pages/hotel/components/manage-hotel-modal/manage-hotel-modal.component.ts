@@ -5,7 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { IHotel } from '../../hotel-modal';
 
 
 @Component({
@@ -29,14 +30,15 @@ export class ManageHotelModalComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private readonly lang: LangService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<ManageHotelModalComponent>,
 
     ) {
 
       this.formRegister = this.formBuilder.group({
-        name: [''],
-        descripcion: [''],
-        imageUrl: ['', ],
+        name: ['',[Validators.required]],
+        descripcion: ['',[Validators.required,Validators.maxLength(400)]],
+        imageUrl: ['',[Validators.required]],
       });
 
 
@@ -54,7 +56,9 @@ export class ManageHotelModalComponent implements OnInit {
     })
   }
 
-  registerHotel(data: FormGroup){
+  registerHotel(data: IHotel){
+    if(this.formRegister.invalid) return
+    this.dialogRef.close(data)
   }
   editHotel(){
     this.formRegister.controls['name'].setValue(this.data.name)

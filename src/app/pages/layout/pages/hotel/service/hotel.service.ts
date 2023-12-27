@@ -12,7 +12,10 @@ export class HotelService {
 
   constructor(private readonly http: HttpClient) { }
 
-  postHeotel(request: IHotel): Observable<IApiResponse<IHotel>>{
-    return this.http.post<IApiResponse<IHotel>>(`${environment.apiUrl}`, request)
+  postHotel(request: IHotel): Observable<IApiResponse<IHotel>>{
+    return this.http.post<IApiResponse<IHotel>>(`${environment.apiUrl}Hotel`, request)
   }
+  // getHotel(): Observable<IApiResponse<IHotel>>{
+  //   return this.http.get<IApiResponse<IHotel>>(`${environment.apiUrl}Hotel`)
+  // }
 }

@@ -4,3 +4,10 @@ export interface IHotel {
     descripcion: string,
     imageUrl: string
 }
+
+export const INIT_HOTEL : IHotel = {
+    id: "",
+    name: "",
+    descripcion: "",
+    imageUrl: ""
+}

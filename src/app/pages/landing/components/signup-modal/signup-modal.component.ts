@@ -14,7 +14,7 @@ import { NgFor } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ISelectOption } from '../../../../shared/components/models/response';
 import { ISignup } from '../../models/signup-modal';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
 
 @Component({
@@ -52,7 +52,6 @@ export class SignupModalComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private readonly service: SignupService,
     public dialogRef: MatDialogRef<SignupModalComponent>,
-    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) {
@@ -74,7 +73,7 @@ export class SignupModalComponent implements OnInit {
     })
     this.contacData = this.formBuilder.group({
       phone: ['', [Validators.required]],
-      indicative: [, [Validators.required]],
+      indicative: [0,[Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     })
