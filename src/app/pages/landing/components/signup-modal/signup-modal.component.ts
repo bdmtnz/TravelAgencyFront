@@ -14,7 +14,8 @@ import { NgFor } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ISelectOption } from '../../../../shared/components/models/response';
 import { ISignup } from '../../models/signup-modal';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
 
 @Component({
   selector: 'app-signup-modal',
@@ -51,7 +52,7 @@ export class SignupModalComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private readonly service: SignupService,
     public dialogRef: MatDialogRef<SignupModalComponent>,
-
+    public dialog: MatDialog,
   ) {
     this.builder()
   }
@@ -83,14 +84,21 @@ export class SignupModalComponent implements OnInit {
   }
 
   close() {
-    this.basicData.markAllAsTouched()
-    this.contacData.markAllAsTouched()
-    if (this.basicData.invalid && this.contacData.invalid) return
-    this.objetUserRegister = {
-      ...this.basicData.value,
-      ...this.contacData.value
-    }
-    this.dialogRef.close(this.objetUserRegister)
+    // this.basicData.markAllAsTouched()
+    // this.contacData.markAllAsTouched()
+    // if (this.basicData.invalid && this.contacData.invalid) return
+    // this.objetUserRegister = {
+    //   ...this.basicData.value,
+    //   ...this.contacData.value
+    // }
+    const dialogRef = this.dialog.open(InfoModalComponent,{
+
+    })
+
+    dialogRef.afterClosed().subscribe( result => {
+      // this.dialogRef.close(this.objetUserRegister)
+    })
+   
 
   }
 
