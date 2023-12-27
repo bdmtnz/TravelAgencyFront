@@ -4,14 +4,11 @@ export interface ILoginRequest {
 }
 
 export interface ILoginResponse {
-    data:{
-        id: string,
-        name: string,
-        rol: {
-            id: number,
-            name: string
-        },
-        token: string
-    }
-
+    id: string,
+    name: string,
+    rol: {
+        id: number,
+        name: string
+    },
+    token: string
 }

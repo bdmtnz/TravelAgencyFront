@@ -8,6 +8,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { LocalDbPersist } from '../../shared/services/db.service';
 import { ILoginRequest, ILoginResponse } from '../landing/models/login.model';
 import { DB_FLAGS } from '../../shared/models/db.model';
+import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.component';
 
 
 @Component({
@@ -19,18 +20,12 @@ import { DB_FLAGS } from '../../shared/models/db.model';
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
-
+    MatMenuModule,
+    ToolbarComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
 
-  constructor(private readonly router:Router) { }
-
-  logout(){
-    LocalDbPersist<ILoginResponse>().remove(DB_FLAGS.CREDENTIAL)
-    this.router.navigateByUrl('')
-  }
 }
