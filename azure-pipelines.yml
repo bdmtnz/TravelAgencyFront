@@ -30,20 +30,37 @@ steps:
 #     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 #   displayName: 'Deploy on App Service'
 
-- task: CopyPublishBuildArtifacts@1  
-  displayName: 'Copy Publish Artifact: angular-web-app'  
-  inputs:  
-    CopyRoot: /dist  
-    Contents: '**'  
-    ArtifactName: angular-web-app 
-    ArtifactType: Container
+#Copy Files to: $(Build.ArtifactStagingDirectory)
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: 'dist/**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- task: AzureWebApp@1
+#Publish Artifact: Artifact Dashboard (build)
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Artifact Dashboard (build)'
+  inputs:
+    PathtoPublish: '$(Parameters.ArtifactStagingDirectory)'
+    ArtifactName: 'Artifact Dashboard (build)'
+
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Deploy Web App'
   inputs:
     azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
-    appType: 'webApp'
-    appName: 'ultra-group-hotel-test-front'
-    #package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    package: $(Pipeline.Workspace)/a/angular-web-app
-    deploymentMethod: 'auto'
-  displayName: 'Deploy Web App'
+    WebAppName: 'webApp'
+    deployToSlotOrASE: true
+    ResourceGroupName: GroupName
+    SlotName: dev
+    package: '$(System.DefaultWorkingDirectory)/Artifact Dashboard (build staging)/Artifact Dashboard (build)/dist'
+
+# - task: AzureWebApp@1
+#   inputs:
+#     azureSubscription: 'Suscripción de Azure 1(51a516f5-dd68-492a-94e9-0fc57d66dd73)'
+#     appType: 'webApp'
+#     appName: 'ultra-group-hotel-test-front'
+#     #package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+#     package: $(Pipeline.Workspace)/a/angular-web-app
+#     deploymentMethod: 'auto'
+#   displayName: 'Deploy Web App'
