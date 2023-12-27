@@ -59,13 +59,13 @@ export class LandingComponent {
       data: this.dataClient
     });
     dialogRef.afterClosed().subscribe(result => {
-      
+
       if (result) {
         this.openDialogConfirmation()
         this.dataClient = result
         return
       }
-      
+
       // this.signupService.postSaveUser(result).subscribe(data => {
       //   console.log(result)
       // })
@@ -75,11 +75,11 @@ export class LandingComponent {
 
   openDialogConfirmation() {
     const dialogRef = this.dialog.open(InfoModalComponent, {
-      data:{
-        title:"Atención",
-        descripcion:"¿Esta seguro que desea guardar sus datos?",
-        btnTitle:"Si, registrar",
-        icon:"info"
+      data: {
+        title: "Atención",
+        descripcion: "¿Esta seguro que desea guardar sus datos?",
+        btnTitle: "Si, registrar",
+        icon: "info"
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -88,8 +88,20 @@ export class LandingComponent {
         return
       }
       this.signupService.postSaveUser(this.dataClient).subscribe(data => {
-        console.log("response backEnd",data)
+        if (data.status != 200) return
+        const dialogRef = this.dialog.open(InfoModalComponent, {
+          data: {
+            title: "Atención",
+            descripcion: "Se ha Registrado exitosamente",
+            btnTitle: "aceptar",
+            icon: "info"
+          }
+        });
         this.dataClient = INIT_SIGNUP
+        dialogRef.afterClosed().subscribe(result => {
+
+        });
+        
       })
 
     });
