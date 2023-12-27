@@ -11,3 +11,16 @@ export interface ISignup {
     password: string
 }
 
+export const INIT_SIGNUP : ISignup = {
+    name: "",
+    lastName: "",
+    documentType: 0,
+    document: "",
+    gender: "",
+    birth: "",
+    phone: "",
+    indicative: 0,
+    email: "",
+    password: ""
+}
+
