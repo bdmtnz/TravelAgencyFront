@@ -42,7 +42,8 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Artifact Dashboard (build)'
   inputs:
-    PathtoPublish: '$(Parameters.ArtifactStagingDirectory)'
+    #PathtoPublish: '$(Parameters.ArtifactStagingDirectory)'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/Artifact Dashboard (build staging)'
     ArtifactName: 'Artifact Dashboard (build)'
 
 - task: AzureRmWebAppDeployment@4
