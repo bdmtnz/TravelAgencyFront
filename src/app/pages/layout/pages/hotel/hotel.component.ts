@@ -28,7 +28,7 @@ import { HotelService } from './service/hotel.service';
 })
 export class HotelComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['position','name', 'room', 'enable', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>();
+  dataSource = new MatTableDataSource<IHotel>();
   data: any ;
   dataManageHotel = INIT_HOTEL
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -41,18 +41,18 @@ export class HotelComponent implements AfterViewInit, OnInit {
 
   }
   ngOnInit(): void {
-    // this.getHotel()
+    this.getHotel()
   }
 
   
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  // getHotel(){
-  //    this.service.getHotel().subscribe(data =>{
-  //     this.dataSource = new MatTableDataSource<PeriodicElement>(data);
-  //   })
-  // }
+  getHotel(){
+     this.service.getHotel({}).subscribe(resp =>{
+      this.dataSource = new MatTableDataSource<IHotel>(resp.data);
+    })
+  }
 
   // editHotel(id:string){
   //     this.data = this.service.getHotelById(id)
@@ -82,7 +82,6 @@ export class HotelComponent implements AfterViewInit, OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if (!result) {
         this.openDialogRegisterHotel()
         return
@@ -112,7 +111,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
         });
         this.dataManageHotel = INIT_HOTEL
         dialogRef.afterClosed().subscribe(result => {
-
+          this.getHotel()
         });
         
       })
@@ -131,12 +130,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
   }
 }
 
-export interface PeriodicElement {
-  id:string;
-  name: string;
-  descripcion: string;
-  imageUrl: string;
-}
+
 
 // const ELEMENT_DATA: PeriodicElement[] = [
   

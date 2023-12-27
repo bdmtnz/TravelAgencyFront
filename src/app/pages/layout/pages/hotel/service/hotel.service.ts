@@ -13,9 +13,10 @@ export class HotelService {
   constructor(private readonly http: HttpClient) { }
 
   postHotel(request: IHotel): Observable<IApiResponse<IHotel>>{
-    return this.http.post<IApiResponse<IHotel>>(`${environment.apiUrl}Hotel`, request)
+    return this.http.post<IApiResponse<IHotel>>(`${environment.apiUrl}hotel`, request)
   }
-  // getHotel(): Observable<IApiResponse<IHotel>>{
-  //   return this.http.get<IApiResponse<IHotel>>(`${environment.apiUrl}Hotel`)
-  // }
+  getHotel(filter: any): Observable<IApiResponse<IHotel[]>>{
+
+    return this.http.post<IApiResponse<IHotel[]>>(`${environment.apiUrl}hotel/filter`,filter)
+  }
 }

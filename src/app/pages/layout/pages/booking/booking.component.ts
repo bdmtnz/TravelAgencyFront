@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { HotelService } from '../services/hotel.service';
+// import { HotelService } from '../services/hotel.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -45,14 +45,14 @@ export class BookingComponent {
 
   constructor(
     public dialog: MatDialog,
-    private readonly service: HotelService,
+    // private readonly service: HotelService,
     private readonly router: Router
   ) {
 
   }
   ngOnInit(): void {
     // this.getHotel()
-    this.getReservation()
+    // this.getReservation()
   }
 
 
@@ -60,12 +60,12 @@ export class BookingComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-  getReservation(){
-    this.service.getReservation().subscribe( data =>{
-      this.dataSource = new MatTableDataSource<any>(data);
-      console.log(this.dataSource.data)
-    }) 
-  }
+  // getReservation(){
+  //   this.service.getReservation().subscribe( data =>{
+  //     this.dataSource = new MatTableDataSource<any>(data);
+  //     console.log(this.dataSource.data)
+  //   }) 
+  // }
   getReservationById(id:string){
     this.router.navigateByUrl(`/layout/booking/${id}`)
     // let value=this.service.getReservationById(id)

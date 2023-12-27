@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { HotelService } from '../services/hotel.service';
+// import { HotelService } from '../services/hotel.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -31,29 +31,29 @@ export class RoomComponent {
   list = []
   constructor(
     public dialog: MatDialog,
-    private readonly service: HotelService
+    // private readonly service: HotelService
   ) {
 
   }
   ngOnInit(): void {
-    this.getReservation()
+    // this.getReservation()
   }
 
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  getReservation() {
-    this.service.getReservation().subscribe(data => {
-      // this.list = data;
-      // console.log(data)
-      this.dataSource = new MatTableDataSource<any>(data);
+  // getReservation() {
+  //   this.service.getReservation().subscribe(data => {
+  //     // this.list = data;
+  //     // console.log(data)
+  //     this.dataSource = new MatTableDataSource<any>(data);
 
-    })
-  }
+  //   })
+  // }
 
   editHotel(id: string) {
-    this.data = this.service.getHotelById(id)
+    // this.data = this.service.getHotelById(id)
     console.log(this.data)
     // this.openDialogEditHotel()
   }
