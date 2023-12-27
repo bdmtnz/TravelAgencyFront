@@ -56,11 +56,8 @@ export class HotelComponent implements AfterViewInit, OnInit {
 
   editHotel(id:string){
      this.service.getHotelById(id).subscribe( response => {
-      // this.data = response.data
-      //   console.log(response.data)
       this.openDialogEditHotel(response.data)
       })
-      
   }
 
   openDialogRegisterHotel(): void {
@@ -90,7 +87,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
         return
       }
       this.service.postHotel(this.dataManageHotel).subscribe(data => {
-        if (data.status == 400) {
+        if (data.status != 200) {
           const dialogRef = this.dialog.open(InfoModalComponent, {
             data: {
               title: "Atención",
@@ -124,11 +121,16 @@ export class HotelComponent implements AfterViewInit, OnInit {
 
   openDialogEditHotel(data:IHotel[]): void {
     const dialogRef = this.dialog.open(ManageHotelModalComponent, {
-      data: data
+      data: {
+        data,
+        title: "Editar hotel",
+        button: "Guardar"
+      }
     });
-    console.log(this.data)
     dialogRef.afterClosed().subscribe(result => {
+      this.service.postHotel(result).subscribe( data => { 
 
+      })
     });
   }
 }

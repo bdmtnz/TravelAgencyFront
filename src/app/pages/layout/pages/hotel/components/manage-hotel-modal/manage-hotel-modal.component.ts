@@ -36,6 +36,7 @@ export class ManageHotelModalComponent implements OnInit {
     ) {
 
       this.formRegister = this.formBuilder.group({
+        id:[''],
         name: ['',[Validators.required]],
         description: ['',[Validators.required,Validators.maxLength(400)]],
         imageUrl: ['',[Validators.required]],
@@ -59,11 +60,12 @@ export class ManageHotelModalComponent implements OnInit {
   registerHotel(data: IHotel){
     if(this.formRegister.invalid) return
     this.dialogRef.close(data)
+    console.log(data)
   }
   editHotel(){
-    // console.log(this.data)
-    this.formRegister.controls['name'].setValue(this.data.name)
-    this.formRegister.controls['description'].setValue(this.data.description)
-    this.formRegister.controls['imageUrl'].setValue(this.data.imageUrl)
+    this.formRegister.controls['id'].setValue(this.data.data.id)
+    this.formRegister.controls['name'].setValue(this.data.data.name)
+    this.formRegister.controls['description'].setValue(this.data.data.description)
+    this.formRegister.controls['imageUrl'].setValue(this.data.data.imageUrl)
   }
 }
