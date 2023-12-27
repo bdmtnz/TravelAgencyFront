@@ -1,5 +1,5 @@
 export interface IHotel {
     name: string,
-    descripcion: string,
+    description: string,
     imageUrl: string
 }
