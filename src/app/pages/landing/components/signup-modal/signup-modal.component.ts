@@ -84,13 +84,13 @@ export class SignupModalComponent implements OnInit {
   }
 
   close() {
-    // this.basicData.markAllAsTouched()
-    // this.contacData.markAllAsTouched()
-    // if (this.basicData.invalid && this.contacData.invalid) return
-    // this.objetUserRegister = {
-    //   ...this.basicData.value,
-    //   ...this.contacData.value
-    // }
+    this.basicData.markAllAsTouched()
+    this.contacData.markAllAsTouched()
+    if (this.basicData.invalid && this.contacData.invalid) return
+    this.objetUserRegister = {
+      ...this.basicData.value,
+      ...this.contacData.value
+    }
     const dialogRef = this.dialog.open(InfoModalComponent,{
        data:{
               descripcion: "¿Está seguro de registrarse?",
@@ -101,7 +101,8 @@ export class SignupModalComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe( result => {
-      // this.dialogRef.close(this.objetUserRegister)
+      if(!result) return
+      this.dialogRef.close(this.objetUserRegister)
     })
    
 

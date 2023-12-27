@@ -24,6 +24,10 @@ export class InfoModalComponent {
 
   }
 
+  register(){
+    this.dialogRef.close(true)
+  }
+
   close(){
     this.dialogRef.close()
   }
