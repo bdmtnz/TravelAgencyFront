@@ -109,7 +109,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
       data: {
         data,
         title: "Registrar hotel",
-        button: "Registrar"
+        button: "Registrar",
       }
     });
     dialogRef.afterClosed().subscribe(result => {
