@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -8,6 +8,8 @@ import { LocalDbPersist } from '../../services/db.service';
 import { ILoginResponse } from '../../../pages/landing/models/login.model';
 import { DB_FLAGS } from '../../models/db.model';
 import { Router } from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
+import { IButton } from './toolbar.model';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,13 +19,18 @@ import { Router } from '@angular/router';
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    NgIf,
+    NgFor
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss'
 })
 export class ToolbarComponent {
   @Output() toggleFn = new EventEmitter<void>()
+  @Input() showMenu: boolean = true
+  @Input() showCredential: boolean = true
+  @Input() buttons: IButton[] = []
 
   constructor(private readonly router:Router) { }
 

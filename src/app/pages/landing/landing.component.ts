@@ -15,6 +15,8 @@ import { ROL_REDIRECT } from '../../app.routes.permission';
 import { LocalDbPersist } from '../../shared/services/db.service';
 import { ILoginResponse } from './models/login.model';
 import { DB_FLAGS } from '../../shared/models/db.model';
+import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.component';
+import { IButton } from '../../shared/components/toolbar/toolbar.model';
 
 
 @Component({
@@ -25,6 +27,7 @@ import { DB_FLAGS } from '../../shared/models/db.model';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    ToolbarComponent
   ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
@@ -32,6 +35,7 @@ import { DB_FLAGS } from '../../shared/models/db.model';
 export class LandingComponent {
 
   dataClient = INIT_SIGNUP
+  buttons: IButton[] = []
 
   constructor(
     public dialog: MatDialog,
@@ -40,6 +44,16 @@ export class LandingComponent {
     private router: Router,
     private _snackBar: MatSnackBar
   ) {
+    this.buttons = [
+      {
+        label: 'Registrarse',
+        action: this.openDialogRegistrar
+      },
+      {
+        label: 'ingresar',
+        action: this.openDialogLogin
+      }
+    ]
     var credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL)
     if(credential) {
       this.router.navigateByUrl(ROL_REDIRECT[credential.rol.id])
