@@ -10,9 +10,9 @@
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Hotel</mat-label>
-                            <mat-select formControlName="hotel">
+                            <mat-select formControlName="hotelId">
                                 <mat-option value="-1">Seleccione</mat-option>
-                                <mat-option *ngFor="let hotel of dataHotel;"  [value]="hotel.id">{{hotel.name}}</mat-option>
+                                <mat-option *ngFor="let hotel of data.hotel"  [value]="hotel.id">{{hotel.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -39,8 +39,11 @@
                     </div>
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
-                            <mat-label>Tipo</mat-label>
-                            <input type="text" matInput placeholder="" formControlName="type">
+                            <mat-label>Tipo habitacion</mat-label>
+                            <mat-select formControlName="type">
+                                <mat-option value="-1">Seleccione</mat-option>
+                                <mat-option *ngFor="let TypeRoom of data.type;"  [value]="TypeRoom.id">{{TypeRoom.name}}</mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                     <div class="grid"> </div>
@@ -110,7 +113,7 @@
             </form>
             <div class="container-btn">
                 <button mat-button matStepperPrevious>Anterior</button>
-                <button mat-button matStepperNext color="primary" (click)="saceRoom()">Guardar</button>
+                <button mat-button matStepperNext color="primary" (click)="saveRoom()">Guardar</button>
             </div>
         </mat-step>
     </mat-stepper>

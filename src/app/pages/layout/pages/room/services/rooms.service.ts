@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IApiResponse } from '../../../../../shared/components/models/response';
+import { IApiResponse, ISelectOption } from '../../../../../shared/components/models/response';
 import { IRoom } from '../../../../../shared/models/booking.model';
 import { environment } from '../../../../../../environments/environment';
+import { IManageRoomRequest } from '../../../../../shared/models/room.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,17 @@ export class RoomsService {
   }
   getDocumentType(): Observable<IApiResponse<any>>{
     return this.http.get<IApiResponse<any>>(`${environment.apiUrl}Type/signup`)
+  }
+  getRoomType(): Observable<IApiResponse<Record<string, ISelectOption[]>>>{
+    return this.http.get<IApiResponse<Record<string, ISelectOption[]>>>(`${environment.apiUrl}type/room`)
+  }
+  postRoom(request: IManageRoomRequest): Observable<IApiResponse<IManageRoomRequest>>{
+    return this.http.post<IApiResponse<IManageRoomRequest>>(`${environment.apiUrl}Room`, request)
+  }
+  getRooms(): Observable<IApiResponse<IRoom[]>>{
+    return this.http.post<IApiResponse<IRoom[]>>(`${environment.apiUrl}room/filter`,{})
+  }
+  getRoomById(id: string): Observable<IApiResponse<IRoom>>{
+    return this.http.get<IApiResponse<IRoom>>(`${environment.apiUrl}room/ById/${id}`)
   }
 }
