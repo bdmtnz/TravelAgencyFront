@@ -2,7 +2,7 @@
     <div class="card-container">
         <form class="container-form" [formGroup]="formRegister">
             <div class="container-title">
-                <span id="title">Registrar hotel</span>
+                <span id="title">{{data.title}}</span>
             </div>
             <mat-form-field appearance="outline" class="input">
                 <mat-label>Nombre del hotel</mat-label>
@@ -16,7 +16,7 @@
                 <mat-label>URL imagen</mat-label>
                 <input type="text" matInput formControlName="imageUrl">
             </mat-form-field>
-            <button class="btn-ingresar" type="submit" (click)="registerHotel(formRegister.value)" color="primary" mat-raised-button>Registrar</button>
+            <button class="btn-ingresar" type="submit" (click)="registerHotel(formRegister.value)" color="primary" mat-raised-button>{{data.button}}</button>
         </form>
     </div>
     <div class="container-preview">
