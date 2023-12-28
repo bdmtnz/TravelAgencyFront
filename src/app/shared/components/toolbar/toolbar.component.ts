@@ -9,7 +9,6 @@ import { ILoginResponse } from '../../../pages/landing/models/login.model';
 import { DB_FLAGS } from '../../models/db.model';
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
-import { IButton } from './toolbar.model';
 
 @Component({
   selector: 'app-toolbar',
@@ -30,9 +29,10 @@ export class ToolbarComponent {
   @Output() toggleFn = new EventEmitter<void>()
   @Input() showMenu: boolean = true
   @Input() showCredential: boolean = true
-  @Input() buttons: IButton[] = []
 
-  constructor(private readonly router:Router) { }
+  constructor(
+    private readonly router:Router
+  ) { }
 
   get credential() {
     return LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL)
