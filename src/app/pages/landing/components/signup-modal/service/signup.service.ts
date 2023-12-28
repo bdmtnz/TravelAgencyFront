@@ -17,6 +17,5 @@ export class SignupService {
   // }
   getDocumentType(): Observable<IApiResponse<any>>{
     return this.http.get<IApiResponse<any>>(`${environment.apiUrl}Type/signup`)
-
   }
 }

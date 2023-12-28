@@ -15,4 +15,7 @@ export class RoomsService {
   getBooking():Observable<IApiResponse<IRoom[]>> {
     return this.http.post<IApiResponse<IRoom[]>>(`${environment.apiUrl}room/filter`, {})
   }
+  getDocumentType(): Observable<IApiResponse<any>>{
+    return this.http.get<IApiResponse<any>>(`${environment.apiUrl}Type/signup`)
+  }
 }
