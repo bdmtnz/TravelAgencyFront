@@ -26,7 +26,7 @@ import { IHotel } from '../../hotel-modal';
 export class ManageHotelModalComponent implements OnInit {
 
   formRegister: FormGroup
-  preview = 'https://img.freepik.com/foto-gratis/fondo_53876-32170.jpg?size=626&ext=jpg';
+  preview = '../../../../../../../assets/fondo.webp';
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private readonly lang: LangService,
