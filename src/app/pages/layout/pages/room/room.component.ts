@@ -37,7 +37,7 @@ export class RoomComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   listHoteles!: IHotel[]
-  listTypeRoom!: ISelectOption
+  listTypeRoom!: ISelectOption[]
   dataManageHotel: IManageRoomRequest = INITIAL_ROOM
   constructor(
     public dialog: MatDialog,
@@ -65,8 +65,42 @@ export class RoomComponent {
   }
   getRoomType() {
     this.serviceRoom.getRoomType().subscribe(resp => {
-      this.listTypeRoom = resp.data
+      this.listTypeRoom = resp.data["types"]
     })
+  }
+  getRooms() {
+    this.serviceRoom.getRooms().subscribe(resp => {
+      console.log(resp)
+      this.dataSource = new MatTableDataSource<IRoom>(resp.data);
+    })
+
+  }
+  editRoom(id: string) {
+    this.serviceRoom.getRoomById(id).subscribe( resp => {
+      this.openDialogEditRoom(resp.data)
+    })
+
+  }
+  
+  openDialogEditRoom(data:IRoom): void {
+    const dialogRef = this.dialog.open(ManageRoomModalComponent, {
+      data: {
+        title: "Editar Habitacion",
+        button: "Guardar",
+        data: {
+          ...data,
+          hotelId: data.hotel.id
+        },
+        type: this.listTypeRoom,
+        hotel: this.listHoteles
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+      // this.service.postHotel(result).subscribe( data => { 
+      //   this.getHotel()
+      // })
+    });
   }
 
   openDialogRegisterRoom(): void {
@@ -79,7 +113,6 @@ export class RoomComponent {
       data: list
     });
     dialogRef.afterClosed().subscribe(result => {
-
       if (result) {
         this.dataManageHotel = result
         this.openDialogConfirmation()
@@ -99,7 +132,6 @@ export class RoomComponent {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if (!result) {
         this.openDialogRegisterRoom()
         return
@@ -125,13 +157,7 @@ export class RoomComponent {
     });
   }
 
-  getRooms() {
-    this.serviceRoom.getRooms().subscribe(resp => {
-      console.log(resp)
-      this.dataSource = new MatTableDataSource<IRoom>(resp.data);
-    })
-
-  }
+ 
 
 
 }

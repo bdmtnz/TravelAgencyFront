@@ -19,13 +19,16 @@ export class RoomsService {
   getDocumentType(): Observable<IApiResponse<any>>{
     return this.http.get<IApiResponse<any>>(`${environment.apiUrl}Type/signup`)
   }
-  getRoomType(): Observable<IApiResponse<ISelectOption>>{
-    return this.http.get<IApiResponse<ISelectOption>>(`${environment.apiUrl}type/room`)
+  getRoomType(): Observable<IApiResponse<Record<string, ISelectOption[]>>>{
+    return this.http.get<IApiResponse<Record<string, ISelectOption[]>>>(`${environment.apiUrl}type/room`)
   }
   postRoom(request: IManageRoomRequest): Observable<IApiResponse<IManageRoomRequest>>{
     return this.http.post<IApiResponse<IManageRoomRequest>>(`${environment.apiUrl}Room`, request)
   }
   getRooms(): Observable<IApiResponse<IRoom[]>>{
     return this.http.post<IApiResponse<IRoom[]>>(`${environment.apiUrl}room/filter`,{})
+  }
+  getRoomById(id: string): Observable<IApiResponse<IRoom>>{
+    return this.http.get<IApiResponse<IRoom>>(`${environment.apiUrl}room/ById/${id}`)
   }
 }

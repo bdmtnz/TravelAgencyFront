@@ -50,6 +50,7 @@ export class ManageRoomModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) {
+    console.log(this.data)
     this.builder()
   }
 
@@ -85,6 +86,7 @@ export class ManageRoomModalComponent implements OnInit {
     })
   }
   dataInitial(){
+    this.basicData.controls['id'].setValue(this.data.data.id)
     this.basicData.controls['hotelId'].setValue(this.data.data.hotelId)
     this.basicData.controls['location'].setValue(this.data.data.location)
     this.basicData.controls['city'].setValue(this.data.data.city)
@@ -99,7 +101,7 @@ export class ManageRoomModalComponent implements OnInit {
 
 
   saveRoom() {
-    console.log("SAVE", this.data )
+    // console.log("SAVE", this.data )
     this.basicData.markAllAsTouched()
     this.accountingData.markAllAsTouched()
     this.image.markAllAsTouched()
