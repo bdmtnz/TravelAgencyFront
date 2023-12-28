@@ -13,7 +13,7 @@ export class BookingService {
   constructor(private readonly http:HttpClient) { }
 
   getByTraveler(credentialId:string):Observable<IApiResponse<IBookingReponse[]>> {
-    return this.http.get<IApiResponse<IBookingReponse[]>>(`${environment.apiUrl}traveler/${credentialId}`)
+    return this.http.get<IApiResponse<IBookingReponse[]>>(`${environment.apiUrl}/booking/traveler/${credentialId}`)
   }
 
   get():Observable<IApiResponse<IBookingReponse[]>> {

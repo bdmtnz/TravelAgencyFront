@@ -5,17 +5,17 @@
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource">
             <!-- Name Column -->
-            <ng-container matColumnDef="nameHotel">
+            <ng-container matColumnDef="hotel.name">
                 <th mat-header-cell *matHeaderCellDef> Hotel </th>
                 <td mat-cell *matCellDef="let element"> {{element.hotel.name}} </td>
             </ng-container>
 
             <!-- Weight Column -->
-            <ng-container matColumnDef="nameClient">
+            <ng-container matColumnDef="traveler.name">
                 <th mat-header-cell *matHeaderCellDef> Cliente </th>
                 <td mat-cell *matCellDef="let element"> {{element.client.name}} </td>
             </ng-container>
-            <ng-container matColumnDef="ubication">
+            <ng-container matColumnDef="roomId">
                 <th mat-header-cell *matHeaderCellDef> Ubicación </th>
                 <td mat-cell *matCellDef="let element"> {{element.room.location}} </td>
             </ng-container>
@@ -25,15 +25,15 @@
                 <td mat-cell *matCellDef="let element"> {{element.room.city}} </td>
             </ng-container>
             <!-- Weight Column -->
-            <ng-container matColumnDef="dateInit">
+            <ng-container matColumnDef="start">
                 <th mat-header-cell *matHeaderCellDef> Ingreso </th>
                 <td mat-cell *matCellDef="let element"> {{element.start}} </td>
             </ng-container>
-            <ng-container matColumnDef="dateEnd">
+            <ng-container matColumnDef="end">
                 <th mat-header-cell *matHeaderCellDef> Salida </th>
                 <td mat-cell *matCellDef="let element"> {{element.end}} </td>
             </ng-container>
-            <ng-container matColumnDef="valueReservation">
+            <ng-container matColumnDef="price">
                 <th mat-header-cell *matHeaderCellDef> Precio </th>
                 <td mat-cell *matCellDef="let element"> {{element.price}} </td>
             </ng-container>
@@ -43,6 +43,7 @@
                 <td mat-cell *matCellDef="let element">
                     <button 
                         mat-icon-button
+                        (click)="getBookingById(element.id)"
                     >
                         <mat-icon  id="action-edit" aria-hidden="false"
                             aria-label="Edit icon" fontIcon="visibility"

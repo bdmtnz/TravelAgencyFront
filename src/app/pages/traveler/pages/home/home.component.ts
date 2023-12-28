@@ -35,11 +35,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     'hotel.name',
     'traveler.name',
     'roomId',
-    // 'typeReservation',
     'start',
     'end',
     'city',
-    // 'valueReservation',
     'price',
     'action'
   ];
@@ -63,5 +61,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  getBookingById(id:string){
+    this.router.navigateByUrl(`/traveler/booking/${id}`)
   }
 }
