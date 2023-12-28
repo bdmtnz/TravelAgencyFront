@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ManageRoomModalComponent } from './component/manage-room-modal/manage-room-modal.component';
+import { RoomsService } from './services/rooms.service';
 
 
 @Component({
@@ -31,32 +32,31 @@ export class RoomComponent {
   list = []
   constructor(
     public dialog: MatDialog,
-    // private readonly service: HotelService
+    private readonly service: RoomsService
   ) {
 
   }
   ngOnInit(): void {
-    // this.getReservation()
+    this.getReservation()
   }
 
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  // getReservation() {
-  //   this.service.getReservation().subscribe(data => {
-  //     // this.list = data;
-  //     // console.log(data)
-  //     this.dataSource = new MatTableDataSource<any>(data);
+  getReservation() {
+    this.service.getBooking().subscribe(response => {
+      // this.list = data;
+      this.dataSource = new MatTableDataSource<any>(response.data);
 
-  //   })
-  // }
-
-  editHotel(id: string) {
-    // this.data = this.service.getHotelById(id)
-    console.log(this.data)
-    // this.openDialogEditHotel()
+    })
   }
+
+  // editHotel(id: string) {
+  //   // this.data = this.service.getHotelById(id)
+  //   console.log(this.data)
+  //   // this.openDialogEditHotel()
+  // }
 
   openDialogRegisterRoom(): void {
     const dialogRef = this.dialog.open(ManageRoomModalComponent, {

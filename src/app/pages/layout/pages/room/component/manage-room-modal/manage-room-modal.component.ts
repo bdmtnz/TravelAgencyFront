@@ -67,11 +67,6 @@ export class ManageRoomModalComponent implements OnInit {
     });
   }
 
-  saveRoom(){
-    
-  }
-
-
   previewImg() {
     this.image.get('imageUrl')?.valueChanges.subscribe((value) => {
       this.preview = value
