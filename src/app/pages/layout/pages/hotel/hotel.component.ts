@@ -135,22 +135,6 @@ export class HotelComponent implements AfterViewInit, OnInit {
         return
       }
       this.service.postHotel(this.dataManageHotel).subscribe(data => {
-        // if (data.status != 200) {
-        //   const dialogRef = this.dialog.open(InfoModalComponent, {
-        //     data: {
-        //       title: "Atención",
-        //       description: "Error al registrar un nuevo hotel",
-        //       btnTitle: "aceptar",
-        //       icon: "warning"
-        //     }
-            
-        //   });
-          
-        //   dialogRef.afterClosed().subscribe(result => {
-
-        //   });
-        //   return
-        // }
         if (data.status != 200) return
         this.getHotel()
         const dialogRef = this.dialog.open(InfoModalComponent, {

@@ -11,6 +11,10 @@ import { RoomsService } from './services/rooms.service';
 import { BookingService } from '../../../../shared/services/booking.service';
 import { HotelService } from '../../../../shared/services/hotel.service';
 import { IHotel, INIT_HOTEL } from '../hotel/hotel-modal';
+import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
+import { IManageRoomRequest, INITIAL_ROOM } from '../../../../shared/models/room.model';
+import { ISelectOption } from '../../../../shared/components/models/response';
+import { IRoom } from '../../../../shared/models/booking.model';
 
 
 @Component({
@@ -27,20 +31,25 @@ import { IHotel, INIT_HOTEL } from '../hotel/hotel-modal';
   styleUrl: './room.component.scss'
 })
 export class RoomComponent {
-  displayedColumns: string[] = ['position', 'nameHotel', 'city', 'location', 'capacity', 'price', 'enabled', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>();
+  displayedColumns: string[] = ['nameHotel', 'city', 'location', 'capacity', 'price', 'enabled', 'action'];
+  dataSource = new MatTableDataSource<IRoom>();
   data: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   listHoteles!: IHotel[]
+  listTypeRoom!: ISelectOption
+  dataManageHotel: IManageRoomRequest = INITIAL_ROOM
   constructor(
     public dialog: MatDialog,
-    private readonly serviceHotel: HotelService
+    private readonly serviceHotel: HotelService,
+    private readonly serviceRoom: RoomsService
   ) {
 
   }
   ngOnInit(): void {
     this.getHoteles()
+    this.getRoomType()
+    this.getRooms()
   }
 
 
@@ -51,25 +60,87 @@ export class RoomComponent {
   getHoteles() {
     this.serviceHotel.getHotel({}).subscribe(resp => {
       this.listHoteles = resp.data
-      console.log(this.listHoteles)
+      // console.log(this.listHoteles)
+    })
+  }
+  getRoomType() {
+    this.serviceRoom.getRoomType().subscribe(resp => {
+      this.listTypeRoom = resp.data
     })
   }
 
   openDialogRegisterRoom(): void {
+    let list = {
+      data: this.dataManageHotel,
+      type: this.listTypeRoom,
+      hotel: this.listHoteles
+    }
     const dialogRef = this.dialog.open(ManageRoomModalComponent, {
-      data: this.listHoteles
+      data: list
     });
     dialogRef.afterClosed().subscribe(result => {
-      
+
+      if (result) {
+        this.dataManageHotel = result
+        this.openDialogConfirmation()
+        return
+      }
+      this.dataManageHotel = INITIAL_ROOM
+
     });
   }
+  openDialogConfirmation() {
+    const dialogRef = this.dialog.open(InfoModalComponent, {
+      data: {
+        title: "Atención",
+        description: "¿Esta seguro que desea guardar una nueva habitacion?",
+        btnTitle: "Guardar",
+        icon: "info"
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+      if (!result) {
+        this.openDialogRegisterRoom()
+        return
+      }
+      this.serviceRoom.postRoom(this.dataManageHotel).subscribe(data => {
+        if (data.status != 200) return
+        this.getRooms()
+        const dialogRef = this.dialog.open(InfoModalComponent, {
+          data: {
+            title: "Atención",
+            description: "Se ha Registrado exitosamente",
+            btnTitle: "aceptar",
+            icon: "info"
+          }
+        });
+        this.dataManageHotel = INITIAL_ROOM
+        dialogRef.afterClosed().subscribe(result => {
+
+        });
+
+      })
+
+    });
+  }
+
+  getRooms() {
+    this.serviceRoom.getRooms().subscribe(resp => {
+      console.log(resp)
+      this.dataSource = new MatTableDataSource<IRoom>(resp.data);
+    })
+
+  }
+
+
 }
 
-export interface PeriodicElement {
-  id: string;
-  nameHotel: string;
-  city: string;
-  ubication: string;
-  price: number
-}
+// export interface PeriodicElement {
+//   id: string;
+//   nameHotel: string;
+//   city: string;
+//   ubication: string;
+//   price: number
+// }
 

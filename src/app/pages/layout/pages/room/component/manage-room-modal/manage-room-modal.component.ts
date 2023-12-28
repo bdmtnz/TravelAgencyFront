@@ -47,7 +47,7 @@ export class ManageRoomModalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ManageRoomModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public dataHotel: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) {
     this.builder()
@@ -55,15 +55,17 @@ export class ManageRoomModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.previewImg()
+    this.dataInitial()
   }
 
   builder() {
     this.basicData = this.formBuilder.group({
-      hotel: ['',[Validators.required]],
+      id:[''],
+      hotelId: ['',[Validators.required, Validators.minLength(1)]],
       location: ['',[Validators.required]],
       city: ['',[Validators.required]],
       capacity: ['',[Validators.required]],
-      type: ['',[Validators.required]],
+      type: ['',[Validators.required,Validators.minLength(1)]],
     });
 
     this.accountingData = this.formBuilder.group({
@@ -82,9 +84,22 @@ export class ManageRoomModalComponent implements OnInit {
       this.preview = value
     })
   }
+  dataInitial(){
+    this.basicData.controls['hotelId'].setValue(this.data.data.hotelId)
+    this.basicData.controls['location'].setValue(this.data.data.location)
+    this.basicData.controls['city'].setValue(this.data.data.city)
+    this.basicData.controls['capacity'].setValue(this.data.data.capacity)
+    this.basicData.controls['type'].setValue(this.data.data.type)
+    this.accountingData.controls['cost'].setValue(this.data.data.cost)
+    this.accountingData.controls['tax'].setValue(this.data.data.tax)
+    this.accountingData.controls['profit'].setValue(this.data.data.profit)
+    this.accountingData.controls['price'].setValue(this.data.data.price)
+    this.image.controls['imageUrl'].setValue(this.data.data.imageUrl)
+  }
 
-  saceRoom() {
-    console.log("SAVE",this.basicData.value,this.accountingData.value,this.image.value )
+
+  saveRoom() {
+    console.log("SAVE", this.data )
     this.basicData.markAllAsTouched()
     this.accountingData.markAllAsTouched()
     this.image.markAllAsTouched()
