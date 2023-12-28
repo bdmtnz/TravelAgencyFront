@@ -50,7 +50,6 @@ export class ManageRoomModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) {
-    console.log(this.data)
     this.builder()
   }
 
@@ -111,7 +110,6 @@ export class ManageRoomModalComponent implements OnInit {
     let valou2 = (( Math.floor(value.cost * value.profit )) / 100)
     let priceTotal = Math.floor(value.cost + valou1 + valou2)
     this.price = priceTotal
-    console.log(this.price)
   }
   saveRoom() {
     // console.log("SAVE", this.data )

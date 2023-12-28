@@ -15,6 +15,7 @@ import { InfoModalComponent } from '../../../../shared/components/info-modal/inf
 import { IManageRoomRequest, INITIAL_ROOM } from '../../../../shared/models/room.model';
 import { ISelectOption } from '../../../../shared/components/models/response';
 import { IRoom } from '../../../../shared/models/booking.model';
+import { CurrencyPipe } from '@angular/common';
 
 
 @Component({
@@ -26,6 +27,7 @@ import { IRoom } from '../../../../shared/models/booking.model';
     MatIconModule,
     MatSlideToggleModule,
     MatButtonModule,
+    CurrencyPipe
   ],
   templateUrl: './room.component.html',
   styleUrl: './room.component.scss'
@@ -42,7 +44,7 @@ export class RoomComponent {
   constructor(
     public dialog: MatDialog,
     private readonly serviceHotel: HotelService,
-    private readonly serviceRoom: RoomsService
+    private readonly serviceRoom: RoomsService,
   ) {
 
   }
@@ -70,19 +72,18 @@ export class RoomComponent {
   }
   getRooms() {
     this.serviceRoom.getRooms().subscribe(resp => {
-      console.log(resp)
       this.dataSource = new MatTableDataSource<IRoom>(resp.data);
     })
 
   }
   editRoom(id: string) {
-    this.serviceRoom.getRoomById(id).subscribe( resp => {
+    this.serviceRoom.getRoomById(id).subscribe(resp => {
       this.openDialogEditRoom(resp.data)
     })
 
   }
-  
-  openDialogEditRoom(data:IRoom): void {
+
+  openDialogEditRoom(data: IRoom): void {
     const dialogRef = this.dialog.open(ManageRoomModalComponent, {
       data: {
         title: "Editar Habitacion",
@@ -96,10 +97,24 @@ export class RoomComponent {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+      this.serviceRoom.postRoom(result).subscribe(data => {
+        if (data.status != 200) return
+        this.getRooms()
+        const dialogRef = this.dialog.open(InfoModalComponent, {
+          data: {
+            title: "Atención",
+            description: "Actualizacion exitosa",
+            btnTitle: "aceptar",
+            icon: "info"
+          }
+        });
+        this.dataManageHotel = INITIAL_ROOM
+        dialogRef.afterClosed().subscribe(result => {
 
-      // this.service.postHotel(result).subscribe( data => { 
-      //   this.getHotel()
-      // })
+        });
+
+      })
     });
   }
 
@@ -157,7 +172,7 @@ export class RoomComponent {
     });
   }
 
- 
+
 
 
 }

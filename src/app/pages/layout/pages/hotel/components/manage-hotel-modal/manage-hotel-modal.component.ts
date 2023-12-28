@@ -60,7 +60,6 @@ export class ManageHotelModalComponent implements OnInit {
   registerHotel(data: IHotel){
     if(this.formRegister.invalid) return
     this.dialogRef.close(data)
-    console.log(data)
   }
   editHotel(){
     this.formRegister.controls['id'].setValue(this.data.data.id)

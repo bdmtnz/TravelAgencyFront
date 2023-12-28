@@ -16,7 +16,6 @@ export class SignupService {
   constructor(private readonly http: HttpClient) { }
 
   postSaveUser(request: ISignup): Observable<IApiResponse<any>>{
-    console.log(request)
      return this.http.post<IApiResponse<any>>(`${environment.apiUrl}security/signup`, request)
   }
 }
