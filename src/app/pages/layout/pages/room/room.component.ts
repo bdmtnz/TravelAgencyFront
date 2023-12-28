@@ -40,7 +40,9 @@ export class RoomComponent {
 
   listHoteles!: IHotel[]
   listTypeRoom!: ISelectOption[]
-  dataManageHotel: IManageRoomRequest = INITIAL_ROOM
+  dataManageRoom: IManageRoomRequest = INITIAL_ROOM
+  dataSourcePrimitive: IRoom[] = []
+
   constructor(
     public dialog: MatDialog,
     private readonly serviceHotel: HotelService,
@@ -72,6 +74,7 @@ export class RoomComponent {
   }
   getRooms() {
     this.serviceRoom.getRooms().subscribe(resp => {
+      this.dataSourcePrimitive = [...resp.data]
       this.dataSource = new MatTableDataSource<IRoom>(resp.data);
     })
 
@@ -81,6 +84,33 @@ export class RoomComponent {
       this.openDialogEditRoom(resp.data)
     })
 
+  }
+  enabled(element: IRoom){   
+    let enabled={
+      enable: "habilitar",
+      disable: "deshabilitar"
+    }
+    const dialogRef = this.dialog.open(InfoModalComponent, {
+      data: {
+        title: "Atencion",
+        description: `¿Estas seguro de que desea ${element.enabled ? enabled.disable : enabled.enable} este hotel?`,
+        btnTitle: "Sí, continuar"
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) {
+        this.dataSource.data = [];
+        this.dataSource.data = [...this.dataSourcePrimitive]
+        return
+      }
+      element.enabled = !element.enabled
+      let valor = {
+        id: element.id,
+        enabled: element.enabled
+      }
+      this.serviceRoom.putEnabled(valor).subscribe(response => {
+      })
+    });
   }
 
   openDialogEditRoom(data: IRoom): void {
@@ -109,7 +139,7 @@ export class RoomComponent {
             icon: "info"
           }
         });
-        this.dataManageHotel = INITIAL_ROOM
+        this.dataManageRoom = INITIAL_ROOM
         dialogRef.afterClosed().subscribe(result => {
 
         });
@@ -120,7 +150,7 @@ export class RoomComponent {
 
   openDialogRegisterRoom(): void {
     let list = {
-      data: this.dataManageHotel,
+      data: this.dataManageRoom,
       type: this.listTypeRoom,
       hotel: this.listHoteles
     }
@@ -129,11 +159,11 @@ export class RoomComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dataManageHotel = result
+        this.dataManageRoom = result
         this.openDialogConfirmation()
         return
       }
-      this.dataManageHotel = INITIAL_ROOM
+      this.dataManageRoom = INITIAL_ROOM
 
     });
   }
@@ -151,7 +181,7 @@ export class RoomComponent {
         this.openDialogRegisterRoom()
         return
       }
-      this.serviceRoom.postRoom(this.dataManageHotel).subscribe(data => {
+      this.serviceRoom.postRoom(this.dataManageRoom).subscribe(data => {
         if (data.status != 200) return
         this.getRooms()
         const dialogRef = this.dialog.open(InfoModalComponent, {
@@ -162,7 +192,7 @@ export class RoomComponent {
             icon: "info"
           }
         });
-        this.dataManageHotel = INITIAL_ROOM
+        this.dataManageRoom = INITIAL_ROOM
         dialogRef.afterClosed().subscribe(result => {
 
         });

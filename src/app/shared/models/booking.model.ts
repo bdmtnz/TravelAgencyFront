@@ -64,7 +64,7 @@ export interface IHotel {
 
 export interface IRoom {
     id: string,
-    enabled: true,
+    enabled: boolean,
     hotel: IHotel,
     location: string,
     type: number,
