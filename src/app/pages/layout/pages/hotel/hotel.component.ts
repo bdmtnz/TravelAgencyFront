@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageHotelModalComponent } from './components/manage-hotel-modal/manage-hotel-modal.component';
 import { IHotel, INIT_HOTEL } from './hotel-modal';
 import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
-import { HotelService } from './service/hotel.service';
+import { HotelService } from '../../../../shared/services/hotel.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 

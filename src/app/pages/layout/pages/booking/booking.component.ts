@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 import { ManageReservationModalComponent } from './components/manage-reservation-modal/manage-reservation-modal.component';
+import { BookingService } from '../../../../shared/services/booking.service';
 
 @Component({
   selector: 'app-booking',
@@ -45,14 +46,14 @@ export class BookingComponent {
 
   constructor(
     public dialog: MatDialog,
-    // private readonly service: HotelService,
+    private readonly service: BookingService,
     private readonly router: Router
   ) {
 
   }
   ngOnInit(): void {
     // this.getHotel()
-    // this.getReservation()
+    this.getReservation()
   }
 
 
@@ -60,12 +61,12 @@ export class BookingComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-  // getReservation(){
-  //   this.service.getReservation().subscribe( data =>{
-  //     this.dataSource = new MatTableDataSource<any>(data);
-  //     console.log(this.dataSource.data)
-  //   }) 
-  // }
+  getReservation(){
+    this.service.get().subscribe( data =>{
+      // this.dataSource = new MatTableDataSource<any>(data.data);
+      console.log(data)
+    }) 
+  }
   getReservationById(id:string){
     this.router.navigateByUrl(`/layout/booking/${id}`)
     // let value=this.service.getReservationById(id)

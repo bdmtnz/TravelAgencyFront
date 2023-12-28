@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../../../environments/environment';
-import { IHotel } from '../hotel-modal';
+import { environment } from '../../../environments/environment';
+import { IHotel } from '../../pages/layout/pages/hotel/hotel-modal';
 import { Observable } from 'rxjs';
-import { IApiResponse } from '../../../../../shared/components/models/response';
-import { IEnabledRequest } from '../../../../../shared/components/models/request';
+import { IApiResponse } from '../components/models/response';
+import { IEnabledRequest } from '../components/models/request';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,6 @@ export class HotelService {
   }
   putEnabled(request: IEnabledRequest): Observable<IApiResponse<IEnabledRequest>>{
     return this.http.put<IApiResponse<IEnabledRequest>>(`${environment.apiUrl}hotel/`,request)
-
   }
 
 

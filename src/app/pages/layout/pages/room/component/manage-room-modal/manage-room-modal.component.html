@@ -10,9 +10,9 @@
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Hotel</mat-label>
-                            <mat-select>
-                                <mat-option value="option1">agua clara</mat-option>
-                                <mat-option value="option3">luna blanca</mat-option>
+                            <mat-select formControlName="hotel">
+                                <mat-option value="-1">Seleccione</mat-option>
+                                <mat-option *ngFor="let hotel of dataHotel;"  [value]="hotel.id">{{hotel.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -80,7 +80,7 @@
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Precio</mat-label>
-                            <input type="number" matInput readonly="true" formControlName="price">
+                            <input type="number" matInput formControlName="price">
                         </mat-form-field>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
             </form>
             <div class="container-btn">
                 <button mat-button matStepperPrevious>Anterior</button>
-                <button mat-button matStepperNext color="primary">Guardar</button>
+                <button mat-button matStepperNext color="primary" (click)="saceRoom()">Guardar</button>
             </div>
         </mat-step>
     </mat-stepper>

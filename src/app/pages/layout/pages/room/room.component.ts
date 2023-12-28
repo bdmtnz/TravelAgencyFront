@@ -7,6 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ManageRoomModalComponent } from './component/manage-room-modal/manage-room-modal.component';
+import { RoomsService } from './services/rooms.service';
+import { BookingService } from '../../../../shared/services/booking.service';
+import { HotelService } from '../../../../shared/services/hotel.service';
+import { IHotel, INIT_HOTEL } from '../hotel/hotel-modal';
 
 
 @Component({
@@ -28,55 +32,37 @@ export class RoomComponent {
   data: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  list = []
+  listHoteles!: IHotel[]
   constructor(
     public dialog: MatDialog,
-    // private readonly service: HotelService
+    private readonly serviceHotel: HotelService
   ) {
 
   }
   ngOnInit(): void {
-    // this.getReservation()
+    this.getHoteles()
   }
 
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  // getReservation() {
-  //   this.service.getReservation().subscribe(data => {
-  //     // this.list = data;
-  //     // console.log(data)
-  //     this.dataSource = new MatTableDataSource<any>(data);
 
-  //   })
-  // }
-
-  editHotel(id: string) {
-    // this.data = this.service.getHotelById(id)
-    console.log(this.data)
-    // this.openDialogEditHotel()
+  getHoteles() {
+    this.serviceHotel.getHotel({}).subscribe(resp => {
+      this.listHoteles = resp.data
+      console.log(this.listHoteles)
+    })
   }
 
   openDialogRegisterRoom(): void {
     const dialogRef = this.dialog.open(ManageRoomModalComponent, {
+      data: this.listHoteles
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-
+      
     });
   }
-
-  // openDialogEditHotel(): void {
-  //   const dialogRef = this.dialog.open(ManageHotelModalComponent, {
-  //     data: this.data
-  //   });
-  //   // console.log(this.data)
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-
-  //   });
-  // }
 }
 
 export interface PeriodicElement {

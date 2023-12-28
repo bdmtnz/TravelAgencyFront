@@ -17,6 +17,6 @@ export class BookingService {
   }
 
   get():Observable<IApiResponse<IBookingReponse[]>> {
-    return this.http.post<IApiResponse<IBookingReponse[]>>(`${environment.apiUrl}filter`, {})
+    return this.http.post<IApiResponse<IBookingReponse[]>>(`${environment.apiUrl}booking/filter`, {})
   }
 }

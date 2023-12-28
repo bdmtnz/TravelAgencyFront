@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { IRoom } from '../../../../../../shared/models/booking.model';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-manage-room-modal',
@@ -24,7 +27,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatFormFieldModule,
     MatStepperModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgFor
   ],
   templateUrl: './manage-room-modal.component.html',
   styleUrl: './manage-room-modal.component.scss'
@@ -39,7 +43,13 @@ export class ManageRoomModalComponent implements OnInit {
   /**
    *
    */
-  constructor(private formBuilder: FormBuilder) {
+  objetRoom!: IRoom
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<ManageRoomModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public dataHotel: any,
+
+  ) {
     this.builder()
   }
 
@@ -49,32 +59,44 @@ export class ManageRoomModalComponent implements OnInit {
 
   builder() {
     this.basicData = this.formBuilder.group({
-      hotel: [''],
-      location: [''],
-      city: [''],
-      capacity: [''],
-      type: [''],
+      hotel: ['',[Validators.required]],
+      location: ['',[Validators.required]],
+      city: ['',[Validators.required]],
+      capacity: ['',[Validators.required]],
+      type: ['',[Validators.required]],
     });
 
     this.accountingData = this.formBuilder.group({
-      cost: [0],
-      tax: [0],
-      profit: [0],
-      price: [0],
+      cost: [,[Validators.required]],
+      tax: [,[Validators.required]],
+      profit: [,[Validators.required]],
+      price: [],
     });
     this.image = this.formBuilder.group({
-      imageUrl: [''],
+      imageUrl: ['',[Validators.required]],
     });
   }
-
-  saveRoom(){
-    
-  }
-
 
   previewImg() {
     this.image.get('imageUrl')?.valueChanges.subscribe((value) => {
       this.preview = value
     })
   }
+
+  saceRoom() {
+    console.log("SAVE",this.basicData.value,this.accountingData.value,this.image.value )
+    this.basicData.markAllAsTouched()
+    this.accountingData.markAllAsTouched()
+    this.image.markAllAsTouched()
+
+    if (this.basicData.invalid || this.accountingData.invalid  || this.image.invalid) return
+    this.objetRoom = {
+      ...this.basicData.value,
+      ...this.accountingData.value,
+      ...this.image.value
+
+    }
+    this.dialogRef.close(this.objetRoom)
+  }
+
 }
