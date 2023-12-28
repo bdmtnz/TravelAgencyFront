@@ -1,0 +1,57 @@
+.root-manage {
+    padding: 0 50px;
+    box-sizing: border-box;
+
+    .card {
+        position: relative;
+        background-color: rgb(246, 246, 246);
+        border: 1px solid rgb(233, 233, 233);
+        border-radius: 10px;
+        padding: 40px 40px 40px 40px;
+        box-sizing: border-box;
+        margin-top: 70px;
+
+        label {
+            position: absolute;
+            top: -40px;
+            left: 10px;
+            font-size: large;
+            font-weight: 600;
+        }
+
+        .card-content {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .phone {
+                display: flex;
+                gap: 20px;
+
+                .indicative {
+                    width: 80px;
+                    height: auto;
+                }
+    
+                .input-phone {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            .scrolling {
+                height: 300px;
+                width: 100%;
+                background-color: red;
+                overflow-x: auto;
+            }
+        }
+    }
+
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

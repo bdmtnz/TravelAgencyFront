@@ -1,1 +1,100 @@
-<p>manage-booking works!</p>
+<div class="root-manage">
+    <div class="card booking">
+        <label for="">Datos de la reserva</label>
+        <div class="card-content">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hotel</mat-label>
+                        <mat-select>
+                            <mat-option value="option1">Option 1</mat-option>
+                            <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+                            <mat-option value="option3">Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ciudad</mat-label>
+                        <input matInput placeholder="Placeholder">
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>N° personas</mat-label>
+                        <input matInput placeholder="Placeholder">
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Desde</mat-label>
+                        <input matInput [matDatepicker]="sincePicker">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="sincePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #sincePicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hasta</mat-label>
+                        <!-- <input matInput [matDatepicker]="toPicker" formControlName="birth"> -->
+                        <input matInput [matDatepicker]="toPicker">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="toPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #toPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col flex-end">
+                    <button class="btn" mat-raised-button color="primary">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card room">
+        <label for="">Seleccione una habitación</label>
+        <div class="card-content">
+            <div class="row scrolling">
+                @for(room of rooms; track room) {
+                    <p>Habitación</p>
+                }
+            </div>            
+        </div>
+    </div>
+
+    <div class="card emergency">
+        <label for="">Contacto de emergencia</label>
+        <div class="card-content">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Placeholder">
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+                </div>
+                <div class="col phone">
+                    <mat-form-field appearance="outline" class="indicative">
+                        <mat-label>Ind</mat-label>
+                        <input type="text" matInput placeholder="58">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="input-phone">
+                        <mat-label>Telefono</mat-label>
+                        <input type="tel" matInput placeholder="">
+                    </mat-form-field>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
