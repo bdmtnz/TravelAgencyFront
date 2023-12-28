@@ -124,7 +124,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(InfoModalComponent, {
       data: {
         title: "Atención",
-        descripcion: "¿Esta seguro que desea guardar un nuevo hotel?",
+        description: "¿Esta seguro que desea guardar un nuevo hotel?",
         btnTitle: "Guardar",
         icon: "info"
       }
@@ -135,24 +135,28 @@ export class HotelComponent implements AfterViewInit, OnInit {
         return
       }
       this.service.postHotel(this.dataManageHotel).subscribe(data => {
-        if (data.status != 200) {
-          const dialogRef = this.dialog.open(InfoModalComponent, {
-            data: {
-              title: "Atención",
-              descripcion: "Error al registrar un nuevo hotel",
-              btnTitle: "aceptar",
-              icon: "warning"
-            }
-          });
-          dialogRef.afterClosed().subscribe(result => {
+        // if (data.status != 200) {
+        //   const dialogRef = this.dialog.open(InfoModalComponent, {
+        //     data: {
+        //       title: "Atención",
+        //       description: "Error al registrar un nuevo hotel",
+        //       btnTitle: "aceptar",
+        //       icon: "warning"
+        //     }
+            
+        //   });
+          
+        //   dialogRef.afterClosed().subscribe(result => {
 
-          });
-          return
-        }
+        //   });
+        //   return
+        // }
+        if (data.status != 200) return
+        this.getHotel()
         const dialogRef = this.dialog.open(InfoModalComponent, {
           data: {
             title: "Atención",
-            descripcion: "Se ha Registrado exitosamente",
+            description: "Se ha Registrado exitosamente",
             btnTitle: "aceptar",
             icon: "info"
           }
