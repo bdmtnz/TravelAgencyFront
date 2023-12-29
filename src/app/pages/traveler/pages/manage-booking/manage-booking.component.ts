@@ -13,7 +13,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { IBookingReponse, IBookingRequest, IHotel, IRoom } from '../../../../shared/models/booking.model';
 import { ILoginResponse } from '../../../landing/models/login.model';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DB_FLAGS } from '../../../../shared/models/db.model';
 import { LocalDbPersist } from '../../../../shared/services/db.service';
 import { SignupModalComponent } from '../../../../shared/components/signup-modal/signup-modal.component';
@@ -71,6 +71,7 @@ export class ManageBookingComponent {
   rooms: IRoom[] = []
   selectionRoom: IRoom | null
   genders: ISelectOption[] = []
+  id:string = ''
 
   constructor(
     private readonly _signup: SignupService,
@@ -78,7 +79,8 @@ export class ManageBookingComponent {
     private readonly router: Router,
     private formBuilder: FormBuilder,
     private readonly freeRoomsService: RoomService,
-    private readonly _booking: BookingService
+    private readonly _booking: BookingService,
+    private rutaActiva: ActivatedRoute
   ) {
     this.dataSource = new MatTableDataSource<ISignup>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
@@ -94,13 +96,19 @@ export class ManageBookingComponent {
   }
 
   ngOnInit(): void {
+    this.id = this.rutaActiva.snapshot.params["booking"]
     this.builder()
     this._signup.getTypes().subscribe(option => {
       this.genders = option.data["genders"]
     })
+    
     this.filterRooms()
     this.getRooms()
+    this.getBookingById()
+    
   }
+
+
 
   builder() {
     this.filterRequestRooms = this.formBuilder.group({
@@ -126,8 +134,28 @@ export class ManageBookingComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-  getBookingById(id:string){
-    this.router.navigateByUrl(`/traveler/booking/${id}`)
+  getBookingById(){
+    this._booking.getBookingById(this.id).subscribe( resp => {
+      let mapped = resp.data.guests.map((item): ISignup => {
+        return {
+          ...item,
+          document: item.document.value,
+          documentType: item.document.type,
+          password: '',
+          name: item.contact.name,
+          phone: item.contact.value,
+          indicative: item.contact.indicative,
+          birth: item.birth.toString(),
+        }
+      })
+      this.emergencyForm.patchValue({
+        ...resp.data.emergencyContact,
+        phone: resp.data.emergencyContact.value
+      })
+      this.dataSource = new MatTableDataSource<ISignup>(mapped)  
+      
+    })
+    // this.router.navigateByUrl(`/traveler/booking/${id}`)
   }
 
   manage() {
@@ -153,8 +181,12 @@ export class ManageBookingComponent {
       })
       dialogRef.afterClosed().subscribe((resp => {
         if(response.status != 200) this.router.navigateByUrl(`/traveler`)
+        this.volver()
       }))
     })
+  }
+  volver(){
+    this.router.navigateByUrl(`/traveler`)
   }
 
   getSelectedRoom(room: IRoom) {

@@ -23,4 +23,7 @@ export class BookingService {
   get():Observable<IApiResponse<IBookingReponse[]>> {
     return this.http.post<IApiResponse<IBookingReponse[]>>(`${environment.apiUrl}booking/filter`, {})
   }
+  getBookingById(id: string):Observable<IApiResponse<IBookingReponse>> {
+    return this.http.get<IApiResponse<IBookingReponse>>(`${environment.apiUrl}/booking/byid/${id}`)
+  }
 }
