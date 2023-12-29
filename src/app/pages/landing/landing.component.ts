@@ -14,8 +14,9 @@ import { ILoginResponse } from './models/login.model';
 import { DB_FLAGS } from '../../shared/models/db.model';
 import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.component';
 import { SignupModalComponent } from '../../shared/components/signup-modal/signup-modal.component';
-import { INIT_SIGNUP, ISignupRequestModal } from '../../shared/models/signup-modal';
+import { INIT_SIGNUP, IResponseModal, ISignup, ISignupRequestModal } from '../../shared/models/signup-modal';
 import { SignupService } from '../../shared/components/signup-modal/service/signup.service';
+import { IInfoModalRequest } from '../../shared/models/info-modal.model';
 
 @Component({
   selector: 'app-landing',
@@ -32,7 +33,7 @@ import { SignupService } from '../../shared/components/signup-modal/service/sign
 })
 export class LandingComponent {
 
-  dataClient = INIT_SIGNUP
+  formValue = {...INIT_SIGNUP}
 
   constructor(
     public dialog: MatDialog,
@@ -67,46 +68,67 @@ export class LandingComponent {
       title: 'Registrar viajero',
       showPassword: true,
       mode: 'ADD',
-      content: this.dataClient
+      content: this.formValue
     }
     const dialogRef = this.dialog.open(SignupModalComponent, {
       data: params
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.openDialogConfirmation()
-        this.dataClient = result
-        return
-      }
+    dialogRef.afterClosed().subscribe((result:IResponseModal<ISignup>) => {
+      if(!result) return
+      if(result.dispatcher != 'OK') return
+      this.openDialogConfirmation()
+      this.formValue = result.content
     });
   }
 
   openDialogConfirmation() {
+    var params: IInfoModalRequest = {
+      title: "Atención",
+      description: "¿Está seguro que desea guardar sus datos?",
+      btnTitle: "Sí, continuar",
+      icon: "info"
+    }
     const dialogRef = this.dialog.open(InfoModalComponent, {
-      data: {
-        title: "Atención",
-        descripcion: "¿Está seguro que desea guardar sus datos?",
-        btnTitle: "Sí, continuar",
-        icon: "info"
-      }
+      data: params
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result:IResponseModal<boolean>) => {
       if (!result) {
         this.openDialogRegistrar()
         return
       }
-      this.signupService.post(this.dataClient).subscribe(data => {
-        if (data.status != 200) return
+      if(result.dispatcher != 'OK') {
+        this.openDialogRegistrar()
+        return
+      }
+      this.signupService.post(this.formValue).subscribe(data => {
+        var params: IInfoModalRequest = {
+          title: "Atención",
+          description: data.message,
+          btnTitle: "Aceptar",
+          icon: "info"
+        }
         const dialogRef = this.dialog.open(InfoModalComponent, {
-          data: {
-            title: "Atención",
-            descripcion: "Se ha registrado exitosamente",
-            btnTitle: "Aceptar",
-            icon: "info"
-          }
+          data: params
+        })
+        this.formValue = {...INIT_SIGNUP}
+        dialogRef.afterClosed().subscribe(result => {
+          if(data.status != 200) this.openDialogRegistrar()
         });
-        this.dataClient = INIT_SIGNUP
-        dialogRef.afterClosed().subscribe(result => {});
+      },
+      error => {
+        var params: IInfoModalRequest = {
+          title: "Atención",
+          description: "Ha ocurrido un error desconocido",
+          btnTitle: "Aceptar",
+          icon: "info"
+        }
+        const dialogRef = this.dialog.open(InfoModalComponent, {
+          data: params
+        })
+        this.formValue = {...INIT_SIGNUP}
+        dialogRef.afterClosed().subscribe(result => {
+          this.openDialogRegistrar()
+        });
       })
     });
   }

@@ -26,14 +26,14 @@ export const INIT_SIGNUP : ISignup = {
 
 export interface ISignupRequestModal {
     title: string,
-    mode: 'ADD'|'EDIT'
+    mode: 'ADD'|'EDIT'|'CONFIRMATION'
     showPassword: boolean,
     content: ISignup
 }
 
-export interface ISignupResponseModal {
-    mode: 'ADD'|'EDIT',
-    dispatcher: 'OK'|'CLOSE'|'CANCEL'|string,
-    content: ISignup
+export interface IResponseModal<T> {
+    mode: 'ADD'|'EDIT'|'CONFIRMATION',
+    dispatcher: 'OK'|'CLOSE'|'CANCEL',
+    content: T
 }
 
