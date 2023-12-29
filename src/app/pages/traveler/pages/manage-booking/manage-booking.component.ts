@@ -10,7 +10,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { IBookingReponse } from '../../../../shared/models/booking.model';
+import { IBookingReponse, IRoom } from '../../../../shared/models/booking.model';
 import { ILoginResponse } from '../../../landing/models/login.model';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -23,15 +23,14 @@ import * as Model from './manage-booking.model';
 import { SignupService } from '../../../../shared/components/signup-modal/service/signup.service';
 import { CardHotelComponent } from '../../../../shared/components/card/card-hotel/card-hotel.component';
 import { HotelService } from '../../../../shared/services/hotel.service';
-import { IHotel } from '../../../layout/pages/hotel/hotel-modal';
-import { IManageRoomRequest } from '../../../../shared/models/room.model';
+import { RoomService } from '../../../../shared/services/room.service';
 
 @Component({
   selector: 'app-manage-booking',
   standalone: true,
   imports: [
-    MatFormFieldModule, 
-    MatInputModule, 
+    MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
@@ -66,35 +65,39 @@ export class ManageBookingComponent {
     'action'
   ];
   data: any;
-  rooms: IManageRoomRequest[] = []
-  hoteles:IHotel[] = []
+  rooms: IRoom[] = []
   selectionRoom: string = 'Hotel maduras SAS.'
   genders: ISelectOption[] = []
+  filterRequestRooms!: FormGroup
 
   constructor(
     private readonly _signup: SignupService,
     public dialog: MatDialog,
     private readonly router: Router,
     private readonly hotelService: HotelService,
-    private readonly formBuilder: FormBuilder
-  ) { 
+    private formBuilder: FormBuilder,
+    private readonly freeRoomsService: RoomService
+  ) {
     this.dataSource = new MatTableDataSource<ISignup>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
   }
 
   ngOnInit(): void {
     this.builder()
-    this.getHotel()
     this._signup.getTypes().subscribe(option => {
       this.genders = option.data["genders"]
     })
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.filterRooms()
+    this.getRooms()
   }
 
   builder() {
+    this.filterRequestRooms = this.formBuilder.group({
+      city: [''],
+      quantityPeople: [0],
+      start: [Date],
+      end: [Date]
+    })
     this.emergencyForm = this.formBuilder.group({
       indicative: [null, [Validators.required, Validators.min(1), Validators.maxLength(4)]],
       phone: [null, [Validators.required]],
@@ -102,14 +105,23 @@ export class ManageBookingComponent {
     })
   }
 
+  filterRooms(){
+    this.freeRoomsService.getFreeRooms(this.filterRequestRooms.value).subscribe(resp => {
+      this.rooms = resp.data
+    })
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   getBookingById(id:string){
     this.router.navigateByUrl(`/traveler/booking/${id}`)
   }
 
-  getHotel(){
-    this.hotelService.getHotel({}).subscribe(resp => {
-      console.log(resp.data)
-      this.hoteles = resp.data
+  getRooms() {
+    this.freeRoomsService.getRooms().subscribe(resp => {
+      this.rooms = resp.data
     })
   }
 
@@ -118,16 +130,16 @@ export class ManageBookingComponent {
     return gender ? gender.name : 'N/A'
   }
 
-  manageGuest(guest?:ISignup) {
+  manageGuest(guest?: ISignup) {
     const dialogRef = this.dialog.open(SignupModalComponent, {
       data: Model.Utils.GetModalParamsGuest(guest)
     })
     dialogRef.afterClosed().subscribe(
-      (value:IResponseModal<ISignup>|null) => {
-        if(!value) return
-        if(value.dispatcher != 'OK') return
+      (value: IResponseModal<ISignup> | null) => {
+        if (!value) return
+        if (value.dispatcher != 'OK') return
         let index = this.dataSource.data.findIndex(row => row.document == value.content.document)
-        if(value.mode == 'ADD' && index == -1) this.dataSource.data.push(value.content)
+        if (value.mode == 'ADD' && index == -1) this.dataSource.data.push(value.content)
         else {
           this.dataSource.data.splice(index)
           this.dataSource.data.push(value.content)
@@ -137,7 +149,7 @@ export class ManageBookingComponent {
     )
   }
 
-  remove(guest:ISignup) {
+  remove(guest: ISignup) {
     let index = this.dataSource.data.findIndex(row => row.document == guest.document)
     this.dataSource.data.splice(index, 1)
     this.dataSource._updateChangeSubscription()

@@ -62,6 +62,7 @@ export interface IHotel {
     minPrice: number
 }
 
+
 export interface IRoom {
     id: string,
     enabled: boolean,

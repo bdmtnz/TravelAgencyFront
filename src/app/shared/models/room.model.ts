@@ -28,3 +28,10 @@ export interface IEmergencyContact {
     phone: string,
     name: string
 }
+
+export interface IFilterRoomRequest {
+    city: string,
+    quantityPeople: number,
+    start: Date,
+    end: Date
+}
