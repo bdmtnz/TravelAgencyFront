@@ -168,26 +168,28 @@
     <div class="card emergency">
         <label for="">Contacto de emergencia</label>
         <div class="card-content">
-            <div class="row">
-                <div class="col">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Nombre</mat-label>
-                        <input matInput placeholder="Placeholder">
-                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                        <!-- <mat-hint>Hint</mat-hint> -->
-                    </mat-form-field>
+            <form [formGroup]="emergencyForm">
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput placeholder="Placeholder" formControlName="name">
+                            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                            <!-- <mat-hint>Hint</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="col phone">
+                        <mat-form-field appearance="outline" class="indicative">
+                            <mat-label>Ind</mat-label>
+                            <input type="text" matInput placeholder="58" formControlName="indicative">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="input-phone">
+                            <mat-label>Telefono</mat-label>
+                            <input type="tel" matInput placeholder="" formControlName="phone">
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div class="col phone">
-                    <mat-form-field appearance="outline" class="indicative">
-                        <mat-label>Ind</mat-label>
-                        <input type="text" matInput placeholder="58">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="input-phone">
-                        <mat-label>Telefono</mat-label>
-                        <input type="tel" matInput placeholder="">
-                    </mat-form-field>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

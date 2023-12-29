@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule, DateAdapter, NativeDateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -54,6 +54,7 @@ import { IManageRoomRequest } from '../../../../shared/models/room.model';
 export class ManageBookingComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
+  emergencyForm!: FormGroup
   dataSource: MatTableDataSource<ISignup>
   credential: ILoginResponse
   displayedColumns: string[] = [
@@ -74,13 +75,15 @@ export class ManageBookingComponent {
     private readonly _signup: SignupService,
     public dialog: MatDialog,
     private readonly router: Router,
-    private readonly hotelService: HotelService
+    private readonly hotelService: HotelService,
+    private readonly formBuilder: FormBuilder
   ) { 
     this.dataSource = new MatTableDataSource<ISignup>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
   }
 
   ngOnInit(): void {
+    this.builder()
     this.getHotel()
     this._signup.getTypes().subscribe(option => {
       this.genders = option.data["genders"]
@@ -89,6 +92,14 @@ export class ManageBookingComponent {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  builder() {
+    this.emergencyForm = this.formBuilder.group({
+      indicative: [null, [Validators.required, Validators.min(1), Validators.maxLength(4)]],
+      phone: [null, [Validators.required]],
+      name: [null, [Validators.required]]
+    })
   }
 
   getBookingById(id:string){
