@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -48,7 +48,7 @@ export class ManageRoomModalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ManageRoomModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public params: any,
 
   ) {
     this.builder()
@@ -65,9 +65,10 @@ export class ManageRoomModalComponent implements OnInit {
   builder() {
     this.basicData = this.formBuilder.group({
       id: [''],
-      hotelId: ['', [Validators.required, Validators.minLength(1)]],
+      //hotelId: ['', [Validators.required, Validators.minLength(1)]],
+      hotelId: new FormControl({ value: '', disabled: this.params.data.id }, [Validators.required, Validators.minLength(1)]),
       location: ['', [Validators.required]],
-      city: ['', [Validators.required]],
+      city: new FormControl({ value: '', disabled: this.params.data.id }, [Validators.required]),
       capacity: ['', [Validators.required]],
       type: ['', [Validators.required, Validators.minLength(1)]],
     });
@@ -100,10 +101,10 @@ export class ManageRoomModalComponent implements OnInit {
     // this.accountingData.controls['profit'].setValue(this.data.data.profit)
     // this.accountingData.controls['price'].setValue(this.data.data.price)
     // this.image.controls['imageUrl'].setValue(this.data.data.imageUrl)
-    this.basicData.patchValue({ ...this.data.data })
-    this.accountingData.patchValue({ ...this.data.data })
-    this.image.patchValue({ ...this.data.data })
-    this.price = this.data.data.price
+    this.basicData.patchValue({ ...this.params.data })
+    this.accountingData.patchValue({ ...this.params.data })
+    this.image.patchValue({ ...this.params.data })
+    this.price = this.params.data.price
   }
 
 
