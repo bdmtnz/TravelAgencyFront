@@ -47,6 +47,14 @@
                 background-color: red;
                 overflow-x: auto;
             }
+
+            .guests {
+                &-manage {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                }
+            }
         }
     }
 
