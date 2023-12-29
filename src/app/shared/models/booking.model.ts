@@ -80,15 +80,43 @@ export interface IRoom {
 }
 
 export interface IBookingReponse {
-    id: string,
-    enabled: true,
-    roomId: string,
-    room: IRoom,
-    traveler: ITraveler,
-    guests: Array<IPerson>,
-    emergencyContact: IContact,
-    start: Date,
-    end: Date,
-    price: number,
-    quantityPeople: number
+  id: string,
+  enabled: true,
+  roomId: string,
+  room: IRoom,
+  traveler: ITraveler,
+  guests: Array<IPerson>,
+  emergencyContact: IContact,
+  start: Date,
+  end: Date,
+  price: number,
+  quantityPeople: number
+}
+
+export interface IEmergencyContact {
+  indicative: number,
+  phone: string,
+  name: string
+}
+
+export interface IGuestRequest {
+  name: string,
+  indicative: number,
+  phone: string,
+  documentType: number,
+  document: string,
+  lastName: string,
+  birth: Date,
+  gender: number,
+  email: string
+}
+
+export interface IBookingRequest {
+  roomId: string,
+  credentialId: string,
+  guests: IGuestRequest[],
+  emergencyContact: IEmergencyContact,
+  start: Date,
+  end: Date,
+  city: string
 }

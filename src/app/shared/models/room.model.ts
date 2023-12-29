@@ -23,12 +23,6 @@ export const INITIAL_ROOM : IManageRoomRequest = {
     imageUrl: ""
 }
 
-export interface IEmergencyContact {
-    indicative: number,
-    phone: string,
-    name: string
-}
-
 export interface IFilterRoomRequest {
     city: string,
     quantityPeople: number,

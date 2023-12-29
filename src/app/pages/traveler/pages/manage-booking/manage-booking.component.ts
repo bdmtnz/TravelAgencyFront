@@ -10,7 +10,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { IBookingReponse, IRoom } from '../../../../shared/models/booking.model';
+import { IBookingReponse, IBookingRequest, IHotel, IRoom } from '../../../../shared/models/booking.model';
 import { ILoginResponse } from '../../../landing/models/login.model';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -22,8 +22,10 @@ import { ISelectOption } from '../../../../shared/models/response';
 import * as Model from './manage-booking.model';
 import { SignupService } from '../../../../shared/components/signup-modal/service/signup.service';
 import { CardHotelComponent } from '../../../../shared/components/card/card-hotel/card-hotel.component';
-import { HotelService } from '../../../../shared/services/hotel.service';
 import { RoomService } from '../../../../shared/services/room.service';
+import { BookingService } from '../../../../shared/services/booking.service';
+import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
+import { IInfoModalRequest } from '../../../../shared/models/info-modal.model';
 
 @Component({
   selector: 'app-manage-booking',
@@ -54,6 +56,7 @@ export class ManageBookingComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   emergencyForm!: FormGroup
+  filterRequestRooms!: FormGroup
   dataSource: MatTableDataSource<ISignup>
   credential: ILoginResponse
   displayedColumns: string[] = [
@@ -66,20 +69,25 @@ export class ManageBookingComponent {
   ];
   data: any;
   rooms: IRoom[] = []
-  selectionRoom: string = 'Hotel maduras SAS.'
+  selectionRoom: IRoom
   genders: ISelectOption[] = []
-  filterRequestRooms!: FormGroup
 
   constructor(
     private readonly _signup: SignupService,
     public dialog: MatDialog,
     private readonly router: Router,
-    private readonly hotelService: HotelService,
     private formBuilder: FormBuilder,
-    private readonly freeRoomsService: RoomService
+    private readonly freeRoomsService: RoomService,
+    private readonly _booking: BookingService
   ) {
     this.dataSource = new MatTableDataSource<ISignup>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
+    this.selectionRoom = {
+      hotel: {
+        name: 'Hotel SAS.'
+      } as IHotel,
+      id: 'Hotel SAS.'
+    } as IRoom
   }
 
   ngOnInit(): void {
@@ -117,6 +125,30 @@ export class ManageBookingComponent {
 
   getBookingById(id:string){
     this.router.navigateByUrl(`/traveler/booking/${id}`)
+  }
+
+  manage() {
+    let request: IBookingRequest = {
+      roomId: this.selectionRoom.id,
+      credentialId: this.credential.id,
+      ...this.emergencyForm.value,
+      ...this.filterRequestRooms.value,
+      guests: this.dataSource.data
+    }
+    this._booking.post(request).subscribe(response => {
+      let modalParams: IInfoModalRequest = {
+        title: 'Atención',
+        description: response.message,
+        icon: "info",
+        btnTitle: 'Aceptar'
+      }
+      const dialogRef = this.dialog.open(InfoModalComponent, {
+        data: modalParams
+      })
+      dialogRef.afterClosed().subscribe((resp => {
+        if(response.status != 200) this.router.navigateByUrl(`/traveler`)
+      }))
+    })
   }
 
   getRooms() {
