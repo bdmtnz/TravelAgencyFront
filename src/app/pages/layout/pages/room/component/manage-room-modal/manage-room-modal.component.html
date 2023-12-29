@@ -83,12 +83,12 @@
                     <div class="grid">
                         <mat-form-field appearance="outline" class="input">
                             <mat-label>Precio</mat-label>
-                            <input type="number" matInput formControlName="price">
+                            <input type="number" readonly="true" matInput [value]="price">
                         </mat-form-field>
                     </div>
                 </div>
 
-            </form>
+            </form> 
             <div class="container-btn">
                 <div class="container-btn">
                     <button mat-button matStepperPrevious>Anterior</button>

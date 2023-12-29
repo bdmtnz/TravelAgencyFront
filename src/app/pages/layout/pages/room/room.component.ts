@@ -15,6 +15,7 @@ import { InfoModalComponent } from '../../../../shared/components/info-modal/inf
 import { IManageRoomRequest, INITIAL_ROOM } from '../../../../shared/models/room.model';
 import { ISelectOption } from '../../../../shared/components/models/response';
 import { IRoom } from '../../../../shared/models/booking.model';
+import { CurrencyPipe } from '@angular/common';
 
 
 @Component({
@@ -26,6 +27,7 @@ import { IRoom } from '../../../../shared/models/booking.model';
     MatIconModule,
     MatSlideToggleModule,
     MatButtonModule,
+    CurrencyPipe
   ],
   templateUrl: './room.component.html',
   styleUrl: './room.component.scss'
@@ -38,11 +40,13 @@ export class RoomComponent {
 
   listHoteles!: IHotel[]
   listTypeRoom!: ISelectOption[]
-  dataManageHotel: IManageRoomRequest = INITIAL_ROOM
+  dataManageRoom: IManageRoomRequest = INITIAL_ROOM
+  dataSourcePrimitive: IRoom[] = []
+
   constructor(
     public dialog: MatDialog,
     private readonly serviceHotel: HotelService,
-    private readonly serviceRoom: RoomsService
+    private readonly serviceRoom: RoomsService,
   ) {
 
   }
@@ -70,19 +74,46 @@ export class RoomComponent {
   }
   getRooms() {
     this.serviceRoom.getRooms().subscribe(resp => {
-      console.log(resp)
+      this.dataSourcePrimitive = [...resp.data]
       this.dataSource = new MatTableDataSource<IRoom>(resp.data);
     })
 
   }
   editRoom(id: string) {
-    this.serviceRoom.getRoomById(id).subscribe( resp => {
+    this.serviceRoom.getRoomById(id).subscribe(resp => {
       this.openDialogEditRoom(resp.data)
     })
 
   }
-  
-  openDialogEditRoom(data:IRoom): void {
+  enabled(element: IRoom){   
+    let enabled={
+      enable: "habilitar",
+      disable: "deshabilitar"
+    }
+    const dialogRef = this.dialog.open(InfoModalComponent, {
+      data: {
+        title: "Atencion",
+        description: `¿Estas seguro de que desea ${element.enabled ? enabled.disable : enabled.enable} este hotel?`,
+        btnTitle: "Sí, continuar"
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) {
+        this.dataSource.data = [];
+        this.dataSource.data = [...this.dataSourcePrimitive]
+        return
+      }
+      element.enabled = !element.enabled
+      let valor = {
+        id: element.id,
+        enabled: element.enabled
+      }
+      this.serviceRoom.putEnabled(valor).subscribe(response => {
+      })
+    });
+  }
+
+  openDialogEditRoom(data: IRoom): void {
     const dialogRef = this.dialog.open(ManageRoomModalComponent, {
       data: {
         title: "Editar Habitacion",
@@ -96,16 +127,30 @@ export class RoomComponent {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+      this.serviceRoom.postRoom(result).subscribe(data => {
+        if (data.status != 200) return
+        this.getRooms()
+        const dialogRef = this.dialog.open(InfoModalComponent, {
+          data: {
+            title: "Atención",
+            description: "Actualizacion exitosa",
+            btnTitle: "aceptar",
+            icon: "info"
+          }
+        });
+        this.dataManageRoom = INITIAL_ROOM
+        dialogRef.afterClosed().subscribe(result => {
 
-      // this.service.postHotel(result).subscribe( data => { 
-      //   this.getHotel()
-      // })
+        });
+
+      })
     });
   }
 
   openDialogRegisterRoom(): void {
     let list = {
-      data: this.dataManageHotel,
+      data: this.dataManageRoom,
       type: this.listTypeRoom,
       hotel: this.listHoteles
     }
@@ -114,11 +159,11 @@ export class RoomComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dataManageHotel = result
+        this.dataManageRoom = result
         this.openDialogConfirmation()
         return
       }
-      this.dataManageHotel = INITIAL_ROOM
+      this.dataManageRoom = INITIAL_ROOM
 
     });
   }
@@ -136,7 +181,7 @@ export class RoomComponent {
         this.openDialogRegisterRoom()
         return
       }
-      this.serviceRoom.postRoom(this.dataManageHotel).subscribe(data => {
+      this.serviceRoom.postRoom(this.dataManageRoom).subscribe(data => {
         if (data.status != 200) return
         this.getRooms()
         const dialogRef = this.dialog.open(InfoModalComponent, {
@@ -147,7 +192,7 @@ export class RoomComponent {
             icon: "info"
           }
         });
-        this.dataManageHotel = INITIAL_ROOM
+        this.dataManageRoom = INITIAL_ROOM
         dialogRef.afterClosed().subscribe(result => {
 
         });
@@ -157,7 +202,7 @@ export class RoomComponent {
     });
   }
 
- 
+
 
 
 }

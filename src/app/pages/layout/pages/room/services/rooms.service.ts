@@ -5,6 +5,7 @@ import { IApiResponse, ISelectOption } from '../../../../../shared/components/mo
 import { IRoom } from '../../../../../shared/models/booking.model';
 import { environment } from '../../../../../../environments/environment';
 import { IManageRoomRequest } from '../../../../../shared/models/room.model';
+import { IEnabledRequest } from '../../../../../shared/components/models/request';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,8 @@ export class RoomsService {
   }
   getRoomById(id: string): Observable<IApiResponse<IRoom>>{
     return this.http.get<IApiResponse<IRoom>>(`${environment.apiUrl}room/ById/${id}`)
+  }
+  putEnabled(request: IEnabledRequest): Observable<IApiResponse<IEnabledRequest>>{
+    return this.http.put<IApiResponse<IEnabledRequest>>(`${environment.apiUrl}room/`,request)
   }
 }
