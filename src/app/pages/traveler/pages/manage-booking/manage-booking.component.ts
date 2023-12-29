@@ -90,6 +90,7 @@ export class ManageBookingComponent {
       this.genders = option.data["genders"]
     })
     this.filterRooms()
+    this.getRooms()
   }
 
   builder() {
@@ -115,12 +116,11 @@ export class ManageBookingComponent {
     this.router.navigateByUrl(`/traveler/booking/${id}`)
   }
 
-  // getHotel() {
-  //   this.hotelService.getHotel({}).subscribe(resp => {
-  //     console.log(resp.data)
-  //      = resp.data
-  //   })
-  // }
+  getRooms() {
+    this.freeRoomsService.getRooms().subscribe(resp => {
+      this.rooms = resp.data
+    })
+  }
 
   getGender(genderId: number) {
     let gender = this.genders.find(gender => gender.id == genderId)
