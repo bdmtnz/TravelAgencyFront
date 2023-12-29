@@ -1,4 +1,5 @@
 export interface IManageGuestRequest {
+    id?: string,
     name: string,
     indicative: number,
     phone: string,

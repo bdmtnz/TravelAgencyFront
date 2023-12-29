@@ -8,19 +8,26 @@ import { MatSelectModule } from '@angular/material/select';
 import * as Model from './manage-guest.utils';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IManageGuestRequest } from '../../models/manage-guest.model';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-manage-guest',
   standalone: true,
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
     MatFormFieldModule, 
     MatInputModule, 
     MatIconModule,
-    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: NativeDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
   ],
   templateUrl: './manage-guest.component.html',
   styleUrl: './manage-guest.component.scss'

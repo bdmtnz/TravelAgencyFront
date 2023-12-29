@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
 import { DB_FLAGS } from '../../../../shared/models/db.model';
 import { BookingService } from '../../../../shared/services/booking.service';
 import { LocalDbPersist } from '../../../../shared/services/db.service';
+import { IManageGuestRequest } from './models/manage-guest.model';
+import { ManageGuestComponent } from './components/manage-guest/manage-guest.component';
 
 @Component({
   selector: 'app-manage-booking',
@@ -82,6 +84,29 @@ export class ManageBookingComponent {
 
   getBookingById(id:string){
     this.router.navigateByUrl(`/traveler/booking/${id}`)
+  }
+
+  manageGuest(guest?:IManageGuestRequest) {
+    let _guest = guest ?? {
+      birth: null,
+      document: '',
+      documentType: -1,
+      email: '',
+      gender: -1,
+      indicative: 0,
+      lastName: '',
+      name: '',
+      phone: ''
+    }
+    const dialogRef = this.dialog.open(ManageGuestComponent, {
+      data: _guest
+    })
+    dialogRef.afterClosed().subscribe(
+      (value:IManageGuestRequest|null) => {
+        if(!value) return
+        
+      }
+    )
   }
 }
 
