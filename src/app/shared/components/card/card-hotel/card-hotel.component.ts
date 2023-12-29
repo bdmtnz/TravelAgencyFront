@@ -25,6 +25,7 @@ export class CardHotelComponent {
   @Input() city: string = ''
   @Input() price: number = 0
   @Input() hotel: string = '';
+  @Input() quantityPeople: number = 0
 
   lista = [
     {
