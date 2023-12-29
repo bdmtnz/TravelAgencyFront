@@ -64,6 +64,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getBookingById(id:string){
-    this.router.navigateByUrl(`/traveler/booking/${id}`)
+    this.router.navigateByUrl(`/traveler/manage/${id}`)
+  }
+
+  addBooking() {
+    this.router.navigateByUrl(`/traveler/manage`)
   }
 }

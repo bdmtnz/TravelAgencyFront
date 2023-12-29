@@ -15,13 +15,12 @@ export const travelerRoute: Route = {
             component: HomeComponent
         },
         {
+            path: 'manage',
+            component: ManageBookingComponent
+        },
+        {
             path: 'manage/:booking',
             component: ManageBookingComponent
-        }
-        ,
-        {
-            path: 'card',
-            component: CardHotelComponent
         }
     ] 
 };
