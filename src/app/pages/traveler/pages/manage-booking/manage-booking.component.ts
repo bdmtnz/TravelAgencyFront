@@ -81,6 +81,7 @@ export class ManageBookingComponent {
   }
 
   ngOnInit(): void {
+    this.getHotel()
     this._signup.getTypes().subscribe(option => {
       this.genders = option.data["genders"]
     })
