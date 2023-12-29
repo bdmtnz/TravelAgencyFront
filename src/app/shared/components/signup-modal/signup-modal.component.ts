@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SignupService } from './service/signup.service';
 import { NgFor } from '@angular/common';
-import { ISignup, ISignupRequestModal, ISignupResponseModal } from '../../models/signup-modal';
+import { ISignup, ISignupRequestModal, IResponseModal } from '../../models/signup-modal';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ISelectOption } from '../../models/response';
 
@@ -49,7 +49,7 @@ export class SignupModalComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private readonly signupService: SignupService,
-    public dialogRef: MatDialogRef<SignupModalComponent, ISignupResponseModal>,
+    public dialogRef: MatDialogRef<SignupModalComponent, IResponseModal<ISignup>>,
     @Inject(MAT_DIALOG_DATA) public params: ISignupRequestModal
   ) {
     this.builder()
@@ -83,14 +83,14 @@ export class SignupModalComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]]
     })
     this.credentialForm = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      password2: ['', [Validators.required, Validators.minLength(8)]]
     })
   }
 
   dataInitial(){
     this.basicForm.patchValue({...this.params.content})
     this.contacForm.patchValue({...this.params.content})
-    this.credentialForm.patchValue({...this.params.content})
   }
 
   getSelectOpcion() {
@@ -104,13 +104,14 @@ export class SignupModalComponent implements OnInit {
     this.basicForm.markAllAsTouched()
     this.contacForm.markAllAsTouched()
     this.credentialForm.markAllAsTouched()
-    if (this.basicForm.invalid && this.contacForm.invalid && (!this.params.showPassword || this.credentialForm.invalid)) return
-    var response: ISignupResponseModal = {
+    if (this.basicForm.invalid || this.contacForm.invalid || (this.params.showPassword && this.credentialForm.invalid)) return
+    var response: IResponseModal<ISignup> = {
       mode: this.params.mode,
-      dispatcher: 'SAVE',
+      dispatcher: 'OK',
       content: {
         ...this.basicForm.value,
-        ...this.contacForm.value
+        ...this.contacForm.value,
+        ...this.credentialForm.value
       }
     }
     this.dialogRef.close(response)
