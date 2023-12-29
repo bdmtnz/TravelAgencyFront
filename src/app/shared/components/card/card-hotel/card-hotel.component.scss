@@ -85,6 +85,14 @@
                     color: rgb(15, 22, 154);
                 }
             }
+            .descripcion {
+                display: flex;
+                align-items: center;
+                background-color: blue;
+                p{
+                    margin: 0;
+                }
+            }
 
         }
 
