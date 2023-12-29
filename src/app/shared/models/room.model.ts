@@ -23,9 +23,13 @@ export const INITIAL_ROOM : IManageRoomRequest = {
     imageUrl: ""
 }
 
-export interface IFilterRoomRequest {
+export interface IFilterFreeRoomRequest {
     city: string,
     quantityPeople: number,
     start: Date,
     end: Date
+}
+
+export interface IFilterRoomRequest {
+    id: string
 }

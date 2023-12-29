@@ -26,6 +26,7 @@ import { RoomService } from '../../../../shared/services/room.service';
 import { BookingService } from '../../../../shared/services/booking.service';
 import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
 import { IInfoModalRequest } from '../../../../shared/models/info-modal.model';
+import { IFilterRoomRequest } from '../../../../shared/models/room.model';
 
 @Component({
   selector: 'app-manage-booking',
@@ -101,9 +102,8 @@ export class ManageBookingComponent {
     this._signup.getTypes().subscribe(option => {
       this.genders = option.data["genders"]
     })
-    
+    if(!this.id) this.getRooms()
     this.filterRooms()
-    this.getRooms()
     this.getBookingById()
     
   }
@@ -135,7 +135,9 @@ export class ManageBookingComponent {
   }
 
   getBookingById(){
+    
     this._booking.getBookingById(this.id).subscribe( resp => {
+      
       let mapped = resp.data.guests.map((item): ISignup => {
         return {
           ...item,
@@ -152,9 +154,15 @@ export class ManageBookingComponent {
         ...resp.data.emergencyContact,
         phone: resp.data.emergencyContact.value
       })
+      this.freeRoomsService.getRoomsById(resp.data.roomId).subscribe( response => {
+        this.rooms = []
+        this.rooms.push(response.data)
+      })
       this.dataSource = new MatTableDataSource<ISignup>(mapped)  
       
     })
+    console.log(this.rooms)
+
     // this.router.navigateByUrl(`/traveler/booking/${id}`)
   }
 
@@ -195,10 +203,13 @@ export class ManageBookingComponent {
     else this.selectionRoom = {...room}
   }
 
-  getRooms() {
-    this.freeRoomsService.getRooms().subscribe(resp => {
+  getRooms(filter?:IFilterRoomRequest) {
+    this.freeRoomsService.getRooms(filter).subscribe(resp => {
       this.rooms = resp.data
+      // console.log(this.rooms)
     })
+    
+
   }
 
   getGender(genderId: number) {
