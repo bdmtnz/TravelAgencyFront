@@ -19,6 +19,7 @@ import { BookingService } from '../../../../shared/services/booking.service';
 import { LocalDbPersist } from '../../../../shared/services/db.service';
 import { IManageGuestRequest } from './models/manage-guest.model';
 import { ManageGuestComponent } from './components/manage-guest/manage-guest.component';
+import { CardHotelComponent } from '../../../../shared/components/card/card-hotel/card-hotel.component';
 
 @Component({
   selector: 'app-manage-booking',
@@ -36,6 +37,7 @@ import { ManageGuestComponent } from './components/manage-guest/manage-guest.com
     MatTableModule,
     MatPaginatorModule,
     MatSlideToggleModule,
+    CardHotelComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: NativeDateAdapter },

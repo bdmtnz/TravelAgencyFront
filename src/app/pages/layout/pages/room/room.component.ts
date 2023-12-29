@@ -127,7 +127,6 @@ export class RoomComponent {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       this.serviceRoom.postRoom(result).subscribe(data => {
         if (data.status != 200) return
         this.getRooms()

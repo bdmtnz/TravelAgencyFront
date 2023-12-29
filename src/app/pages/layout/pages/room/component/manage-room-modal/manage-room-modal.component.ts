@@ -40,10 +40,11 @@ export class ManageRoomModalComponent implements OnInit {
   image!: FormGroup
   preview = 'https://img.freepik.com/foto-gratis/fondo_53876-32170.jpg?size=626&ext=jpg';
   price:number = 0
+  objetRoom!: IRoom
   /**
    *
    */
-  objetRoom!: IRoom
+ 
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ManageRoomModalComponent>,
@@ -55,7 +56,7 @@ export class ManageRoomModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.previewImg()
-    this.dataInitial()
+    this.dataEdit()
     this.accountingData.valueChanges.subscribe( value => {
       this.calculatePrice(value)
     })
@@ -87,7 +88,7 @@ export class ManageRoomModalComponent implements OnInit {
       this.preview = value
     })
   }
-  dataInitial() {
+  dataEdit() {
     // this.basicData.controls['id'].setValue(this.data.data.id)
     // this.basicData.controls['hotelId'].setValue(this.data.data.hotelId)
     // this.basicData.controls['location'].setValue(this.data.data.location)
@@ -102,6 +103,7 @@ export class ManageRoomModalComponent implements OnInit {
     this.basicData.patchValue({ ...this.data.data })
     this.accountingData.patchValue({ ...this.data.data })
     this.image.patchValue({ ...this.data.data })
+    this.price = this.data.data.price
   }
 
 

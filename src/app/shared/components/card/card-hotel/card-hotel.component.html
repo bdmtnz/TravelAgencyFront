@@ -10,24 +10,22 @@
             <div class="descripcion">
                 <p>{{item.descripcion}}</p>   
             </div>
-            <a href="#">ver mas</a>
-
-
+            <div class="price">
+                <p>Precios a partir de</p>
+                <p class="night-price">{{item.minprice|currency:'USD'}}</p>
+            </div>
         </div>
         <div class="grid-information">
-            <div class="quality">
-
-            </div>
-            <div class="price">
+            <!-- <div class="price">
                 <p>Precios a partir de</p>
                 <p class="night-price">COP {{item.minprice}}</p>
                 <p>por noche</p>
-            </div>
+            </div> -->
 
         </div>
-        <div class="container-btn">
+        <!-- <div class="btn container-btn">
             <button mat-raised-button>Ver disponibilidad</button>
-        </div>
+        </div> -->
     </div>
 
 </div>
