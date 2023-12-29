@@ -27,7 +27,6 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Desde</mat-label>
                             <input formControlName="start" matInput [matDatepicker]="sincePicker">
-                            <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="sincePicker"></mat-datepicker-toggle>
                             <mat-datepicker #sincePicker></mat-datepicker>
                         </mat-form-field>
@@ -37,7 +36,6 @@
                             <mat-label>Hasta</mat-label>
                             <!-- <input matInput [matDatepicker]="toPicker" formControlName="birth"> -->
                             <input  matInput [matDatepicker]="toPicker" formControlName="end">
-                            <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="toPicker"></mat-datepicker-toggle>
                             <mat-datepicker #toPicker></mat-datepicker>
                         </mat-form-field>
@@ -54,22 +52,26 @@
     </div>
 
     <div class="card room">
-        <label for="">Seleccione un hotel</label>
+        <label for="">Seleccione una habitación</label>
         <div class="card-content">
-            <label for="">Usted desea reservar en: {{selectionRoom}}</label>
             <div class="scrolling">
                 @for(room of rooms; track room) {
-                <app-card-hotel 
-                    [city]="room.city" 
-                    [location]="room.location" 
-                    [imageUrl]="room.imageUrl"
-                    [price]="room.price"
-                    [hotel]="room.hotel.name"
-                    [quantityPeople]="room.capacity"
-
-                    ></app-card-hotel>
+                    <app-card-hotel 
+                        [room]="room"
+                        [city]="room.city" 
+                        [location]="room.location" 
+                        [imageUrl]="room.imageUrl"
+                        [price]="room.price"
+                        [hotel]="room.hotel.name"
+                        [quantityPeople]="room.capacity"
+                        (selected)="getSelectedRoom($event)"
+                    >
+                    </app-card-hotel>
                 }
             </div>
+            @if(selectionRoom) {
+                <span for="">Usted desea reservar en {{selectionRoom.hotel.name}}</span>
+            }
         </div>
     </div>
     <!-- <div class="card room">

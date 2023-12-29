@@ -10,6 +10,20 @@
         padding: 40px 40px 40px 40px;
         box-sizing: border-box;
         margin-top: 70px;
+
+        *::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        *::-webkit-scrollbar-track {
+            background: #F6F6F6;
+        }
+        
+        *::-webkit-scrollbar-thumb {
+            background-color: #636363;
+            border-radius: 20px;
+            border: 3px solid #F6F6F6;
+        }
         
         label {
             position: absolute;
@@ -34,6 +48,15 @@
                 font-size: large;
                 font-weight: 500;
             }
+
+            span {
+                width: 100%;
+                text-align: end;
+                position: relative;
+                bottom: -10px;
+                font-size: medium;
+            }
+
             .phone {
                 display: flex;
                 gap: 20px;
@@ -54,6 +77,9 @@
                 width: 100%;
                 // background-color: red;
                 overflow: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
             }
 
             .guests {

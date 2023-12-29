@@ -69,7 +69,7 @@ export class ManageBookingComponent {
   ];
   data: any;
   rooms: IRoom[] = []
-  selectionRoom: IRoom
+  selectionRoom: IRoom | null
   genders: ISelectOption[] = []
 
   constructor(
@@ -82,12 +82,15 @@ export class ManageBookingComponent {
   ) {
     this.dataSource = new MatTableDataSource<ISignup>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
-    this.selectionRoom = {
+    this.selectionRoom = null;
+    /*
+    {
       hotel: {
         name: 'Hotel SAS.'
       } as IHotel,
       id: 'Hotel SAS.'
     } as IRoom
+    */
   }
 
   ngOnInit(): void {
@@ -128,11 +131,14 @@ export class ManageBookingComponent {
   }
 
   manage() {
+    if(!this.selectionRoom) return
     let request: IBookingRequest = {
       roomId: this.selectionRoom.id,
       credentialId: this.credential.id,
-      ...this.emergencyForm.value,
       ...this.filterRequestRooms.value,
+      emergencyContact: {
+        ...this.emergencyForm.value,
+      },
       guests: this.dataSource.data
     }
     this._booking.post(request).subscribe(response => {
@@ -149,6 +155,12 @@ export class ManageBookingComponent {
         if(response.status != 200) this.router.navigateByUrl(`/traveler`)
       }))
     })
+  }
+
+  getSelectedRoom(room: IRoom) {
+    if(!this.selectionRoom) this.selectionRoom = {...room}
+    else if(room.id == this.selectionRoom.id) this.selectionRoom = null
+    else this.selectionRoom = {...room}
   }
 
   getRooms() {

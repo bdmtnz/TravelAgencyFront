@@ -33,11 +33,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   credential: ILoginResponse
   displayedColumns: string[] = [
     'hotel.name',
-    'traveler.name',
     'roomId',
+    'city',
     'start',
     'end',
-    'city',
     'price',
     'action'
   ];
@@ -69,5 +68,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   addBooking() {
     this.router.navigateByUrl(`/traveler/manage`)
+  }
+
+  transformDate(date:Date) {
+    let dateString = date.toString()
+    return new Date(dateString).toLocaleDateString()
   }
 }
