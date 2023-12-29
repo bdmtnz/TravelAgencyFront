@@ -3,22 +3,12 @@
         <label for="">Datos de la reserva</label>
 
         <div class="card-content">
-            <form action="">
+            <form action="" [formGroup]="filterRequestRooms">
                 <div class="row">
                     <div class="col">
                         <mat-form-field appearance="outline">
-                            <mat-label>Hotel</mat-label>
-                            <mat-select>
-                                <mat-option value="option1">Option 1</mat-option>
-                                <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
-                                <mat-option value="option3">Option 3</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col">
-                        <mat-form-field appearance="outline">
                             <mat-label>Ciudad</mat-label>
-                            <input matInput placeholder="Placeholder">
+                            <input formControlName="city" matInput placeholder="Placeholder">
                             <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                             <!-- <mat-hint>Hint</mat-hint> -->
                         </mat-form-field>
@@ -26,7 +16,7 @@
                     <div class="col">
                         <mat-form-field appearance="outline">
                             <mat-label>N° acompañantes</mat-label>
-                            <input matInput placeholder="Placeholder">
+                            <input formControlName="quantityPeople" matInput placeholder="Placeholder">
                             <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                             <!-- <mat-hint>Hint</mat-hint> -->
                         </mat-form-field>
@@ -36,7 +26,7 @@
                     <div class="col">
                         <mat-form-field appearance="outline">
                             <mat-label>Desde</mat-label>
-                            <input matInput [matDatepicker]="sincePicker">
+                            <input formControlName="start" matInput [matDatepicker]="sincePicker">
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="sincePicker"></mat-datepicker-toggle>
                             <mat-datepicker #sincePicker></mat-datepicker>
@@ -46,18 +36,17 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Hasta</mat-label>
                             <!-- <input matInput [matDatepicker]="toPicker" formControlName="birth"> -->
-                            <input matInput [matDatepicker]="toPicker">
+                            <input  matInput [matDatepicker]="toPicker" formControlName="end">
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="toPicker"></mat-datepicker-toggle>
                             <mat-datepicker #toPicker></mat-datepicker>
                         </mat-form-field>
                     </div>
-                    <div class="col"></div>
                 </div>
                 <div class="row">
                     <div class="col"></div>
                     <div class="col flex-end">
-                        <button class="btn" mat-raised-button color="primary">Buscar</button>
+                        <button (click)="filterRooms()" class="btn" mat-raised-button color="primary">Buscar</button>
                     </div>
                 </div>
             </form>
@@ -69,9 +58,11 @@
         <div class="card-content">
             <label for="">Usted desea reservar en: {{selectionRoom}}</label>
             <div class="scrolling">
-                @for(hotel of hoteles; track hotel) {
-                <app-card-hotel [minPrice]="hotel.minPrice" [hotel]="hotel.name" [imageUrl]="hotel.imageUrl"
-                    [description]="hotel.description"></app-card-hotel>
+                @for(room of rooms; track room) {
+                <app-card-hotel [city]="room.city" [location]="room.location" [imageUrl]="room.imageUrl"
+                    [price]="room.price"
+                    [hotel]="room.hotel.name"
+                    ></app-card-hotel>
                 }
             </div>
         </div>

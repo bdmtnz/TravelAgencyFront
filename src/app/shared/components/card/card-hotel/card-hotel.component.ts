@@ -21,11 +21,10 @@ import { NgFor, CommonModule, CurrencyPipe } from '@angular/common';
 
 export class CardHotelComponent {
   @Input() imageUrl: string = ''
-  @Input() minPrice: number = 0
-  @Input() description: string = '';
+  @Input() location: string = ''
+  @Input() city: string = ''
+  @Input() price: number = 0
   @Input() hotel: string = '';
-
-
 
   lista = [
     {

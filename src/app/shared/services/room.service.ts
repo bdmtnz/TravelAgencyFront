@@ -14,7 +14,8 @@ export class RoomService {
 
   constructor(private readonly http: HttpClient) { }
 
-  getRooms(filter: IFilterRoomRequest ): Observable<IApiResponse<IRoom[]>>{
-    return this.http.post<IApiResponse<IRoom[]>>(`${environment.apiUrl}room/filter`,filter)
+  getFreeRooms(filter: IFilterRoomRequest ): Observable<IApiResponse<IRoom[]>>{
+    return this.http.post<IApiResponse<IRoom[]>>(`${environment.apiUrl}room/free`,filter)
   }
+
 }
