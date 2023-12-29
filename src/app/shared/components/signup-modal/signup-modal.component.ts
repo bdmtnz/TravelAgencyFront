@@ -11,11 +11,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SignupService } from './service/signup.service';
 import { NgFor } from '@angular/common';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ISelectOption } from '../../../../shared/components/models/response';
-import { ISignup } from '../../models/signup-modal';
+import { ISignup, ISignupRequestModal, ISignupResponseModal } from '../../models/signup-modal';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
+import { ISelectOption } from '../../models/response';
 
 @Component({
   selector: 'app-signup-modal',
@@ -43,71 +41,79 @@ import { InfoModalComponent } from '../../../../shared/components/info-modal/inf
 })
 export class SignupModalComponent implements OnInit {
 
-  basicData!: FormGroup;
-  contacData!: FormGroup;
-  objetUserRegister!: ISignup;
-  listDocumentType: ISelectOption[] = []
-  listGendersType: ISelectOption[] = []
+  basicForm!: FormGroup;
+  contacForm!: FormGroup;
+  credentialForm!: FormGroup;
+  documents: ISelectOption[] = []
+  genders: ISelectOption[] = []
 
   constructor(private formBuilder: FormBuilder,
-    private readonly service: SignupService,
-    public dialogRef: MatDialogRef<SignupModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-
+    private readonly signupService: SignupService,
+    public dialogRef: MatDialogRef<SignupModalComponent, ISignupResponseModal>,
+    @Inject(MAT_DIALOG_DATA) public params: ISignupRequestModal
   ) {
     this.builder()
   }
+
   ngOnInit(): void {
     this.getSelectOpcion()
     this.dataInitial()
   }
 
+  get title() {
+    return this.params.title
+  }
+
+  get showPasswordField() {
+    return this.params.showPassword
+  }
+
   builder() {
-    this.basicData = this.formBuilder.group({
+    this.basicForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      documentType: [, [Validators.required, Validators.minLength(1)]],
+      documentType: [-1, [Validators.required, Validators.min(0)]],
       document: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
+      gender: [-1, [Validators.required, Validators.min(0)]],
       birth: [Date, [Validators.required]]
     })
-    this.contacData = this.formBuilder.group({
+    this.contacForm = this.formBuilder.group({
       phone: ['', [Validators.required]],
       indicative: [0,[Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]]
+    })
+    this.credentialForm = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(8)]]
     })
   }
 
   dataInitial(){
-    this.basicData.controls['name'].setValue(this.data.name)
-    this.basicData.controls['lastName'].setValue(this.data.lastName)
-    this.basicData.controls['documentType'].setValue(this.data.documentType)
-    this.basicData.controls['document'].setValue(this.data.document)
-    this.basicData.controls['gender'].setValue(this.data.gender)
-    this.basicData.controls['birth'].setValue(this.data.birth)
-    this.contacData.controls['phone'].setValue(this.data.phone)
-    this.contacData.controls['indicative'].setValue(this.data.indicative)
-    this.contacData.controls['password'].setValue(this.data.password)
-    this.contacData.controls['email'].setValue(this.data.email)
+    this.basicForm.patchValue({...this.params.content})
+    this.contacForm.patchValue({...this.params.content})
+    this.credentialForm.patchValue({...this.params.content})
   }
 
   getSelectOpcion() {
-    this.service.getDocumentType().subscribe(option => {
-      this.listDocumentType = option.data.documentTypes
-      this.listGendersType = option.data.genders
+    this.signupService.getTypes().subscribe(option => {
+      this.documents = option.data["documentTypes"]
+      this.genders = option.data["genders"]
     })
   }
 
   close() {
-    this.basicData.markAllAsTouched()
-    this.contacData.markAllAsTouched()
-    if (this.basicData.invalid && this.contacData.invalid) return
-    this.objetUserRegister = {
-      ...this.basicData.value,
-      ...this.contacData.value
+    this.basicForm.markAllAsTouched()
+    this.contacForm.markAllAsTouched()
+    this.credentialForm.markAllAsTouched()
+    if (this.basicForm.invalid && this.contacForm.invalid && (!this.params.showPassword || this.credentialForm.invalid)) return
+    var response: ISignupResponseModal = {
+      mode: this.params.mode,
+      dispatcher: 'SAVE',
+      content: {
+        ...this.basicForm.value,
+        ...this.contacForm.value
+      }
     }
-    this.dialogRef.close(this.objetUserRegister)
+    this.dialogRef.close(response)
   }
 
 }

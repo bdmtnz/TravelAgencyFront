@@ -4,19 +4,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
-import { SignupModalComponent } from './components/signup-modal/signup-modal.component';
 import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SignupService } from './services/signup.service';
 import { InfoModalComponent } from '../../shared/components/info-modal/info-modal.component';
-import { INIT_SIGNUP } from './models/signup-modal';
 import { ROL_REDIRECT } from '../../app.routes.permission';
 import { LocalDbPersist } from '../../shared/services/db.service';
 import { ILoginResponse } from './models/login.model';
 import { DB_FLAGS } from '../../shared/models/db.model';
 import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.component';
-
+import { SignupModalComponent } from '../../shared/components/signup-modal/signup-modal.component';
+import { INIT_SIGNUP, ISignupRequestModal } from '../../shared/models/signup-modal';
+import { SignupService } from '../../shared/components/signup-modal/service/signup.service';
 
 @Component({
   selector: 'app-landing',
@@ -64,8 +63,14 @@ export class LandingComponent {
   }
 
   openDialogRegistrar(): void {
+    let params: ISignupRequestModal = {
+      title: 'Registrar viajero',
+      showPassword: true,
+      mode: 'ADD',
+      content: this.dataClient
+    }
     const dialogRef = this.dialog.open(SignupModalComponent, {
-      data: this.dataClient
+      data: params
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -80,7 +85,7 @@ export class LandingComponent {
     const dialogRef = this.dialog.open(InfoModalComponent, {
       data: {
         title: "Atención",
-        descripcion: "¿Esta seguro que desea guardar sus datos?",
+        descripcion: "¿Está seguro que desea guardar sus datos?",
         btnTitle: "Sí, continuar",
         icon: "info"
       }
@@ -90,13 +95,13 @@ export class LandingComponent {
         this.openDialogRegistrar()
         return
       }
-      this.signupService.postSaveUser(this.dataClient).subscribe(data => {
+      this.signupService.post(this.dataClient).subscribe(data => {
         if (data.status != 200) return
         const dialogRef = this.dialog.open(InfoModalComponent, {
           data: {
             title: "Atención",
-            descripcion: "Se ha Registrado exitosamente",
-            btnTitle: "aceptar",
+            descripcion: "Se ha registrado exitosamente",
+            btnTitle: "Aceptar",
             icon: "info"
           }
         });

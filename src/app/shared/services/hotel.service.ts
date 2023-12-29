@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { IHotel } from '../../pages/layout/pages/hotel/hotel-modal';
 import { Observable } from 'rxjs';
-import { IApiResponse } from '../components/models/response';
-import { IEnabledRequest } from '../components/models/request';
+import { IApiResponse } from '../models/response';
+import { IEnabledRequest } from '../models/request';
 
 @Injectable({
   providedIn: 'root'

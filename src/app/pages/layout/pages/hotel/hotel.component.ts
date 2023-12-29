@@ -84,7 +84,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(InfoModalComponent, {
       data: {
         title: "Atencion",
-        description: `¿Estas seguro de que desea ${element.enabled ? enabled.disable : enabled.enable} este hotel?`,
+        description: `¿Está seguro de que desea ${element.enabled ? enabled.disable : enabled.enable} este hotel?`,
         btnTitle: "Sí, continuar"
       }
     });
@@ -124,7 +124,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(InfoModalComponent, {
       data: {
         title: "Atención",
-        description: "¿Esta seguro que desea guardar un nuevo hotel?",
+        description: "¿Está seguro que desea guardar un nuevo hotel?",
         btnTitle: "Guardar",
         icon: "info"
       }
@@ -140,7 +140,7 @@ export class HotelComponent implements AfterViewInit, OnInit {
         const dialogRef = this.dialog.open(InfoModalComponent, {
           data: {
             title: "Atención",
-            description: "Se ha Registrado exitosamente",
+            description: "Se ha registrado exitosamente",
             btnTitle: "aceptar",
             icon: "info"
           }

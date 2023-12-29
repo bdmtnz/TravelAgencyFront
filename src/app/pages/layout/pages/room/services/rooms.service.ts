@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IApiResponse, ISelectOption } from '../../../../../shared/components/models/response';
+import { IApiResponse, ISelectOption } from '../../../../../shared/models/response';
 import { IRoom } from '../../../../../shared/models/booking.model';
 import { environment } from '../../../../../../environments/environment';
 import { IManageRoomRequest } from '../../../../../shared/models/room.model';
-import { IEnabledRequest } from '../../../../../shared/components/models/request';
+import { IEnabledRequest } from '../../../../../shared/models/request';
 
 @Injectable({
   providedIn: 'root'
