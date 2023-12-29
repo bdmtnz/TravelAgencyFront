@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 import { DB_FLAGS } from '../../../../shared/models/db.model';
 import { LocalDbPersist } from '../../../../shared/services/db.service';
 import { SignupModalComponent } from '../../../../shared/components/signup-modal/signup-modal.component';
-import { ISignup } from '../../../../shared/models/signup-modal';
+import { IResponseModal, ISignup } from '../../../../shared/models/signup-modal';
 import { ISelectOption } from '../../../../shared/models/response';
 import * as Model from './manage-booking.model';
 import { SignupService } from '../../../../shared/components/signup-modal/service/signup.service';
@@ -93,13 +93,13 @@ export class ManageBookingComponent {
   getBookingById(id:string){
     this.router.navigateByUrl(`/traveler/booking/${id}`)
   }
+
   getHotel(){
     this.hotelService.getHotel({}).subscribe(resp => {
       console.log(resp.data)
       this.hoteles = resp.data
     })
   }
-  
 
   getGender(genderId: number) {
     let gender = this.genders.find(gender => gender.id == genderId)
@@ -111,9 +111,15 @@ export class ManageBookingComponent {
       data: Model.Utils.GetModalParamsGuest(guest)
     })
     dialogRef.afterClosed().subscribe(
-      (value:ISignup|null) => {
+      (value:IResponseModal<ISignup>|null) => {
         if(!value) return
-        this.dataSource.data.push(value)
+        if(value.dispatcher != 'OK') return
+        if(value.mode == 'ADD') this.dataSource.data.push(value.content)
+        else {
+          let index = this.dataSource.data.findIndex(row => row.document == value.content.document)
+          this.dataSource.data.splice(index)
+          this.dataSource.data.push(value.content)
+        }
         this.dataSource._updateChangeSubscription()
       }
     )
