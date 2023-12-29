@@ -3,6 +3,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { loginGuard } from '../../shared/guards/login.guard';
 import { TravelerComponent } from './traveler.component';
 import { ManageBookingComponent } from './pages/manage-booking/manage-booking.component';
+import { CardHotelComponent } from '../../shared/components/card/card-hotel/card-hotel.component';
 
 export const travelerRoute: Route = {
     path: 'traveler',
@@ -16,6 +17,11 @@ export const travelerRoute: Route = {
         {
             path: 'manage/:booking',
             component: ManageBookingComponent
+        }
+        ,
+        {
+            path: 'card',
+            component: CardHotelComponent
         }
     ] 
 };

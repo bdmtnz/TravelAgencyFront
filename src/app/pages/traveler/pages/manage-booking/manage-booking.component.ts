@@ -15,13 +15,13 @@ import { ILoginResponse } from '../../../landing/models/login.model';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DB_FLAGS } from '../../../../shared/models/db.model';
-import { BookingService } from '../../../../shared/services/booking.service';
 import { LocalDbPersist } from '../../../../shared/services/db.service';
 import { SignupModalComponent } from '../../../../shared/components/signup-modal/signup-modal.component';
-import { ISignup, ISignupRequestModal } from '../../../../shared/models/signup-modal';
+import { ISignup } from '../../../../shared/models/signup-modal';
 import { ISelectOption } from '../../../../shared/models/response';
 import * as Model from './manage-booking.model';
 import { SignupService } from '../../../../shared/components/signup-modal/service/signup.service';
+import { CardHotelComponent } from '../../../../shared/components/card/card-hotel/card-hotel.component';
 
 @Component({
   selector: 'app-manage-booking',
@@ -39,6 +39,7 @@ import { SignupService } from '../../../../shared/components/signup-modal/servic
     MatTableModule,
     MatPaginatorModule,
     MatSlideToggleModule,
+    CardHotelComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: NativeDateAdapter },
