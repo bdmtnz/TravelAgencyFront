@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule, DateAdapter, NativeDateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -69,12 +69,14 @@ export class ManageBookingComponent {
   hoteles:IHotel[] = []
   selectionRoom: string = 'Hotel maduras SAS.'
   genders: ISelectOption[] = []
+  filterRooms!: FormGroup
 
   constructor(
     private readonly _signup: SignupService,
     public dialog: MatDialog,
     private readonly router: Router,
-    private readonly hotelService: HotelService
+    private readonly hotelService: HotelService,
+    private formBuilder: FormBuilder
   ) { 
     this.dataSource = new MatTableDataSource<ISignup>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
@@ -85,6 +87,15 @@ export class ManageBookingComponent {
     this._signup.getTypes().subscribe(option => {
       this.genders = option.data["genders"]
     })
+  }
+
+  builder() {
+this.filterRooms = this.formBuilder.group({
+  city: [''],
+  quantityPeople: [0],
+  start: [Date],
+  end: [Date]
+})
   }
 
   ngAfterViewInit() {
