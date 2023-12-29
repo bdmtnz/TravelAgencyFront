@@ -115,9 +115,9 @@ export class ManageBookingComponent {
       (value:IResponseModal<ISignup>|null) => {
         if(!value) return
         if(value.dispatcher != 'OK') return
-        if(value.mode == 'ADD') this.dataSource.data.push(value.content)
+        let index = this.dataSource.data.findIndex(row => row.document == value.content.document)
+        if(value.mode == 'ADD' && index == -1) this.dataSource.data.push(value.content)
         else {
-          let index = this.dataSource.data.findIndex(row => row.document == value.content.document)
           this.dataSource.data.splice(index)
           this.dataSource.data.push(value.content)
         }
