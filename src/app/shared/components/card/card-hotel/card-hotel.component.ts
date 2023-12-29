@@ -1,19 +1,32 @@
-import { Component } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { Component, Input, Output } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { NgFor, CommonModule, CurrencyPipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-card-hotel',
   standalone: true,
-  imports: [MatIconModule,MatButtonModule,NgFor, CommonModule, CurrencyPipe],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    NgFor,
+    CommonModule,
+    CurrencyPipe,
+  ],
   templateUrl: './card-hotel.component.html',
   styleUrl: './card-hotel.component.scss'
 })
-export class CardHotelComponent {
 
-  
+
+export class CardHotelComponent {
+  @Input() imageUrl: string = ''
+  @Input() minPrice: number = 0
+  @Input() description: string = '';
+  @Input() hotel: string = '';
+
+
+
   lista = [
     {
       name: "Hotel Metropolitano Plaza",

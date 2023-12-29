@@ -20,6 +20,9 @@ import { LocalDbPersist } from '../../../../shared/services/db.service';
 import { IManageGuestRequest } from './models/manage-guest.model';
 import { ManageGuestComponent } from './components/manage-guest/manage-guest.component';
 import { CardHotelComponent } from '../../../../shared/components/card/card-hotel/card-hotel.component';
+import { HotelService } from '../../../../shared/services/hotel.service';
+import { IHotel } from '../../../layout/pages/hotel/hotel-modal';
+import { IManageRoomRequest } from '../../../../shared/models/room.model';
 
 @Component({
   selector: 'app-manage-booking',
@@ -62,12 +65,14 @@ export class ManageBookingComponent {
     'action'
   ];
   data: any;
-  rooms = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+  rooms: IManageRoomRequest[] = []
+  hoteles:IHotel[] = []
+  selectionRoom: string = 'Hotel maduras SAS.'
 
   constructor(
     private readonly _booking: BookingService,
     public dialog: MatDialog,
-    // private readonly service: HotelService,
+    private readonly hotelService: HotelService,
     private readonly router: Router
   ) { 
     this.dataSource = new MatTableDataSource<IBookingReponse>()
@@ -75,6 +80,7 @@ export class ManageBookingComponent {
   }
 
   ngOnInit(): void {
+    this.getHotel()
     this._booking.getByTraveler(this.credential.id).subscribe(resp => {
       this.dataSource.data = resp.data
     })
@@ -87,6 +93,13 @@ export class ManageBookingComponent {
   getBookingById(id:string){
     this.router.navigateByUrl(`/traveler/booking/${id}`)
   }
+  getHotel(){
+    this.hotelService.getHotel({}).subscribe(resp => {
+      console.log(resp.data)
+      this.hoteles = resp.data
+    })
+  }
+  
 
   manageGuest(guest?:IManageGuestRequest) {
     let _guest = guest ?? {

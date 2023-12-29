@@ -1,31 +1,20 @@
-<div class="container" *ngFor="let item of lista;">
+<div class="container">
     <div class="img-hotel">
-        <img src="{{item.imageurl}}" alt="imagen hotel">
+        <img src="{{imageUrl}}" alt="imagen hotel">
     </div>
     <div class="container-description">
         <div class="grid-descripcion">
             <div class="title">
-                <h4>{{item.name}}</h4>
+                <h4>{{hotel}}</h4>
             </div>
             <div class="descripcion">
-                <p>{{item.descripcion}}</p>   
+                <p>{{description}}</p>   
             </div>
             <div class="price">
                 <p>Precios a partir de</p>
-                <p class="night-price">{{item.minprice|currency:'USD'}}</p>
+                <p class="night-price">{{minPrice|currency:'USD'}}</p>
             </div>
         </div>
-        <div class="grid-information">
-            <!-- <div class="price">
-                <p>Precios a partir de</p>
-                <p class="night-price">COP {{item.minprice}}</p>
-                <p>por noche</p>
-            </div> -->
-
-        </div>
-        <!-- <div class="btn container-btn">
-            <button mat-raised-button>Ver disponibilidad</button>
-        </div> -->
     </div>
 
 </div>

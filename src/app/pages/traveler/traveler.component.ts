@@ -29,4 +29,5 @@ import { DB_FLAGS } from '../../shared/models/db.model';
   styleUrl: './traveler.component.scss'
 })
 export class TravelerComponent {
+
 }

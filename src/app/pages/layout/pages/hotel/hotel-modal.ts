@@ -3,7 +3,7 @@ export interface IHotel {
     name: string,
     description: string,
     imageUrl: string,
-    minPrice:string,
+    minPrice: number,
     enabled: boolean,
     rooms:[]
 }
@@ -13,7 +13,7 @@ export const INIT_HOTEL : IHotel = {
     name: "",
     description: "",
     imageUrl: "",
-    minPrice: "",
+    minPrice: 0,
     enabled: false,
     rooms: []
 }
