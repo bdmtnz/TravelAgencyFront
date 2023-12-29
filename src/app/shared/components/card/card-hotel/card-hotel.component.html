@@ -8,13 +8,30 @@
                 <h4>{{hotel}}</h4>
             </div>
             <div class="descripcion">
-                <span class="material-symbols-outlined">
-                    location_on
+                <div class="city">
+                    <span class="material-symbols-outlined">
+                        location_on
                     </span>
-                <p>{{city + location}}</p>   
+                    <div>
+                        <p>Ciudad: </p>{{city}}
+                        <span class="material-symbols-outlined">
+                            my_location
+                        </span>
+                        <p>Ubicacion: </p>{{location}}
+                    </div>
+                </div>
+                <div class="capacity">
+                    <span class="material-symbols-outlined">
+                        group
+                    </span>
+                    <p>Capacidad: </p>{{quantityPeople}}
+                </div>
             </div>
             <div class="price">
-                <p>Precios a partir de</p>
+                <span class="material-symbols-outlined">
+                    monetization_on
+                    </span>
+                <p>Valor:</p>
                 <p class="night-price">{{price|currency:'USD'}}</p>
             </div>
         </div>

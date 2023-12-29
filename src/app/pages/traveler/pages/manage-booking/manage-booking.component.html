@@ -59,9 +59,14 @@
             <label for="">Usted desea reservar en: {{selectionRoom}}</label>
             <div class="scrolling">
                 @for(room of rooms; track room) {
-                <app-card-hotel [city]="room.city" [location]="room.location" [imageUrl]="room.imageUrl"
+                <app-card-hotel 
+                    [city]="room.city" 
+                    [location]="room.location" 
+                    [imageUrl]="room.imageUrl"
                     [price]="room.price"
                     [hotel]="room.hotel.name"
+                    [quantityPeople]="room.capacity"
+
                     ></app-card-hotel>
                 }
             </div>
