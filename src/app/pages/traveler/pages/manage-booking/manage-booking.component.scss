@@ -25,6 +25,15 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            // background-color: red;
+
+            label {
+                position: absolute;
+                top: 10px;
+                left: 40px;
+                font-size: large;
+                font-weight: 500;
+            }
             .phone {
                 display: flex;
                 gap: 20px;

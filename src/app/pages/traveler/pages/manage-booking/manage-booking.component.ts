@@ -22,6 +22,9 @@ import { ISelectOption } from '../../../../shared/models/response';
 import * as Model from './manage-booking.model';
 import { SignupService } from '../../../../shared/components/signup-modal/service/signup.service';
 import { CardHotelComponent } from '../../../../shared/components/card/card-hotel/card-hotel.component';
+import { HotelService } from '../../../../shared/services/hotel.service';
+import { IHotel } from '../../../layout/pages/hotel/hotel-modal';
+import { IManageRoomRequest } from '../../../../shared/models/room.model';
 
 @Component({
   selector: 'app-manage-booking',
@@ -62,13 +65,16 @@ export class ManageBookingComponent {
     'action'
   ];
   data: any;
-  rooms = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+  rooms: IManageRoomRequest[] = []
+  hoteles:IHotel[] = []
+  selectionRoom: string = 'Hotel maduras SAS.'
   genders: ISelectOption[] = []
 
   constructor(
     private readonly _signup: SignupService,
     public dialog: MatDialog,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly hotelService: HotelService
   ) { 
     this.dataSource = new MatTableDataSource<ISignup>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
@@ -87,6 +93,13 @@ export class ManageBookingComponent {
   getBookingById(id:string){
     this.router.navigateByUrl(`/traveler/booking/${id}`)
   }
+  getHotel(){
+    this.hotelService.getHotel({}).subscribe(resp => {
+      console.log(resp.data)
+      this.hoteles = resp.data
+    })
+  }
+  
 
   getGender(genderId: number) {
     let gender = this.genders.find(gender => gender.id == genderId)

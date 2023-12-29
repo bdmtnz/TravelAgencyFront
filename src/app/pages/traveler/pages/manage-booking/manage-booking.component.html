@@ -62,15 +62,38 @@
     </div>
 
     <div class="card room">
-        <label for="">Seleccione una habitación</label>
+        <label for="">Seleccione un hotel</label>
         <div class="card-content">
+            <label for="">Usted desea reservar en: {{selectionRoom}}</label>
             <div class="scrolling">
-                @for(room of rooms; track room) {
-                    <app-card-hotel></app-card-hotel>
+                @for(hotel of hoteles; track hotel) {
+                <app-card-hotel
+                [minPrice]="hotel.minPrice"
+                [hotel]="hotel.name"
+                [imageUrl]="hotel.imageUrl" 
+                [description]="hotel.description"
+                ></app-card-hotel>
                 }
-            </div>            
+            </div>
         </div>
     </div>
+    <!-- <div class="card room">
+        <label for="">Seleccione una habitación</label>
+        <div class="card-content">
+            <label for="">Usted desea reservar en: {{selectionRoom}}</label>
+            <div class="scrolling">
+                @for(room of rooms; track room) {
+                <app-card-hotel 
+                [imageUrl]="" 
+                [price]=""
+                [location]=""
+                [city]=""
+                [capacity]=""
+                ></app-card-hotel>
+                }
+            </div>
+        </div>
+    </div> -->
 
     <div class="card guests">
         <label for="">Acompañantes</label>
@@ -134,7 +157,7 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-            
+
                     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
                     </mat-paginator>
                 </div>
@@ -164,7 +187,7 @@
                         <input type="tel" matInput placeholder="">
                     </mat-form-field>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 </div>
