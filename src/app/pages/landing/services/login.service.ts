@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { IApiResponse } from '../../../shared/components/models/response';
+import { IApiResponse } from '../../../shared/models/response';
 import { ILoginRequest, ILoginResponse } from '../models/login.model';
 import { environment } from '../../../../environments/environment';
 import { LocalDbPersist } from '../../../shared/services/db.service';

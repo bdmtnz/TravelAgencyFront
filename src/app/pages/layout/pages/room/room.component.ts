@@ -13,7 +13,7 @@ import { HotelService } from '../../../../shared/services/hotel.service';
 import { IHotel, INIT_HOTEL } from '../hotel/hotel-modal';
 import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
 import { IManageRoomRequest, INITIAL_ROOM } from '../../../../shared/models/room.model';
-import { ISelectOption } from '../../../../shared/components/models/response';
+import { ISelectOption } from '../../../../shared/models/response';
 import { IRoom } from '../../../../shared/models/booking.model';
 import { CurrencyPipe } from '@angular/common';
 
@@ -93,7 +93,7 @@ export class RoomComponent {
     const dialogRef = this.dialog.open(InfoModalComponent, {
       data: {
         title: "Atencion",
-        description: `¿Estas seguro de que desea ${element.enabled ? enabled.disable : enabled.enable} este hotel?`,
+        description: `¿Está seguro de que desea ${element.enabled ? enabled.disable : enabled.enable} este hotel?`,
         btnTitle: "Sí, continuar"
       }
     });
@@ -170,7 +170,7 @@ export class RoomComponent {
     const dialogRef = this.dialog.open(InfoModalComponent, {
       data: {
         title: "Atención",
-        description: "¿Esta seguro que desea guardar una nueva habitacion?",
+        description: "¿Está seguro que desea guardar una nueva habitacion?",
         btnTitle: "Guardar",
         icon: "info"
       }
@@ -186,7 +186,7 @@ export class RoomComponent {
         const dialogRef = this.dialog.open(InfoModalComponent, {
           data: {
             title: "Atención",
-            description: "Se ha Registrado exitosamente",
+            description: "Se ha registrado exitosamente",
             btnTitle: "aceptar",
             icon: "info"
           }

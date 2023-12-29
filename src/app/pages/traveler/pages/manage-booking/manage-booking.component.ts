@@ -15,10 +15,12 @@ import { ILoginResponse } from '../../../landing/models/login.model';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DB_FLAGS } from '../../../../shared/models/db.model';
-import { BookingService } from '../../../../shared/services/booking.service';
 import { LocalDbPersist } from '../../../../shared/services/db.service';
-import { IManageGuestRequest } from './models/manage-guest.model';
-import { ManageGuestComponent } from './components/manage-guest/manage-guest.component';
+import { SignupModalComponent } from '../../../../shared/components/signup-modal/signup-modal.component';
+import { ISignup } from '../../../../shared/models/signup-modal';
+import { ISelectOption } from '../../../../shared/models/response';
+import * as Model from './manage-booking.model';
+import { SignupService } from '../../../../shared/components/signup-modal/service/signup.service';
 import { CardHotelComponent } from '../../../../shared/components/card/card-hotel/card-hotel.component';
 import { HotelService } from '../../../../shared/services/hotel.service';
 import { IHotel } from '../../../layout/pages/hotel/hotel-modal';
@@ -52,37 +54,35 @@ import { IManageRoomRequest } from '../../../../shared/models/room.model';
 export class ManageBookingComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  dataSource: MatTableDataSource<IBookingReponse>
+  dataSource: MatTableDataSource<ISignup>
   credential: ILoginResponse
   displayedColumns: string[] = [
-    'hotel.name',
-    'traveler.name',
-    'roomId',
-    'start',
-    'end',
-    'city',
-    'price',
+    'document',
+    'name',
+    'lastName',
+    'gender',
+    'phone',
     'action'
   ];
   data: any;
   rooms: IManageRoomRequest[] = []
   hoteles:IHotel[] = []
   selectionRoom: string = 'Hotel maduras SAS.'
+  genders: ISelectOption[] = []
 
   constructor(
-    private readonly _booking: BookingService,
+    private readonly _signup: SignupService,
     public dialog: MatDialog,
-    private readonly hotelService: HotelService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly hotelService: HotelService
   ) { 
-    this.dataSource = new MatTableDataSource<IBookingReponse>()
+    this.dataSource = new MatTableDataSource<ISignup>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
   }
 
   ngOnInit(): void {
-    this.getHotel()
-    this._booking.getByTraveler(this.credential.id).subscribe(resp => {
-      this.dataSource.data = resp.data
+    this._signup.getTypes().subscribe(option => {
+      this.genders = option.data["genders"]
     })
   }
 
@@ -101,27 +101,28 @@ export class ManageBookingComponent {
   }
   
 
-  manageGuest(guest?:IManageGuestRequest) {
-    let _guest = guest ?? {
-      birth: null,
-      document: '',
-      documentType: -1,
-      email: '',
-      gender: -1,
-      indicative: 0,
-      lastName: '',
-      name: '',
-      phone: ''
-    }
-    const dialogRef = this.dialog.open(ManageGuestComponent, {
-      data: _guest
+  getGender(genderId: number) {
+    let gender = this.genders.find(gender => gender.id == genderId)
+    return gender ? gender.name : 'N/A'
+  }
+
+  manageGuest(guest?:ISignup) {
+    const dialogRef = this.dialog.open(SignupModalComponent, {
+      data: Model.Utils.GetModalParamsGuest(guest)
     })
     dialogRef.afterClosed().subscribe(
-      (value:IManageGuestRequest|null) => {
+      (value:ISignup|null) => {
         if(!value) return
-        
+        this.dataSource.data.push(value)
+        this.dataSource._updateChangeSubscription()
       }
     )
+  }
+
+  remove(guest:ISignup) {
+    let index = this.dataSource.data.findIndex(row => row.document == guest.document)
+    this.dataSource.data.splice(index, 1)
+    this.dataSource._updateChangeSubscription()
   }
 }
 

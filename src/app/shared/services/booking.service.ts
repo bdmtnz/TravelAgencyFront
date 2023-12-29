@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { IApiResponse } from '../components/models/response';
+import { IApiResponse } from '../models/response';
 import { IBookingReponse } from '../models/booking.model';
 import { Observable } from 'rxjs';
 
