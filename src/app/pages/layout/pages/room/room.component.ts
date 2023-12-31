@@ -16,6 +16,7 @@ import { IManageRoomRequest, INITIAL_ROOM } from '../../../../shared/models/room
 import { ISelectOption } from '../../../../shared/models/response';
 import { IRoom } from '../../../../shared/models/booking.model';
 import { CurrencyPipe } from '@angular/common';
+import { PageTitleService } from '../../../../shared/services/page-title.service';
 
 
 @Component({
@@ -47,15 +48,19 @@ export class RoomComponent {
     public dialog: MatDialog,
     private readonly serviceHotel: HotelService,
     private readonly serviceRoom: RoomsService,
+    private readonly _pageTitle: PageTitleService
   ) {
-
+    this._pageTitle.setPageTitle({
+      title: 'Gestión de habitaciones',
+      backpath: '/layout'
+    })
   }
+
   ngOnInit(): void {
     this.getHoteles()
     this.getRoomType()
     this.getRooms()
   }
-
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -67,11 +72,13 @@ export class RoomComponent {
       // console.log(this.listHoteles)
     })
   }
+
   getRoomType() {
     this.serviceRoom.getRoomType().subscribe(resp => {
       this.listTypeRoom = resp.data["types"]
     })
   }
+
   getRooms() {
     this.serviceRoom.getRooms().subscribe(resp => {
       this.dataSourcePrimitive = [...resp.data]
@@ -79,12 +86,14 @@ export class RoomComponent {
     })
 
   }
+
   editRoom(id: string) {
     this.serviceRoom.getRoomById(id).subscribe(resp => {
       this.openDialogEditRoom(resp.data)
     })
 
   }
+
   enabled(element: IRoom){   
     let enabled={
       enable: "habilitar",
@@ -166,6 +175,7 @@ export class RoomComponent {
 
     });
   }
+
   openDialogConfirmation() {
     const dialogRef = this.dialog.open(InfoModalComponent, {
       data: {
@@ -200,17 +210,4 @@ export class RoomComponent {
 
     });
   }
-
-
-
-
 }
-
-// export interface PeriodicElement {
-//   id: string;
-//   nameHotel: string;
-//   city: string;
-//   ubication: string;
-//   price: number
-// }
-

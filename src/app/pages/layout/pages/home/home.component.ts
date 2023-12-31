@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PageTitleService } from '../../../../shared/services/page-title.service';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +9,15 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-
+/**
+ *
+ */
+  constructor(
+    private readonly _pageTitle: PageTitleService
+  ) {
+    this._pageTitle.setPageTitle({
+      title: 'Inicio',
+      backpath: '/layout'
+    })
+  }
 }

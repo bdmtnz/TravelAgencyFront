@@ -9,6 +9,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 import { ManageReservationModalComponent } from './components/manage-reservation-modal/manage-reservation-modal.component';
 import { BookingService } from '../../../../shared/services/booking.service';
+import { PageTitleService } from '../../../../shared/services/page-title.service';
 
 @Component({
   selector: 'app-booking',
@@ -47,12 +48,15 @@ export class BookingComponent {
   constructor(
     public dialog: MatDialog,
     private readonly service: BookingService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly _pageTitle: PageTitleService
   ) {
-
+    this._pageTitle.setPageTitle({
+      title: 'Gestión de reservas',
+      backpath: '/layout'
+    })
   }
   ngOnInit(): void {
-    // this.getHotel()
     this.getReservation()
   }
 
@@ -69,8 +73,6 @@ export class BookingComponent {
   }
   getReservationById(id:string){
     this.router.navigateByUrl(`/layout/booking/${id}`)
-    // let value=this.service.getReservationById(id)
-    // console.log(value)
   }
 
 
@@ -82,7 +84,6 @@ export class BookingComponent {
     // console.log(this.data)
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-
     });
   }
 }

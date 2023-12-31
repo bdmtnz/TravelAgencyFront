@@ -1,7 +1,8 @@
 .container-table-rooms {
     width: 100%;
-    height: 80%;
+    height: auto;
     padding-top: 50px;
+
     table {
         width: 100%;
         
@@ -14,6 +15,7 @@
             }
         }
     }
+
     .btn-create{
         // width: 100%;
         height: 40px;
@@ -24,8 +26,6 @@
         button{
             background-color:  rgb(26, 75, 198);
             color: white;
-
         }
-        
     }
 }
