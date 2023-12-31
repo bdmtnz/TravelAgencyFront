@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule, DateAdapter, NativeDateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -73,6 +73,7 @@ export class ManageBookingComponent {
   selectionRoom: IRoom | null
   genders: ISelectOption[] = []
   id:string = ''
+  enabled = false;
 
   constructor(
     private readonly _signup: SignupService,
@@ -96,6 +97,7 @@ export class ManageBookingComponent {
     */
   }
 
+
   ngOnInit(): void {
     this.id = this.rutaActiva.snapshot.params["booking"]
     this.builder()
@@ -108,19 +110,21 @@ export class ManageBookingComponent {
     
   }
 
-
+  getFlag() {
+    return this.id ? true : false
+  }
 
   builder() {
     this.filterRequestRooms = this.formBuilder.group({
-      city: [''],
-      quantityPeople: [0],
-      start: [Date],
-      end: [Date]
+      city: new FormControl({ value: '', disabled: this.getFlag() }, [Validators.required]),
+      quantityPeople: new FormControl({ value: '', disabled: this.getFlag() }, [Validators.required]),
+      start: new FormControl({ value: new Date, disabled: this.getFlag() }, [Validators.required]),
+      end: new FormControl({ value: new Date, disabled: this.getFlag() }, [Validators.required])
     })
     this.emergencyForm = this.formBuilder.group({
-      indicative: [null, [Validators.required, Validators.min(1), Validators.maxLength(4)]],
-      phone: [null, [Validators.required]],
-      name: [null, [Validators.required]]
+      indicative: new FormControl({ value: null, disabled: this.getFlag() }, [Validators.required, Validators.min(1), Validators.maxLength(4)]),
+      phone: new FormControl({ value: null, disabled: this.getFlag() }, [Validators.required]),
+      name: new FormControl({ value: null, disabled: this.getFlag() }, [Validators.required])
     })
   }
 
@@ -148,6 +152,7 @@ export class ManageBookingComponent {
           phone: item.contact.value,
           indicative: item.contact.indicative,
           birth: item.birth.toString(),
+          
         }
       })
       this.emergencyForm.patchValue({
@@ -157,11 +162,12 @@ export class ManageBookingComponent {
       this.freeRoomsService.getRoomsById(resp.data.roomId).subscribe( response => {
         this.rooms = []
         this.rooms.push(response.data)
+        console.log(response.data.price)
       })
       this.dataSource = new MatTableDataSource<ISignup>(mapped)  
       
     })
-    console.log(this.rooms)
+    
 
     // this.router.navigateByUrl(`/traveler/booking/${id}`)
   }

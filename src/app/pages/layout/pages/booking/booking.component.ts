@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-// import { HotelService } from '../services/hotel.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -10,6 +9,8 @@ import { Router } from '@angular/router';
 import { ManageReservationModalComponent } from './components/manage-reservation-modal/manage-reservation-modal.component';
 import { BookingService } from '../../../../shared/services/booking.service';
 import { PageTitleService } from '../../../../shared/services/page-title.service';
+import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
+import { IBookingReponse } from '../../../../shared/models/booking.model';
 
 @Component({
   selector: 'app-booking',
@@ -40,8 +41,9 @@ export class BookingComponent {
     'action'
 
   ];
-  dataSource = new MatTableDataSource<PeriodicElement>();
+  dataSource = new MatTableDataSource<any>();
   data: any;
+  dataSourcePrimitive: IBookingReponse[] = []
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
@@ -67,12 +69,14 @@ export class BookingComponent {
 
   getReservation(){
     this.service.get().subscribe( data =>{
-      // this.dataSource = new MatTableDataSource<any>(data.data);
-      console.log(data)
+      console.log(data.data)
+      this.dataSourcePrimitive = data.data
+      this.dataSource = new MatTableDataSource<any>(data.data);
     }) 
   }
   getReservationById(id:string){
-    this.router.navigateByUrl(`/layout/booking/${id}`)
+    //this.router.navigateByUrl(`/layout/booking/${id}`)
+    this.router.navigateByUrl(`/layout/manage/${id}`)
   }
 
 
@@ -86,6 +90,36 @@ export class BookingComponent {
       console.log('The dialog was closed');
     });
   }
+  enabled(element: IBookingReponse){   
+    let enabled={
+      enable: "habilitar",
+      disable: "deshabilitar"
+    }
+    const dialogRef = this.dialog.open(InfoModalComponent, {
+      data: {
+        title: "Atencion",
+        description: `¿Está seguro de que desea ${element.enabled ? enabled.disable : enabled.enable} este hotel?`,
+        btnTitle: "Sí, continuar"
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+      if(!result.content) {
+        console.log(this.dataSourcePrimitive, result)
+        this.dataSource.data = [];
+        this.dataSource.data = [...this.dataSourcePrimitive]
+        return
+      }
+      element.enabled = !element.enabled
+      let valor = {
+        id: element.id,
+        enabled: element.enabled
+      }
+      this.service.putEnabled(valor).subscribe(response => {
+      })
+    });
+  }
+
 }
 
 export interface PeriodicElement {
