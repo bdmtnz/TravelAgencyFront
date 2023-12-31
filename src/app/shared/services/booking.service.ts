@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { IApiResponse } from '../models/response';
 import { IBookingReponse, IBookingRequest } from '../models/booking.model';
 import { Observable } from 'rxjs';
+import { IEnabledRequest } from '../models/request';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,8 @@ export class BookingService {
   }
   getBookingById(id: string):Observable<IApiResponse<IBookingReponse>> {
     return this.http.get<IApiResponse<IBookingReponse>>(`${environment.apiUrl}/booking/byid/${id}`)
+  }
+  putEnabled(request: IEnabledRequest): Observable<IApiResponse<IEnabledRequest>>{
+    return this.http.put<IApiResponse<IEnabledRequest>>(`${environment.apiUrl}booking/`,request)
   }
 }

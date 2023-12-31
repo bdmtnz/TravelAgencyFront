@@ -9,6 +9,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 import { ManageReservationModalComponent } from './components/manage-reservation-modal/manage-reservation-modal.component';
 import { BookingService } from '../../../../shared/services/booking.service';
+import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
+import { IBookingReponse } from '../../../../shared/models/booking.model';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Component({
   selector: 'app-booking',
@@ -39,8 +42,9 @@ export class BookingComponent {
     'action'
 
   ];
-  dataSource = new MatTableDataSource<PeriodicElement>();
+  dataSource = new MatTableDataSource<any>();
   data: any;
+  dataSourcePrimitive: IBookingReponse[] = []
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
@@ -63,12 +67,13 @@ export class BookingComponent {
 
   getReservation(){
     this.service.get().subscribe( data =>{
-      // this.dataSource = new MatTableDataSource<any>(data.data);
-      console.log(data)
+      console.log(data.data)
+      this.dataSourcePrimitive = data.data
+      this.dataSource = new MatTableDataSource<any>(data.data);
     }) 
   }
   getReservationById(id:string){
-    this.router.navigateByUrl(`/layout/booking/${id}`)
+    this.router.navigateByUrl(`/layout/manage/${id}`)
     // let value=this.service.getReservationById(id)
     // console.log(value)
   }
@@ -85,6 +90,36 @@ export class BookingComponent {
 
     });
   }
+  enabled(element: IBookingReponse){   
+    let enabled={
+      enable: "habilitar",
+      disable: "deshabilitar"
+    }
+    const dialogRef = this.dialog.open(InfoModalComponent, {
+      data: {
+        title: "Atencion",
+        description: `¿Está seguro de que desea ${element.enabled ? enabled.disable : enabled.enable} este hotel?`,
+        btnTitle: "Sí, continuar"
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+      if(!result.content) {
+        console.log(this.dataSourcePrimitive, result)
+        this.dataSource.data = [];
+        this.dataSource.data = [...this.dataSourcePrimitive]
+        return
+      }
+      element.enabled = !element.enabled
+      let valor = {
+        id: element.id,
+        enabled: element.enabled
+      }
+      this.service.putEnabled(valor).subscribe(response => {
+      })
+    });
+  }
+
 }
 
 export interface PeriodicElement {

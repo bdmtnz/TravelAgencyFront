@@ -81,7 +81,7 @@ export interface IRoom {
 
 export interface IBookingReponse {
   id: string,
-  enabled: true,
+  enabled: boolean,
   roomId: string,
   room: IRoom,
   traveler: ITraveler,
