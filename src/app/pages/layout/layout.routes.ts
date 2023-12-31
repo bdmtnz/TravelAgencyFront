@@ -13,8 +13,10 @@ export const layoutRoute: Route = {
     component: LayoutComponent,
     canActivate: [loginGuard],
     children: [
+
+        
         {
-            path: 'registerhome',
+            path: '',
             component: HomeComponent
         },
         {
@@ -34,5 +36,7 @@ export const layoutRoute: Route = {
             path: 'room',
             component: RoomComponent
         }
+
+
     ] 
 };
