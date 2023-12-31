@@ -1,0 +1,49 @@
+.contaniner-card {
+    width: 200px;
+    height: 150px;
+    background-color: red;
+    border-radius: 9px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+
+    .title {
+        text-align: center;
+        font-size: 25px;
+        margin-bottom: 20px;
+    }
+
+    .hotel {
+        display: flex;
+        justify-content: space-between;
+        background-color: aqua;
+        font-size: 20px;
+        align-items: center;
+        p {
+            margin: 0;
+            padding: 0;
+        }
+        span {
+            font-size: 30px;
+        }
+    }
+    .state {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        p {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            font-size: 15px;
+        }
+        .icon {
+            display: flex;
+            align-items: center;
+            span {
+                font-size: 30px;
+            }
+        }
+    }
+ 
+}
