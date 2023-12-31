@@ -3,30 +3,31 @@
     height: 150px;
     background-color: red;
     border-radius: 9px;
-    padding: 40px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 
     .title {
         text-align: center;
         font-size: 25px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
-    .hotel {
-        display: flex;
-        justify-content: space-between;
-        background-color: aqua;
-        font-size: 20px;
-        align-items: center;
-        p {
-            margin: 0;
-            padding: 0;
-        }
-        span {
-            font-size: 30px;
-        }
-    }
+    // .hotel {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     background-color: aqua;
+    //     font-size: 20px;
+    //     align-items: center;
+    //     p {
+    //         margin: 0;
+    //         padding: 0;
+    //     }
+    //     span {
+    //         font-size: 30px;
+    //     }
+    // }
     .state {
         display: flex;
         justify-content: space-between;
@@ -40,6 +41,7 @@
         .icon {
             display: flex;
             align-items: center;
+            gap: 10px;
             span {
                 font-size: 30px;
             }
