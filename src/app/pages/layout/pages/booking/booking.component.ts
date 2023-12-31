@@ -58,6 +58,7 @@ export class BookingComponent {
       backpath: '/layout'
     })
   }
+
   ngOnInit(): void {
     this.getReservation()
   }
@@ -74,12 +75,11 @@ export class BookingComponent {
       this.dataSource = new MatTableDataSource<any>(data.data);
     }) 
   }
+
   getReservationById(id:string){
     //this.router.navigateByUrl(`/layout/booking/${id}`)
     this.router.navigateByUrl(`/layout/manage/${id}`)
   }
-
-
 
   DetailReservation(): void {
     const dialogRef = this.dialog.open(ManageReservationModalComponent, {
@@ -90,6 +90,7 @@ export class BookingComponent {
       console.log('The dialog was closed');
     });
   }
+
   enabled(element: IBookingReponse){   
     let enabled={
       enable: "habilitar",
@@ -103,7 +104,6 @@ export class BookingComponent {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
       if(!result.content) {
         console.log(this.dataSourcePrimitive, result)
         this.dataSource.data = [];
@@ -120,17 +120,5 @@ export class BookingComponent {
     });
   }
 
-}
-
-export interface PeriodicElement {
-  nameHotel: string,
-  nameClient: string,
-  city: string,
-  ubication: string,
-  typeReservation: string,
-  dateInit: Date,
-  dateEnd: Date,
-  valueRoom: number,
-  valueReservation: number
 }
 

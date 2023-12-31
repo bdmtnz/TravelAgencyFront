@@ -3,15 +3,16 @@
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     app-toolbar {
         width: 100vw;
     }
 
     .pages {
-        width: 70%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 40px 50px;
+        box-sizing: border-box;
     }
 }

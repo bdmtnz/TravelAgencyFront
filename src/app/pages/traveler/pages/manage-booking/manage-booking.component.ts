@@ -27,6 +27,7 @@ import { BookingService } from '../../../../shared/services/booking.service';
 import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
 import { IInfoModalRequest } from '../../../../shared/models/info-modal.model';
 import { IFilterRoomRequest } from '../../../../shared/models/room.model';
+import { PageTitleService } from '../../../../shared/services/page-title.service';
 
 @Component({
   selector: 'app-manage-booking',
@@ -82,8 +83,12 @@ export class ManageBookingComponent {
     private formBuilder: FormBuilder,
     private readonly freeRoomsService: RoomService,
     private readonly _booking: BookingService,
-    private rutaActiva: ActivatedRoute
+    private rutaActiva: ActivatedRoute,private readonly _pageTitle: PageTitleService
   ) {
+    this._pageTitle.setPageTitle({
+      title: 'Gestión de reserva',
+      backpath: '/traveler'
+    })
     this.dataSource = new MatTableDataSource<ISignup>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
     this.selectionRoom = null;
