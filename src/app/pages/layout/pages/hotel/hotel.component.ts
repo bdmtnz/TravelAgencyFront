@@ -10,6 +10,7 @@ import { IHotel, INIT_HOTEL } from './hotel-modal';
 import { InfoModalComponent } from '../../../../shared/components/info-modal/info-modal.component';
 import { HotelService } from '../../../../shared/services/hotel.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PageTitleService } from '../../../../shared/services/page-title.service';
 
 
 @Component({
@@ -42,14 +43,19 @@ export class HotelComponent implements AfterViewInit, OnInit {
   constructor(
     public dialog: MatDialog,
     private readonly service: HotelService,
-    private formBuilder: FormBuilder
-    ) {
-      this.formEnabled = this.formBuilder.group({
-        id:[''],
-        enabled:[false]
-      })
+    private formBuilder: FormBuilder,
+    private readonly _pageTitle: PageTitleService
+  ) {
+    this._pageTitle.setPageTitle({
+      title: 'Gestión de hoteles',
+      backpath: '/layout'
+    })
+    this.formEnabled = this.formBuilder.group({
+      id:[''],
+      enabled:[false]
+    })
+  }
 
-      }
   ngOnInit(): void {
     this.getHotel()
   }
