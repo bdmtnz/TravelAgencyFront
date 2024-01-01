@@ -12,6 +12,8 @@ import { IBookingReponse } from '../../shared/models/booking.model';
 import { ILoginResponse } from '../landing/models/login.model';
 import { LocalDbPersist } from '../../shared/services/db.service';
 import { DB_FLAGS } from '../../shared/models/db.model';
+import { PageTitleComponent } from '../../shared/components/page-title/page-title.component';
+import { PageTitleService } from '../../shared/services/page-title.service';
 
 @Component({
   selector: 'app-traveler',
@@ -23,11 +25,13 @@ import { DB_FLAGS } from '../../shared/models/db.model';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    ToolbarComponent
+    ToolbarComponent,
+    PageTitleComponent
   ],
   templateUrl: './traveler.component.html',
   styleUrl: './traveler.component.scss'
 })
 export class TravelerComponent {
 
+  constructor() {}
 }

@@ -6,12 +6,13 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { PeriodicElement } from '../../../layout/pages/booking/booking.component';
 import { ILoginResponse } from '../../../landing/models/login.model';
 import { IBookingReponse } from '../../../../shared/models/booking.model';
 import { BookingService } from '../../../../shared/services/booking.service';
 import { LocalDbPersist } from '../../../../shared/services/db.service';
 import { DB_FLAGS } from '../../../../shared/models/db.model';
+import { PageTitleComponent } from '../../../../shared/components/page-title/page-title.component';
+import { PageTitleService } from '../../../../shared/services/page-title.service';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ import { DB_FLAGS } from '../../../../shared/models/db.model';
     MatIconModule,
     MatSlideToggleModule,
     MatButtonModule,
+    PageTitleComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -46,8 +48,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private readonly _booking: BookingService,
     public dialog: MatDialog,
     // private readonly service: HotelService,
-    private readonly router: Router
-  ) { 
+    private readonly router: Router,
+    private readonly _pageTitle: PageTitleService
+  ) {
+    this._pageTitle.setPageTitle({
+      title: 'Mis reservas',
+      backpath: '/traveler'
+    })
     this.dataSource = new MatTableDataSource<IBookingReponse>()
     this.credential = LocalDbPersist<ILoginResponse>().get(DB_FLAGS.CREDENTIAL) ?? { id: 'n/a' } as ILoginResponse
   }
