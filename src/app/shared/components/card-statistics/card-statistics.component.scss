@@ -5,22 +5,29 @@
     padding: 30px;
     display: flex;
     flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
     gap: 10px;
     // box-sizing: border-box;
     border: 1px solid rgba(69, 61, 61, 0.239);
     box-shadow: 1px 0px 17px 1px rgba(69, 61, 61, 0.20);
+    &:hover {
+        // background-color: #000000;
+        transform: scale(1.1);
+      }
 
     .title {
         text-align: center;
         font-size: 25px;
-        margin-bottom: 10px;
+        margin-bottom: 25px;
+        font-weight: 500;
     }
 
     .state {
         display: flex;
         justify-content: space-between;
         align-items: center;
-
+        margin-bottom: 10px;
         p {
             display: flex;
             align-items: center;
@@ -36,6 +43,7 @@
             span {
                 font-size: 30px;
             }
+
         }
     }
 

@@ -8,14 +8,14 @@ import { IStatisticCards, IStatisticItemCards } from '../../../../shared/models/
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardStatisticsComponent,NgFor],
+  imports: [CardStatisticsComponent, NgFor],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-/**
- *
- */
+  /**
+   *
+   */
   cards: IStatisticCards[] = []
 
   constructor(
@@ -27,9 +27,9 @@ export class HomeComponent {
       backpath: '/layout'
     })
 
+
     this._cardStadistic.getStadistic().subscribe(resp => {
       this.cards = resp.data
-      console.log(this.cards)
     })
   }
 }
