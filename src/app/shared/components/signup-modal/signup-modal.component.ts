@@ -73,7 +73,7 @@ export class SignupModalComponent implements OnInit {
       name: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       documentType: [-1, [Validators.required, Validators.min(0)]],
-      document: ['', [Validators.required]],
+      document: [0, [Validators.required]],
       gender: [-1, [Validators.required, Validators.min(0)]],
       birth: [Date, [Validators.required]]
     })

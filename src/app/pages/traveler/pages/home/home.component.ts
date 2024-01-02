@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this._booking.getByTraveler(this.credential.id).subscribe(resp => {
       this.dataSource.data = resp.data
+      console.log( resp.data)
     })
   }
 

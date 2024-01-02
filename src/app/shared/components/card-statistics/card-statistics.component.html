@@ -1,39 +1,19 @@
 <div class="container-card">
     <div class="title">
-        Hoteles
+        {{title}}
     </div>
-    <div class="state">
-        <div class="icon">
-            <span class="material-symbols-outlined">
-                hotel
-            </span>
-            <p>Hoteles</p>
+    <div>
+        @for (item of items; track $index) {
+        <div class="state">
+            <div class="icon">
+                <span class="material-symbols-outlined">
+                    {{item.icon}}
+                </span>
+                <p>{{item.label}}</p>
+            </div>
+            <p>{{item.value}}</p>
         </div>
-        <p>{{data.n_creados}}</p>
+        }
     </div>
-    <div class="state">
-        <div class="icon">
-            <span class="material-symbols-outlined">
-                lock
-            </span>
-            <p>Habilitados</p>
-        </div>
-        <p>{{data.habilitados}}</p>
-    </div>
-    <div class="state">
-        <div class="icon">
-            <span class="material-symbols-outlined">
-                no_encryption
-            </span>
-            <p>Deshabilitados</p>
-        </div>
-        <p>{{data.deshabilitados}}</p>
-    </div>
-    <!-- <div>
-        <span class="material-symbols-outlined">
-            no_encryption
-        </span>
-        <p>40</p>
-    </div> -->
 
 </div>

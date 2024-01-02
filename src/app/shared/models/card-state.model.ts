@@ -1,18 +1,12 @@
-export interface IStadisticCards {
-    hoteles: {
-        n_creados: number,
-        habilitados: number,
-        deshabilitado: number
-    },
-    room: {
-        n_creados: number,
-        disponibles: number
-        reservadas: number
-    },
-    reservaciones: {
-        n_creados:number,
-        habilitados:number
-        
-        }
+
+export interface IStatisticItemCards {
+    label: string,
+    icon: string,
+    value: number
+}
+
+export interface IStatisticCards {
+    title: string,
+    items: IStatisticItemCards[]
 
 }

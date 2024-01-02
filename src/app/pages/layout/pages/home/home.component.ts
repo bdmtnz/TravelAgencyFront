@@ -3,7 +3,7 @@ import { CardStatisticsComponent } from '../../../../shared/components/card-stat
 import { PageTitleService } from '../../../../shared/services/page-title.service';
 import { NgFor } from '@angular/common';
 import { CardStateService } from './service/card-state.service';
-import { IStadisticCards } from '../../../../shared/models/card-state.model';
+import { IStatisticCards, IStatisticItemCards } from '../../../../shared/models/card-state.model';
 
 @Component({
   selector: 'app-home',
@@ -16,14 +16,8 @@ export class HomeComponent {
 /**
  *
  */
-  cards: IStadisticCards = {
-    hoteles: {
-      deshabilitado: 0,
-      habilitados: 0,
-      n_creados: 0
-    }
-  } as IStadisticCards
-  
+  cards: IStatisticCards[] = []
+
   constructor(
     private readonly _pageTitle: PageTitleService,
     private readonly _cardStadistic: CardStateService
