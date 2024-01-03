@@ -109,8 +109,8 @@ export class ManageBookingComponent {
     this._signup.getTypes().subscribe(option => {
       this.genders = option.data["genders"]
     })
-    if(!this.id) this.getRooms()
-    this.filterRooms()
+    // if(!this.id) this.getRooms()
+    // this.filterRooms()
     this.getBookingById()
     
   }
@@ -167,7 +167,6 @@ export class ManageBookingComponent {
       this.freeRoomsService.getRoomsById(resp.data.roomId).subscribe( response => {
         this.rooms = []
         this.rooms.push(response.data)
-        console.log(response.data.price)
       })
       this.dataSource = new MatTableDataSource<ISignup>(mapped)  
       
